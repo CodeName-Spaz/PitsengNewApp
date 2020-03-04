@@ -46,8 +46,6 @@ ion-fab > ion-icon {
           width: 60vw;
           height: 30vw;
           display: grid;
-          // display: flex;
-          // flex-direction: column;
           // border: solid salmon;
           align-items: center;
         }
@@ -56,7 +54,6 @@ ion-fab > ion-icon {
           width: 30vw;
           height: 30vw;
           margin-right: 16px;
-          // margin: 5px;
           border-radius: 5px;
           img {
             width: 100%;
@@ -68,11 +65,9 @@ ion-fab > ion-icon {
         .name {
           font-size: 18px;
           color: #3F3F3F;
-          // font-weight: bolder;
         }
         .price {
           font-size: 18px;
-          // font-weight: bold;
           color: black;
         }
         .size {
@@ -90,16 +85,13 @@ ion-fab > ion-icon {
           order: 1;
           flex: 0 1 auto;
           margin-bottom: 0;
-          position: relative;
-          // bottom: -10px;
-       
+          position: relative;       
           justify-items: center;
           align-items: baseline;
           ion-label {
             position: relative;
             top: -5px;
             font-size: 16px;
-            // font-weight: bold;
             color: black;
           }
           ion-icon {
@@ -122,11 +114,9 @@ ion-fab > ion-icon {
           margin-bottom: 16px;
           justify-content: baseline;
           ion-title{
-              // font-weight: bold;
               color: black;
           }
           ion-label {
-            // font-weight: bold;
             color: #8F8F8F;
             font-size: 20px;
           }
