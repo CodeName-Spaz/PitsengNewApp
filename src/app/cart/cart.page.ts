@@ -12,4 +12,16 @@ export class CartPage implements OnInit {
   ngOnInit() {
   }
 
+  currentNumber: number = 1;
+  increment(p) {
+    this.currentNumber = this.currentNumber + 1;
+    // this.event.quantity = this.currentNumber
+  }
+  decrement(p) {
+    if (this.currentNumber > 1) {
+      this.currentNumber = this.currentNumber - 1;
+      // this.event.quantity = this.currentNumber;
+    }
+    return this.currentNumber;
+  }
 }
