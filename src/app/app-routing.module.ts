@@ -36,10 +36,7 @@ const routes: Routes = [
     path: 'edit-profile',
     loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
   },
-  {
-    path: 'item-tracking',
-    loadChildren: () => import('./item-tracking/item-tracking.module').then( m => m.ItemTrackingPageModule)
-  },
+ 
   {
     path: 'order-closed',
     loadChildren: () => import('./order-closed/order-closed.module').then( m => m.OrderClosedPageModule)
