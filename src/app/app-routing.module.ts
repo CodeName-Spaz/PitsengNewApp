@@ -32,6 +32,22 @@ const routes: Routes = [
     path: 'items-list',
     loadChildren: () => import('./items-list/items-list.module').then( m => m.ItemsListPageModule)
   },
+  {
+    path: 'edit-profile',
+    loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+  },
+  {
+    path: 'item-tracking',
+    loadChildren: () => import('./item-tracking/item-tracking.module').then( m => m.ItemTrackingPageModule)
+  },
+  {
+    path: 'order-closed',
+    loadChildren: () => import('./order-closed/order-closed.module').then( m => m.OrderClosedPageModule)
+  },
+  {
+    path: 'order-tracking',
+    loadChildren: () => import('./order-tracking/order-tracking.module').then( m => m.OrderTrackingPageModule)
+  },
 ];
 
 @NgModule({
