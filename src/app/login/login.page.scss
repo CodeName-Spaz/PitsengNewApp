@@ -20,9 +20,10 @@ div.container {
 .user-form {
   width: calc(100vw - 30px);
   position: absolute;
+  max-width: 500px;
   top: 50%;
-  right: 0%;
-  transform: translate(35px, -50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
   min-height: 150px;
   background: white;
   border-radius: 10px;
@@ -30,23 +31,23 @@ div.container {
   z-index: 10;
   padding: 15px;
 }
-h3{
-    margin: 0;
+h3 {
+  margin: 0;
 }
-p{
-    color: #912322;
-    font-size: 12px;
-    margin: 10px;
+p {
+  color: #912322;
+  font-size: 12px;
+  margin: 10px;
 }
 
 .logo {
-  width: 50px;
-  //   height: 30px;
-  //   background: red;
+  min-width: 50px;
+  max-width: 120px;
+  width: 15%;
   position: absolute;
   z-index: 1000000;
   left: 50%;
-  top: 80px;
+  top: 7%;
   transform: translateX(-50%);
 }
 
@@ -58,38 +59,52 @@ input {
   border-radius: 5px;
   margin-top: 15px;
   width: 100%;
-  height: 40px;
+  height: 35px;
 }
 
 #backBTN {
-    top: -50px;
-    position: absolute;
-    left: -15px;
-    font-size: 12px;
+  top: -50px;
+  position: absolute;
+  left: -15px;
+  font-size: 12px;
+  text-transform: capitalize;
 }
-.gridder{
-    display: flex;
-    width: 100%;
-    height: 40px;
-    background: white;
-    line-height: 40px;
-    text-align: center;
+.gridder {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 30px;
+  background: white;
+  line-height: 30px;
+  text-align: center;
+  font-size: 12px;
 }
+
 .gridder > div {
-    width: 50%;
-    height: 100%;
-    font-weight: bold;
-    // margin-top: 10px;
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+  // margin-top: 10px;
 }
-.gridder > div:nth-child(1){
-    border: 2px solid #912322;
-    color: #912322;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+.gridder > div:nth-child(1) {
+  border: 2px solid #912322;
+  color: #912322;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  line-height: 26px;
 }
-.gridder > div:nth-child(2){
-    background: #912322;
-    color: white;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+.gridder > div:nth-child(2) {
+  background: #912322;
+  color: white;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+@media screen and (max-width: 319px){
+    .gridder{
+        flex-direction: column;
+    }
+}
+#creator {
+  font-size: 12px;
 }
