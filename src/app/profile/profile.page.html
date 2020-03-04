@@ -1,0 +1,91 @@
+<ion-content>
+  <div class="backBtn">
+    <ion-icon name="arrow-back"></ion-icon>
+  </div>
+  <div class="content-container">
+  <div class="banner">
+    <div class="dpHolder">
+      <img src="../../assets/imgs/1511539.jpg" id="userDP" alt="">
+    </div>
+    <img src="../../assets/imgs/514275.jpg" id="userBanner" alt="">
+  </div>
+  <div class="userContainer">
+    <div class="details">
+      <h3>Elija Blake</h3>
+      <p>eli@elijah.com</p>
+      <!-- <br> -->
+      <div class="divider"></div>
+      <ion-button>
+        <ion-icon name="create"></ion-icon> Edit Profile
+      </ion-button>
+
+      <div class="detail-field">
+        <div>0813917127</div>
+        <div>
+          <ion-icon name="call"></ion-icon>
+        </div>
+      </div>
+      <div class="detail-field">
+        <div>House 22, Plein Str, Johanneburg</div>
+        <div>
+          <ion-icon name="home"></ion-icon>
+        </div>
+      </div>
+
+
+      <div class="order-range">
+      <div>
+      <div class="custom-button" (click)="toggleOrders()">
+        <div>Orders</div>
+        <div id="orders-arrow">
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+      <div id="myOrders">
+        <div class="OrderCard">
+          <div>
+            <img src="../../assets/imgs/514275.jpg" alt="">
+          </div>
+          <div>
+            <p><ion-icon name="receipt-sharp"></ion-icon> DFSHKGSK345376</p>
+            <p id="date-puechase"> <b>Date of Purchase: </b> 13/01/2020</p>
+            <p id="date-puechase"> <b>Delivery Date: </b> 13/01/2020</p>
+            <div id="tracker">TRACK</div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div>
+      <div class="custom-button" (click)="toggleHistory()">
+        <div>Order History</div>
+        <div id="history-arrow">
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+      <div id="myHistory">
+        <div class="OrderCard">
+          <div>
+            <img src="../../assets/imgs/514275.jpg" alt="">
+          </div>
+          <div>
+            <p><ion-icon name="receipt-sharp"></ion-icon> DFSHKGSK345376</p>
+            <p id="date-puechase"> <b>Date of Purchase: </b> 13/01/2020</p>
+            <p id="date-puechase"> <b>Delivery Date: </b> 13/01/2020</p>
+            <div id="tracker">TRACK</div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      </div>
+
+
+
+
+
+
+
+    </div>
+  </div>
+  </div>
+</ion-content>

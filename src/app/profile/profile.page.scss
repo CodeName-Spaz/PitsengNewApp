@@ -1,0 +1,199 @@
+.banner {
+  width: 100%;
+  height: 35%;
+  background: red;
+  // z-index: 1;
+  position: relative;
+  #userBanner {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+}
+.dpHolder {
+  width: calc(100% - 20px);
+  height: 80px;
+  background: white;
+  position: absolute;
+  z-index: 10;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  #userDP {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 150px;
+    margin-top: -75px;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.479);
+  }
+}
+.userContainer {
+  width: 100%;
+  height: 65%;
+  // background: green;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.content-container {
+  width: 100vw;
+  height: calc(100vh - 1px);
+}
+ion-content {
+  overflow: hidden;
+}
+.details {
+  width: 100%;
+  height: 100%;
+  background: white;
+  padding: 10px;
+  overflow-y: auto;
+  text-align: center;
+  box-shadow: 0 0px 7px rgba(0, 0, 0, 0.479);
+}
+h1,
+h2,
+h3,
+h4,
+p {
+  // text-align: center;
+  margin: 5px;
+}
+
+.divider {
+  border: 0.5px solid black;
+}
+.detail-field {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  border-bottom: 2px solid;
+}
+.detail-field > div {
+  height: 100%;
+  line-height: 40px;
+  color: grey;
+}
+.detail-field > div:nth-child(1) {
+  text-align: left;
+  width: 100%;
+  padding-left: 10px;
+  color: rgb(65, 65, 65);
+}
+.detail-field > div:nth-child(2) {
+  text-align: center;
+  width: 40px;
+}
+
+.custom-button {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: -5px;
+  background: rgb(236, 236, 236);
+  line-height: 40px;
+//   border: 2px solid red;
+}
+
+.custom-button > div:nth-child(1) {
+  text-align: left;
+  width: 100%;
+  padding-left: 10px;
+  color: #912322;
+  font-weight: 600;
+}
+.custom-button > div:nth-child(2) {
+  text-align: center;
+  width: 40px;
+  padding: 0;
+}
+#myOrders,
+#myHistory {
+  width: 100%;
+  // revert height and opacity to zero bro
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: 300ms !important;
+  // background: grey;
+  text-align: left;
+  padding: 0;
+}
+#orders-arrow,
+#history-arrow {
+  transition: 300ms;
+}
+.OrderCard {
+  background: white;
+  margin: 10px;
+  padding: 0px;
+  height: 100px;
+  border: 0.5px solid hsla(0, 0%, 0%, 0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+}
+.OrderCard > div:nth-child(1) {
+  height: 100%;
+  width: 100px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+.OrderCard > div:nth-child(2) {
+  height: 100%;
+  width: calc(100% - 100px);
+  // background: red;
+  text-align: left !important;
+  color: black;
+  position: relative;
+  p {
+    font-size: 12px;
+  }
+  #tracker {
+    height: 20px;
+    border-radius: 2px !important;
+    background: #912322;
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    color: white;
+    line-height: 20px;
+  }
+}
+
+.backBtn {
+  width: 50px;
+  height: 50px;
+  // background: red;
+  position: absolute;
+  z-index: 100;
+  line-height: 50px;
+  text-align: center;
+  font-size: x-large;
+  color: white;
+}
+
+.order-range {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+//   border: 2px solid red;
+  justify-content: center;
+  // flex-direction: column;
+}
+@media screen and (max-width: 484px) {
+  .order-range {
+    flex-direction: column;
+  }
+}
