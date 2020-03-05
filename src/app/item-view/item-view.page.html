@@ -9,12 +9,14 @@
 
     <ion-buttons slot="primary">
 
-      <ion-button>
+      <ion-button class="notification">
         <ion-icon slot="icon-only" name="heart"></ion-icon>
+        <span class="badge"></span>
       </ion-button>
 
-      <ion-button>
+      <ion-button class="notification">
         <ion-icon slot="icon-only" name="basket"></ion-icon>
+        <span class="badge"></span>
       </ion-button>
       <ion-button color="secondary">
         <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
@@ -29,10 +31,10 @@
     <div class="image">
       <img src="https://i.pinimg.com/564x/fe/0d/b5/fe0db54acfbd94d56dff811c71c3fd70.jpg" alt="">
       <p class="starz">
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
-        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>&nbsp;
+        <ion-icon name="star"></ion-icon>&nbsp;
+        <ion-icon name="star"></ion-icon>&nbsp;
+        <ion-icon name="star"></ion-icon>&nbsp;
         <ion-icon name="star-half-outline"></ion-icon>
       </p>
 
@@ -93,7 +95,7 @@
 
     <div class="also_like">
 
-      <ion-segment (ionChange)="segmentChanged($event)" value="like">
+      <ion-segment [(ngModel)]="yudsegment" color="transparent">
         <ion-segment-button value="like">
           <ion-label>You may also like</ion-label>
         </ion-segment-button>
@@ -103,8 +105,9 @@
       </ion-segment>
 
     </div>
-
-    <div class="pictures">
+    <br>
+    <div class="segment_slides" [ngSwitch] ="yudsegment">
+    <div class="pictures" *ngSwitchCase = "'like'">
       <div class="image1">
         <img src="https://i.pinimg.com/564x/c3/da/f7/c3daf7acc13ec2dd2d82d9a968d56fa7.jpg" alt="">
       </div>
@@ -123,13 +126,32 @@
       </div>
     </div>
 
+    <div class="reviewz" *ngSwitchCase = "'review'">
+      <!-- <p>Rate this product</p> -->
+      <p class="starz1">
+        Rate this product <br>
+        <ion-icon name="star-outline"></ion-icon>&nbsp;
+        <ion-icon name="star-outline"></ion-icon>&nbsp;
+        <ion-icon name="star-outline"></ion-icon>&nbsp;
+        <ion-icon name="star-outline"></ion-icon>&nbsp;
+        <ion-icon name="star-outline"></ion-icon> <br>
 
+        
+      <ion-button color="transparent">
+        RATE
+      </ion-button>
+      </p>
+
+    </div>
   </div>
 
-  <div class="add">
-    <ion-button>
-      ADD TO BAG
-    </ion-button>
+
+    <div class="add" >
+      <ion-button color="transparent">
+        ADD TO BAG
+      </ion-button>
+    </div>
   </div>
+
 
 </ion-content>
