@@ -33,6 +33,21 @@ ion-toolbar{
   ion-icon{
     color: black;
   }
+
+    
+  .notification:hover {
+    background: red;
+  }
+  
+  .notification .badge {
+    position: absolute;
+    top: 1px;
+    right: 0.5px;
+    padding: 5px 5px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+  }
 }
 .container {
   display: flex;
@@ -67,6 +82,8 @@ ion-toolbar{
       ion-button.active {
         border: 2px solid maroon;
         border-radius: 50%;
+        outline: none !important;
+        overflow: hidden;
       }
   
       ion-button {
