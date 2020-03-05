@@ -1,9 +1,61 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>editProfile</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
 
+  <div class="app-overlay">
+    <div class="user-inputs">
+      <div class="inputs">
+
+        <div class="top-section">
+          <div>
+            <h4>Edit Profile</h4>
+          </div>
+          <div>
+
+            <div>Profile Image</div>
+            <div><label for="diplayPic">
+                <ion-icon name="camera"></ion-icon>
+              </label></div>
+            <input type="file" id="diplayPic" style="display: none">
+          </div>
+        </div>
+        <div class="section spacer">
+          <div>
+            <input type="text" placeholder="Full Name">
+          </div>
+          <div>
+            <ion-icon name="person"></ion-icon>
+          </div>
+        </div>
+        <div class="section spacer">
+          <div>
+            <input type="email" placeholder="Email">
+          </div>
+          <div>
+            <ion-icon name="mail"></ion-icon>
+          </div>
+        </div>
+        <div class="section spacer">
+          <div>
+            <input type="number" placeholder="Phone (eg 0812345678)">
+          </div>
+          <div>
+            <ion-icon name="call"></ion-icon>
+          </div>
+        </div>
+        <div class="section spacer">
+          <div>
+            <input type="text" placeholder="Residential Address">
+          </div>
+          <div>
+            <ion-icon name="location"></ion-icon>
+          </div>
+        </div>
+      </div>
+      <ion-button shape="undefined" id="myButton">DONE</ion-button>
+    </div>
+  </div>
+  <div class="app-container">
+    <div class="image">
+      <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
+    </div>
+  </div>
 </ion-content>
