@@ -27,5 +27,6 @@
 
 @import url("https://fonts.googleapis.com/css?family=Abel|Poiret+One|Open+Sans+Condensed|Jura|Manjari|Poppins|Raleway|Montserrat ");
 ion-content{
-    font-family: "Poppins"
+    font-family: "Poppins";
+    overflow: hidden !important;
 }
