@@ -4,24 +4,49 @@
     <img src="../../assets/imgs/pitseng Logo.png" alt="">
   </div>
   <div class="container">
-      <div class="user-form">
+    <div class="user-form">
+      <form class="form" [formGroup]="validations_form" (ngSubmit)="loginUser(validations_form.value)">
         <ion-button fill="clear" id="backBTN" color="secondaryColor">
           <!-- <ion-icon name="arrow-back"></ion-icon> Go Back -->
           </ion-button>
         <h3>Sign in</h3>
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
+
+        <input type="email" placeholder="Email" formControlName="email">
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.email">
+            <div class="error-message"
+              *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+              <ion-label color="danger">{{ validation.message }}</ion-label>
+            </div>
+          </ng-container>
+        </div>
+
+        <input type="password" placeholder="Password" formControlName="password" class="form-controll" required>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.password">
+            <div class="error-message"
+              *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+              <ion-label color="danger">{{ validation.message }}</ion-label>
+
+            </div>
+          </ng-container>
+        </div>
+
+
         <p>I forgot my password</p>
         <div class="gridder">
-          <div>Sign in with Google</div>
-          <div>Sign in</div>
+          <div (click)="googleSignin()">Sign in with Google</div>
+          <div (click)="loginUser(validations_form.value)">Sign in</div>
         </div>
         <p style="text-align: center; color: grey;">or</p>
-        <ion-button fill="clear" expand="block" id="creator" color="secondaryColor">
+
+        <ion-button fill="clear" expand="block" id="creator" color="secondaryColor" (click)="createAccount()">
           <b>Create an account</b>
           </ion-button>
-      </div>
-    <div class="circle">
+      </form>
     </div>
+
+  <div class="circle">
   </div>
+</div>
 </body>
