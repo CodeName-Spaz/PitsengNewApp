@@ -1,0 +1,90 @@
+ion-toolbar {
+  --background: transparent;
+  --ion-color-base: transparent !important;
+  position: absolute;
+
+  ion-icon {
+    color: white;
+  }
+
+  p {
+    color: white;
+  }
+}
+
+.container {
+  display: flex;
+  flex-flow: column;
+  width: 100vw;
+  height: 100vh;
+
+  .image {
+    position: relative;
+    width: 100%;
+    height: 40vh;
+    top: 0;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .starz {
+      position: absolute;
+      top: 80%;
+      left: 40%;
+    }
+
+    .wishlist {
+      position: absolute;
+      bottom: -25px;
+      right: 10px;
+      ion-fab-button {
+        border: 1px solid rgb(170, 170, 170);
+        border-radius: 50%;
+        background: white;
+        ion-icon {
+          color: rgb(110, 33, 5);
+        }
+      }
+    }
+  }
+
+  .item_info {
+    margin: 10px;
+    display: flex;
+    flex-flow: column;
+    height: 70vh;
+    .sizes {
+      display: flex;
+      flex-flow: row;
+
+      .btnz {
+        display: flex;
+        flex-flow: row;
+        ion-button {
+          color: black;
+        }
+      }
+    }
+
+    .price{
+        display: flex;
+        flex-flow: row;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    p{
+        font-size: 12px;
+        color: grey;
+        span{
+            font-weight: bold;
+        }
+    }
+  }
+
+  .pictures{
+      
+  }
+}

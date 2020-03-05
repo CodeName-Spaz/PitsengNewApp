@@ -1,9 +1,135 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>ItemView</ion-title>
+<ion-header class="ion-no-border" translucent="true">
+  <ion-toolbar translucent="true">
+    <ion-buttons slot="secondary">
+      <ion-button>
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+      <p>White Pendant Lamp</p>
+    </ion-buttons>
+
+    <ion-buttons slot="primary">
+
+      <ion-button>
+        <ion-icon slot="icon-only" name="heart"></ion-icon>
+      </ion-button>
+
+      <ion-button>
+        <ion-icon slot="icon-only" name="basket"></ion-icon>
+      </ion-button>
+      <ion-button color="secondary">
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen>
+
+  <div class='container'>
+    <div class="image">
+      <img src="https://i.pinimg.com/564x/fe/0d/b5/fe0db54acfbd94d56dff811c71c3fd70.jpg" alt="">
+      <p class="starz">
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star-half-outline"></ion-icon>
+      </p>
+
+      <div class="wishlist">
+        <ion-fab-button color="transparent">
+          <ion-icon name="heart-outline"></ion-icon>
+        </ion-fab-button>
+      </div>
+    </div>
+    <div class="item_info">
+     
+
+      <div class="sizes">
+        <div class="text">
+          <p>sizes</p>
+        </div>
+
+        <div class="btnz">
+          <ion-button color="transparent">
+            S
+          </ion-button>
+
+          <ion-button color="transparent">
+            M
+          </ion-button>
+
+          <ion-button color="transparent">
+            L
+          </ion-button>
+        </div>
+
+      </div>
+
+      <div class="price">
+        <p>R450.00</p>
+        <p>
+          <ion-icon slot="start" name="add"></ion-icon> 1 <ion-icon slot="start" name="remove"></ion-icon>
+        </p>
+      </div>
+
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci modi doloremque id
+        architecto atque hic sequi ullam reiciendis praesentium optio, repellendus consectetur
+        ducimus rerum quo cum blanditiis minima provident eveniet?</p>
+
+      <p><span>Shipping Information</span><br>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem eum sit maxime temporibus
+        in nobis voluptatibus nihil alias quaerat. Velit tenetur doloribus assumenda autem error
+        porro, rerum voluptas quisquam minus!</p>
+
+      <p><span>Delivery Infomation</span> <br>
+        items avilable at the following address: <br>
+        <br>
+        123 Chris Hani Rd<br>
+        Diepkloof <br>
+        1862
+      </p>
+    </div>
+
+    <div class="also_like">
+
+      <ion-segment (ionChange)="segmentChanged($event)" value="like">
+        <ion-segment-button value="like">
+          <ion-label>You may also like</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="review">
+          <ion-label>Reviews</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+    </div>
+
+    <div class="pictures">
+      <div class="image1">
+        <img src="https://i.pinimg.com/564x/c3/da/f7/c3daf7acc13ec2dd2d82d9a968d56fa7.jpg" alt="">
+      </div>
+
+      <div class="image1">
+        <img src="https://i.pinimg.com/564x/d8/01/f9/d801f95ec37ebdd439ca3a9298197ef4.jpg" alt="">
+      </div>
+
+      <div class="image1">
+        <img src="https://i.pinimg.com/564x/c5/aa/fa/c5aafa1f88a3b17dcfd7cd42cc14dd71.jpg" alt="">
+      </div>
+
+      
+      <div class="image1">
+        <img src="https://i.pinimg.com/564x/ed/c8/be/edc8be711eca77eb40aa31101ccf0028.jpg" alt="">
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="add">
+    <ion-button>
+      ADD TO BAG
+    </ion-button>
+  </div>
 
 </ion-content>
