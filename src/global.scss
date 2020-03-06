@@ -53,11 +53,16 @@ textarea {
    
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: green; 
+    background: red; 
     border-radius: 10px;
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #b30000; 
+  }
+
+  ion-button{
+    height: 30px;
+    border-radius: 5px !important;
   }
