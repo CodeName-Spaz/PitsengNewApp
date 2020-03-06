@@ -1,0 +1,34 @@
+.cont {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: grey;
+}
+
+.horizontal-vertical-grid {
+  width: 100vh;
+  height: 100vw;
+  background: red;
+  display: flex;
+  flex-wrap: wrap;
+}
+.item {
+  height: calc(50vw - 20px);
+  margin: 10px;
+  transform: rotateZ(90deg)
+   translateX(-50%)
+   translateY(-50%);
+  background-color: blue;
+  display: block;
+  margin: 10px;
+}
+.rot-90 {
+  transition: 1s;
+  transform: rotateZ(-90deg) translate(-50%, 50%);
+  text-align: center;
+  margin-top: -25vw;
+  margin-left: calc(-15vw - 10px);
+}
+img {
+  width: 150px;
+}
