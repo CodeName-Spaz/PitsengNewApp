@@ -1,36 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
+import { NavController } from '@ionic/angular';
+import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit{
+  dbProduct = firebase.firestore().collection('Products');
+  myProduct = [];
+  val = '';
+  constructor(public navCtrl: NavController) {}
 
-  Products = []
-  constructor() {}
-
-
-
-
-
-  categorylist(value){
-    console.log("I am clickable", value);
-    
-    firebase.firestore().collection('Products').where('categories', '==', value).get().then((snapshot) =>{
-      this.Products = []
-      if(snapshot.size > 0){
-        let obj = {obj : {}, id : ''}
-        snapshot.forEach(doc =>{
-
-          obj.obj = doc.data();
-          obj.id = doc.id
-          this.Products.push("My Products ", obj)
-          obj = {obj : {}, id : ''}
-          
-        })
-      }
+  ngOnInit() {
+    this.getProductsbyCategory('Pottery')
+  }
+  getProductsbyCategory(name) {
+    this.val='active';
+    this.dbProduct.where('category','==',name).onSnapshot((res)=>{
+      this.myProduct = [];
+      res.forEach((doc)=>{
+        this.myProduct.push({data: doc.data(), id : doc.id})
+      })
+      // console.log("My items ", this.myProduct);
+      
     })
+  }
+  viewProduct(val) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        id: val.id,
+        image: val.data.image,
+        name: val.data.name
+      }
+    };
+    this.navCtrl.navigateForward(['/item-view'], navigationExtras);
   }
 }
