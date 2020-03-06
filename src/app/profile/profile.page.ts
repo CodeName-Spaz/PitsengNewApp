@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import * as firebase from 'firebase';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -7,11 +10,78 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilePage implements OnInit {
 
-  constructor() { }
+  uid
+  Profile= []
+  isprofile = false;
+
+  profile = {
+    image: '',
+    name: '',
+    number: '',
+    address: '',  
+    email: '',
+    uid: '',
+  }
+  admin={
+     uid: '',
+     email: ''
+    }
+  
+
+  constructor(public alertCtrl: AlertController, private router: Router) {
+    if(firebase.auth().currentUser) {
+      this.profile.email = firebase.auth().currentUser.email;
+      this.uid = firebase.auth().currentUser.uid;
+     } else {
+       console.log('error user not logged in');
+       
+     }
+    
+   }
 
   ngOnInit() {
+
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        console.log('Got admin', user);
+        this.admin.uid = user.uid
+        this.admin.email = user.email
+      this.getProfile();
+      } else {
+        console.log('no admin');
+        
+      }
+    })
   }
 
+
+  getProfile(){
+
+    firebase.firestore().collection('UserProfile').where('uid', '==', this.admin.uid).get().then(snapshot => {
+      console.log('Profile details');
+      
+      this.Profile=[]
+      if (snapshot.empty) {
+        this.isprofile = false;
+      } else {
+        this.isprofile = true;
+        snapshot.forEach(doc => {
+          this.profile.image=doc.data().image;
+          this.profile.name=doc.data().name;
+          this.profile.number=doc.data().number;
+          this.profile.address=doc.data().address;
+          this.profile.email=doc.data().email;
+        })
+      }
+    })
+  }
+
+  editProfile(){
+    console.log("Going to edit profile");
+    
+    this.router.navigateByUrl('/edit-profile')
+  }
   ordersOpen:boolean = false;
   historyOpen:boolean = false;
   toggleOrders(){

@@ -1,7 +1,7 @@
 <ion-content>
 
   <div class="app-overlay">
-    <div class="user-inputs">
+    <div class="user-inputs" *ngIf="!isprofile">
       <div class="inputs">
 
         <div class="top-section">
@@ -12,14 +12,15 @@
 
             <div>Profile Image</div>
             <div><label for="diplayPic">
-                <ion-icon name="camera"></ion-icon>
-              </label></div>
-            <input type="file" id="diplayPic" style="display: none">
+                <ion-icon name="camera"></ion-icon></label>
+            </div>
+            <input type="file" id="diplayPic" style="display: none"  accept="image/*" multiple="false" (change)="changeListener($event)">
           </div>
         </div>
         <div class="section spacer">
           <div>
-            <input type="text" placeholder="Full Name">
+            <input type="text" placeholder="Full Name" [(ngModel)]=" profile.name">
+            <!-- <label>{{name}</label> -->
           </div>
           <div>
             <ion-icon name="person"></ion-icon>
@@ -27,7 +28,7 @@
         </div>
         <div class="section spacer">
           <div>
-            <input type="email" placeholder="Email">
+            <input type="email" placeholder="Email" [(ngModel)]="profile.email">
           </div>
           <div>
             <ion-icon name="mail"></ion-icon>
@@ -35,7 +36,7 @@
         </div>
         <div class="section spacer">
           <div>
-            <input type="number" placeholder="Phone (eg 0812345678)">
+            <input type="number" placeholder="Phone (eg 0812345678)" [(ngModel)]="profile.number">
           </div>
           <div>
             <ion-icon name="call"></ion-icon>
@@ -43,14 +44,14 @@
         </div>
         <div class="section spacer">
           <div>
-            <input type="text" placeholder="Residential Address">
+            <input type="text" placeholder="Residential Address" [(ngModel)]="profile.address">
           </div>
           <div>
             <ion-icon name="location"></ion-icon>
           </div>
         </div>
       </div>
-      <ion-button shape="undefined" id="myButton">DONE</ion-button>
+      <ion-button shape="undefined" id="myButton" (click)=createAccount()>DONE</ion-button>
     </div>
   </div>
   <div class="app-container">

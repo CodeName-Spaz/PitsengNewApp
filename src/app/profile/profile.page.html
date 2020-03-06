@@ -2,31 +2,31 @@
   <div class="backBtn">
     <ion-icon name="arrow-back"></ion-icon>
   </div>
-  <div class="content-container">
+  <div class="content-container"  *ngIf="isprofile">
   <div class="banner">
     <div class="dpHolder">
-      <img src="../../assets/imgs/1511539.jpg" id="userDP" alt="">
+      <img src="{{profile.image}}" id="userDP" alt="khuthy">
     </div>
-    <img src="../../assets/imgs/514275.jpg" id="userBanner" alt="">
+    <img src="{{profile.image}}" id="userBanner" alt="">
   </div>
   <div class="userContainer">
     <div class="details">
-      <h3>Elija Blake</h3>
-      <p>eli@elijah.com</p>
+      <h3>{{profile.name}}</h3>
+      <p>{{profile.email}}</p>
       <!-- <br> -->
       <div class="divider"></div>
-      <ion-button>
+      <ion-button  (click)="editProfile()">
         <ion-icon name="create"></ion-icon> Edit Profile
       </ion-button>
 
       <div class="detail-field">
-        <div>0813917127</div>
+        <div>{{profile.number}}</div>
         <div>
           <ion-icon name="call"></ion-icon>
         </div>
       </div>
       <div class="detail-field">
-        <div>House 22, Plein Str, Johanneburg</div>
+        <div>{{profile.address}}</div>
         <div>
           <ion-icon name="home"></ion-icon>
         </div>

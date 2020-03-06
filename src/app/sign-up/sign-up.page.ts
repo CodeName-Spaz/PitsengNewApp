@@ -50,7 +50,8 @@ export class SignUpPage implements OnInit {
       password: [
         '',
         Validators.compose([Validators.minLength(6), Validators.required])
-      ]
+      ],
+      name:['']
     });
   }
 
@@ -65,8 +66,9 @@ export class SignUpPage implements OnInit {
     } else {
       const email: string = signupForm.value.email;
       const password: string = signupForm.value.password;
+      const name: string = signupForm.value.name; 
 
-      this.authService.signupUser(email, password).then(
+      this.authService.signupUser(email, password, name).then(
         () => {
           this.loading.dismiss().then(() => {
              this.createProfile()
@@ -89,7 +91,7 @@ export class SignUpPage implements OnInit {
    this.loading
   }
   createProfile() {
-    this.router.navigateByUrl('/profile')
+    this.router.navigateByUrl('/edit-profile')
   }
 
 async openLogin(){

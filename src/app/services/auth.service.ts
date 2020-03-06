@@ -29,7 +29,7 @@ export class AuthService {
        err => reject(err))
    })
   }
-  signupUser(email: string, password: string): Promise<any> {
+  signupUser(email: string, password: string, name: string): Promise<any> {
     return firebase
     .auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
       firebase.firestore().doc(`/profile/${newUserCredential.user.uid}`).set({
@@ -37,6 +37,9 @@ export class AuthService {
         uid:newUserCredential.user.uid
 
       });
+      // firebase.firestore().collection("UserProfile").doc().set({
+      //   name: name
+      // })
     }).catch(error => {
       console.error(error);
       throw new Error(error);
