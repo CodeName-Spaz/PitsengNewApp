@@ -8,10 +8,16 @@ import * as firebase from 'firebase';
 })
 export class HomePage {
 
+  db=firebase.firestore();
   Products = []
+  
   constructor() {}
 
 
+  ngOnInit(){
+
+
+  }
 
 
 
