@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
+import { NavController } from '@ionic/angular';
+import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +12,7 @@ export class HomePage implements OnInit{
   dbProduct = firebase.firestore().collection('Products');
   myProduct = [];
   val = '';
-  constructor() {}
+  constructor(public navCtrl: NavController) {}
 
   ngOnInit() {
     this.getProductsbyCategory('Pottery')
@@ -27,6 +29,13 @@ export class HomePage implements OnInit{
     })
   }
   viewProduct(val) {
-    
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        id: val.id,
+        image: val.data.image,
+        name: val.data.name
+      }
+    };
+    this.navCtrl.navigateForward(['/item-view'], navigationExtras);
   }
 }
