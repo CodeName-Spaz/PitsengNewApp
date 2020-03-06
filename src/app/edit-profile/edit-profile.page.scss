@@ -18,7 +18,6 @@
 .app-overlay {
   width: 100%;
   height: 100%;
-  // background: rgba(255, 0, 0, 0.404);
   position: absolute;
   z-index: 10;
   overflow: hidden;
@@ -28,9 +27,8 @@
 }
 .user-inputs {
   width: calc(100% - 20px);
-  //   max-height: 250px;
+  max-width: 500px;
   margin: 0 auto;
-//   padding: 10px;
 text-align: center;
   h4 {
     margin: 0 !important;

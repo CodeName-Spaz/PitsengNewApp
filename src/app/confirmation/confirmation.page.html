@@ -1,9 +1,3 @@
-
-  <!-- <ion-toolbar>
-    <ion-title>Payment</ion-title>
-  </ion-toolbar> -->
-
-
 <ion-content>
   <div class="container">
     <div class="heading">
@@ -11,103 +5,83 @@
     </div>
     <div class="details-container">
       <div class="title">
-        <h2 >Your Orders</h2>
+        <h4>Your Orders</h4>
+        <div class="line"></div>
       </div>
 
       <div class="items">
-        <table >
-          <tr >
+        <table>
+          <tr>
             <td>name</td>
-            <td>quantity</td>
+            <td>1</td>
             <td>R 456.00</td>
           </tr>
-          <tr >
+          <tr>
             <td>name</td>
-            <td>quantity</td>
+            <td>1</td>
             <td>R 456.00</td>
           </tr>
-        
-          <tr >
-            <td>name</td>
-            <td>quantity</td>
-            <td>R 456.00</td>
-          </tr>
-        
-          <tr >
-            <td>name</td>
-            <td>quantity</td>
-            <td>R 456.00</td>
-          </tr>
-        
 
-          <tr >
+          <tr>
             <td>name</td>
-            <td>quantity</td>
+            <td>1</td>
             <td>R 456.00</td>
           </tr>
-        
-          <tr >
+
+          <tr>
             <td>name</td>
-            <td>quantity</td>
+            <td>1</td>
             <td>R 456.00</td>
           </tr>
-        
-          <tr >
+
+          <tr>
             <td>name</td>
-            <td>quantity</td>
+            <td>1</td>
             <td>R 456.00</td>
           </tr>
-        
-          <tr >
-            <td>name</td>
-            <td>quantity</td>
-            <td>R 456.00</td>
-          </tr>
-        
-          <tr >
-            <td>name</td>
-            <td>quantity</td>
-            <td>R 456.00</td>
-          </tr>
-        
-          <tr >
-            <td>name</td>
-            <td>quantity</td>
-            <td>R 456.00</td>
-          </tr>
+          
         </table>
-
       </div>
-      <div class="delivery-container" >
+      <div class="delivery-container">
         <p>How do you want your order?</p>
- <ion-segment value="favorite">
-        <ion-segment-button value="call">
-          <ion-label>Delivery</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="favorite">
-          <ion-label>collection</ion-label>
-        </ion-segment-button>
-      </ion-segment>
+        <div class="order_type">
+          <ion-button color="transparent" id="delivery" (click)="switchView('d')"
+            [ngClass]="{'delivery':buttonActive, 'delivery-inactive': !buttonActive}">
+            Delivery
+          </ion-button>
+          <ion-button color="transparent" id="collection" (click)="switchView('c')"
+            [ngClass]="{'collection': !buttonActive, 'collection-inactive': buttonActive}">
+            Collection
+          </ion-button>
+        </div>
       </div>
-     
-      <div class="total" >
-        <div >
-          <ion-label class="total-title" >Total Amount:</ion-label>
-        </div>
-        <div>
-          <ion-title  >R 2394.00</ion-title>
-        </div>
+      <div class="total">
+        <div>Total Amount:</div>
+        <div>R400.00</div>
+      </div>
+
+      <div class="reference">
+        <p> Your reference for this transaction is <b>PITSENG 23285</b>, please use it to deposit the amount due</p>
+      </div>
+
+      <div class="banking_details">
+        <p >Deposit Amount to:</p>
+        <p><b>Pitseng Arts and Crafts</b> <br>
+          Bank Name: Capitec Back <br>
+          Account Number:  173525554<br>
+          Branch Name: Soweto <br>
+          Branch Code: 47100 </p>
       </div>
     </div>
     <div class="buttons">
-      <ion-button  color="primary">
+      <ion-button color="transparent">
         DONE
       </ion-button>
     </div>
 
   </div>
-</ion-content> 
-  <!-- <div class="text">
+</ion-content>
+<!-- <div class="text">
       <div class="reference">
         <p>Your reference for this transaction is 304vl4he49. Please use it to deposit the amount due.</p>
       </div>

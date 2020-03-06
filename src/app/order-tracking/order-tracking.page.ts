@@ -12,4 +12,25 @@ export class OrderTrackingPage implements OnInit {
   ngOnInit() {
   }
 
+  status = "received"
+
+  changeState(){
+    let a = "received"
+    let b = "processed"
+    let c = "ready"
+    let d = "delivered"
+    if(this.status == "received"){
+      this.status = "processed"
+    }
+    else if(this.status == "processed"){
+      this.status = "ready"
+    }
+    else if(this.status == "ready"){
+      this.status = "delivered"
+    }
+    else{
+      this.status = "received"
+    }
+    console.log(this.status);
+  }
 }
