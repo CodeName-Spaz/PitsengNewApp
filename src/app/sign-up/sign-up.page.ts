@@ -1,31 +1,10 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-sign-up',
-//   templateUrl: './sign-up.page.html',
-//   styleUrls: ['./sign-up.page.scss'],
-// })
-// export class SignUpPage implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit() {
-//   }
-
-// }
-
-
-
 import { Component, OnInit, } from '@angular/core';
-import { LoadingController, AlertController, ModalController } from '@ionic/angular';
+import { LoadingController, AlertController, ModalController, NavController } from '@ionic/angular';
 import * as firebase from 'firebase';
 import { FormGroup, FormBuilder,Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
-import { ProfilePage } from '../profile/profile.page';
+import { Router, NavigationExtras } from '@angular/router';
 import { LoginPage } from '../login/login.page';
-// import Swal from 'sweetalert2';
-
 
 @Component({
   selector: 'app-sign-up',
@@ -43,7 +22,8 @@ export class SignUpPage implements OnInit {
     private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
     private router: Router,
-    public modalController: ModalController
+    public modalController: ModalController,
+    public navCtrl :  NavController
   ) {
     this.signupForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
@@ -71,7 +51,7 @@ export class SignUpPage implements OnInit {
       this.authService.signupUser(email, password, name).then(
         () => {
           this.loading.dismiss().then(() => {
-             this.createProfile()
+             this.createProfile(email,name);
           })
         },
         error => {
@@ -90,8 +70,14 @@ export class SignUpPage implements OnInit {
     }
    this.loading
   }
-  createProfile() {
-    this.router.navigateByUrl('/edit-profile')
+  createProfile(email, name) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        name: name,
+        email: email,
+      }
+    };
+    this.navCtrl.navigateForward(['/edit-profile'], navigationExtras);
   }
 
 async openLogin(){

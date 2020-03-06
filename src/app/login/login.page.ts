@@ -67,18 +67,14 @@ export class LoginPage implements OnInit {
  
  
   loginUser(value){
-     this.presentLoading()
-   
-    this.authService.loginUser(value)
     firebase.auth().signInWithEmailAndPassword(value.email, value.password)
     .then(res => {
-      console.log(res);
+      this.presentLoading();
       this.errorMessage = "";
       this.navCtrl.navigateForward('/home');
     }, err => {
       this.errorMessage = err.message;
     });
-   
   }
   facebookSignIn(){
     
@@ -93,17 +89,14 @@ export class LoginPage implements OnInit {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().getRedirectResult().then( (result) => {
       if (!result.user) {
-        
         firebase.auth().signInWithRedirect(provider);
       } else {
         this.router.navigateByUrl('home');
-        
       }
   }).catch(function (error) {
     console.log(error)
     // ...
   });
-    
   }
 
  
@@ -136,7 +129,6 @@ export class LoginPage implements OnInit {
   //   return await modal.present();
   //  }
   dismiss() {
-   console .log("gfgf")
     this.modalController.dismiss({
       'dismissed': true
     });
@@ -170,7 +162,7 @@ export class LoginPage implements OnInit {
       await loading.present();
       setTimeout(() => {
         loading.dismiss();
-      }, 1000);
+      }, 3000);
   
       // const { role, data } = await loading.onDidDismiss();
   
