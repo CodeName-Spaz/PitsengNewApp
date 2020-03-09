@@ -24,7 +24,7 @@ export class HomePage implements OnInit{
       res.forEach((doc)=>{
         this.myProduct.push({data: doc.data(), id : doc.id})
       })
-      // console.log("My items ", this.myProduct);
+      console.log("My items ", this.myProduct);
       
     })
   }

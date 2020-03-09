@@ -16,7 +16,10 @@ export class ItemViewPage implements OnInit {
       this.prod_id = params["id"];
       this.prod_name = params["name"];
       this.prod_image = params["image"];
+      
+    console.log("rrrrrrrrrr", this.prod_id);
     })
+    
   }
 
   ngOnInit() {
@@ -26,4 +29,7 @@ export class ItemViewPage implements OnInit {
     console.log('Segment changed', ev)
   }
 
+  wishListAdd(){
+    
+  }
 }
