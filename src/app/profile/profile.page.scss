@@ -1,17 +1,19 @@
 .banner {
   width: 100%;
   height: 35%;
-  background: red;
+  background: white;
   // z-index: 1;
   position: relative;
   #userBanner {
     width: 100%;
     height: 100%;
     position: absolute;
+    object-fit: cover;
   }
 }
 .dpHolder {
   width: calc(100% - 20px);
+  max-width: 668px;
   height: 80px;
   background: white;
   position: absolute;
@@ -29,6 +31,7 @@
     border-radius: 150px;
     margin-top: -75px;
     box-shadow: 0 3px 7px rgba(0, 0, 0, 0.479);
+    background: white
   }
 }
 .userContainer {
@@ -37,10 +40,13 @@
   // background: green;
   padding-left: 10px;
   padding-right: 10px;
+  max-width: 688px;
+  margin: 0 auto;
 }
 .content-container {
   width: 100vw;
   height: calc(100vh - 1px);
+  margin: 0 auto;
 }
 ion-content {
   overflow: hidden;
@@ -51,6 +57,7 @@ ion-content {
   background: white;
   padding: 10px;
   overflow-y: auto;
+  overflow-x: hidden;
   text-align: center;
   box-shadow: 0 0px 7px rgba(0, 0, 0, 0.479);
 }
@@ -96,7 +103,8 @@ p {
   margin-bottom: -5px;
   background: rgb(236, 236, 236);
   line-height: 40px;
-//   border: 2px solid red;
+  cursor: pointer;
+  //   border: 2px solid red;
 }
 
 .custom-button > div:nth-child(1) {
@@ -136,10 +144,13 @@ p {
   border-radius: 5px;
   overflow: hidden;
   display: flex;
+  p{
+    margin: 3px;
+  }
 }
 .OrderCard > div:nth-child(1) {
   height: 100%;
-  width: 100px;
+  width: 90px;
   img {
     width: 100%;
     height: 100%;
@@ -188,12 +199,20 @@ p {
   display: flex;
   width: 100%;
   margin: 0 auto;
-//   border: 2px solid red;
+  //   border: 2px solid red;
   justify-content: center;
   // flex-direction: column;
 }
-@media screen and (max-width: 484px) {
+.order-range > div {
+  //     border: 1px solid red;
+  min-width: 335px;
+}
+@media screen and (max-width: 688px) {
   .order-range {
     flex-direction: column;
+  }
+  .order-range > div {
+    //     border: 1px solid red;
+    min-width: 150px;
   }
 }

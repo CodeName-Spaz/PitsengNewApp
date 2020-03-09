@@ -92,7 +92,7 @@ export class ProfilePage implements OnInit {
       ordersArrow.style.transform = "rotateX(180DEG)";
       myOrders.style.height = "auto";
       myOrders.style.opacity = "1";
-      myOrders.style.padding = "5px";
+      myOrders.style.padding = "2px";
       this.historyOpen = true;
       this.toggleHistory()
     }
@@ -103,7 +103,7 @@ export class ProfilePage implements OnInit {
       myOrders.style.opacity = "0";
       myOrders.style.padding = "0px";
     }
-    console.log("orders: " + this.ordersOpen);
+    // console.log("orders: " + this.ordersOpen);
     
   }
   toggleHistory(){
@@ -115,7 +115,7 @@ export class ProfilePage implements OnInit {
       myArrow.style.transform = "rotateX(180DEG)";
       myHistory.style.height = "auto";
       myHistory.style.opacity = "1";
-      myHistory.style.padding = "5px";
+      myHistory.style.padding = "2px";
       this.ordersOpen = true;
       this.toggleOrders()
     }
@@ -127,6 +127,6 @@ export class ProfilePage implements OnInit {
       myHistory.style.padding = "0px";
       
     }
-    console.log("history: " +this.historyOpen); 
+    // console.log("history: " +this.historyOpen); 
   }
 }
