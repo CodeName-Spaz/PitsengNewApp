@@ -33,6 +33,7 @@ export class AuthService {
     return firebase
     .auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
       firebase.firestore().doc(`/UserProfile/${newUserCredential.user.uid}`).set({
+        name: name,
         email : email,
         uid:newUserCredential.user.uid
 
