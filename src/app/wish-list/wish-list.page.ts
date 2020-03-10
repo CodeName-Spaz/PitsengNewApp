@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { AlertController, NavController } from '@ionic/angular';
+import { NavigationExtras } from '@angular/router';
 @Component({
   selector: 'app-wish-list',
   templateUrl: './wish-list.page.html',
@@ -10,6 +11,8 @@ export class WishListPage implements OnInit {
   dbWishlist = firebase.firestore().collection('Wishlist');
   myWish = [];
   myArr = [];
+  itemChecked : boolean;
+  prodId;
   constructor(public alertCtrl : AlertController, public navCtrl : NavController) { }
 
   ngOnInit() {
@@ -21,8 +24,18 @@ export class WishListPage implements OnInit {
     this.currentNumber = this.currentNumber + 1;
     // this.event.quantity = this.currentNumber
   }
-  check(ev) {
-
+  delete(id) {
+    this.dbWishlist.doc(id).delete().then((res) => {
+    })
+  }
+  check(ev, id) {
+    // 
+    this.itemChecked = ev.detail.checked;
+    this.prodId = id;
+    console.log(this.prodId);
+  }
+  closeWish(){
+    this.navCtrl.pop();
   }
   decrement(p) {
     if (this.currentNumber > 1) {
@@ -69,6 +82,18 @@ export class WishListPage implements OnInit {
       })
     }, 0);
   }
+  viewProduct() {
+    if (this.itemChecked === true) {
+      let navigationExtras: NavigationExtras = {
+      queryParams: {
+        id: this.prodId,
+      }
+    };
+    this.navCtrl.navigateForward(['/item-view'], navigationExtras).then(()=>{
+      this.delete(this.prodId);
+    });
+    } 
+  }
   async presentAlertConfirm1() {
     const alert = await this.alertCtrl.create({
       header: 'Message',
@@ -92,7 +117,6 @@ export class WishListPage implements OnInit {
         }
       ]
     });
-
     await alert.present();
   }
 }

@@ -10,10 +10,10 @@ import * as firebase from 'firebase';
 export class ItemViewPage implements OnInit {
   // cartItemCount:BehaviorSubject<number>;
   // wishItemCount: BehaviorSubject<number>;
-  
+  dbProduct = firebase.firestore().collection('Products');
   value
   yudsegment: string;
-  prod_id : string;
+  prod_id: string;
   prod_name;
   prod_image;
   sizes = [];
@@ -25,21 +25,21 @@ export class ItemViewPage implements OnInit {
   dbCart = firebase.firestore().collection("Cart");
   dbWishlist = firebase.firestore().collection("Wishlist");
   category;
-  constructor(public route: ActivatedRoute, public navCtrl : NavController, public toastCtrl: ToastController, public alertCtrl : AlertController) {
+  onWish="heart-outline";
+  constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
       this.prod_id = params["id"];
-      this.prod_name = params["name"];
+      /* this.prod_name = params["name"];
       this.prod_image = params["image"];
       this.sizes = params["sizes"];
       this.desc = params["description"];
       this.price = params["price"];
-      this.category = params["category"];
+      this.category = params["category"]; */
     })
-    
   }
 
   ngOnInit() {
-
+    this.getProduct();
     // this.activatedRouter.queryParams.subscribe(params =>{
     //   this.Mydata.prod_id = params["id"];
     //   this.Mydata.prod_name = params["name"];
@@ -57,23 +57,49 @@ export class ItemViewPage implements OnInit {
     //   this.Mydata.prod_description = params["description"]
     // console.log("rrrrrrrrrr",  this.Mydata.prod_productCode, this.Mydata.prod_price, this.Mydata.prod_name);
     // })
+    this.getWishItems();
     this.yudsegment = "like";
     // this.wishItemCount = this.cartService.getWishItemCount();
     // this.cartItemCount = this.cartService.getCartItemCount();
   }
-
+  getProduct() {
+    this.dbProduct.doc(this.prod_id).onSnapshot((doc) => {
+      this.prod_image = doc.data().image;
+      this.prod_name = doc.data().name;
+      // this.prod_image = params["image"];
+      this.sizes = doc.data().sizes;
+      this.desc = doc.data().description;
+      this.price = doc.data().price;
+      this.category = doc.data().category;
+    })
+  
+  }
+  getWishItems() {
+    this.dbWishlist.doc(this.prod_id).onSnapshot((res)=>{
+      if (res.exists === true) {
+        if (res.data().customerUID === firebase.auth().currentUser.uid) {
+          this.onWish = "heart";
+        } else {
+           this.onWish="heart-outline";
+        }
+      } else {
+       console.log("No items found");
+       
+      }
+    })
+  }
   segmentChanged(ev: any) {
     console.log('Segment changed', ev)
   }
   getTotal() {
     let total = 0;
     // for (let i = 0; i < this.prodCart.length; i++) {
-      // let product = this.prodCart[i].data.product;
-      // console.log(product);
-      // product.forEach((item) => {
-        total += this.price * this.quantity
-      // })
-      //
+    // let product = this.prodCart[i].data.product;
+    // console.log(product);
+    // product.forEach((item) => {
+    total += this.price * this.quantity
+    // })
+    //
     // }
     //console.log('My tot ', total);
 
@@ -85,17 +111,17 @@ export class ItemViewPage implements OnInit {
   visitCart() {
     this.navCtrl.navigateForward('cart');
   }
-  sizeChosen( data, index) {
+  sizeChosen(data, index) {
     // console.log("event ", ev);
- /*    if (ev.detail.checked === true) {
-      this.myArr.push(data)
-      
-    } else {
-      this.myArr.splice(this.myArr.indexOf(data), 1);
-      
-      
-    } */
-    
+    /*    if (ev.detail.checked === true) {
+         this.myArr.push(data)
+         
+       } else {
+         this.myArr.splice(this.myArr.indexOf(data), 1);
+         
+         
+       } */
+
     this.sizeIndex = index
     this.my_size = data;
     console.log('MY size ', this.my_size);
@@ -114,7 +140,7 @@ export class ItemViewPage implements OnInit {
     let toast = await this.toastCtrl.create({ message: message, duration: 2000 });
     return toast.present();
   }
-  
+
   addToCart() {
     setTimeout(() => {
       firebase.auth().onAuthStateChanged((res) => {
@@ -171,17 +197,21 @@ export class ItemViewPage implements OnInit {
 
     await alert.present();
   }
-  wishListAdd(){
+  wishListAdd() {
     setTimeout(() => {
-      firebase.auth().onAuthStateChanged((res) => {
-        if (res) {
+      firebase.auth().onAuthStateChanged((res1) => {
+        if (res1) {
           // this.heartIndex = index;
           this.dbWishlist.doc(this.prod_id).get().then((res) => {
             if (res.exists == true) {
-              this.dbWishlist.doc(this.prod_id).delete().then((res) => {
-                // this.myProduct[index].wish = 'heart-empty';
-                this.toastController('Removed from wishlist..');
-              })
+              if (res.data().customerUID === res1.uid ) {
+                this.dbWishlist.doc(res.id).delete().then((res) => {
+                  this.toastController('Removed from wishlist..');
+                })
+              } else {
+                console.log("uid not found, unable to delete");
+                
+              }
             } else {
               this.dbWishlist.doc(this.prod_id).set({
                 customerUID: firebase.auth().currentUser.uid, price: this.price,
@@ -199,7 +229,7 @@ export class ItemViewPage implements OnInit {
       })
     }, 0);
   }
- 
+
   popBack() {
     this.navCtrl.pop();
   }

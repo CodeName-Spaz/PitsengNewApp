@@ -133,6 +133,9 @@ export class CartPage implements OnInit {
     }
     return total;
   }
+  closeWish() {
+    this.navCtrl.pop();
+  }
   confirmOrder() {
     // let product = {name:'', cost:0 , pic:'',quantity:0, size: [], id: '' };
     // this.prodCart.forEach((res)=>{

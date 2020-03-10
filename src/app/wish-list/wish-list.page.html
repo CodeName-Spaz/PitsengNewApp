@@ -3,7 +3,7 @@
   
 </ion-toolbar>
 <ion-fab vertical="top" horizontal="end" slot="fixed">
-    <ion-icon color="dark"  name="close"></ion-icon>
+    <ion-icon color="dark" (click)="closeWish()" name="close"></ion-icon>
   </ion-fab>
 <ion-content fullscreen>
 <div class="main-content">
@@ -12,7 +12,7 @@
       <div class="order-list" *ngFor="let w of myWish; let i = index">
         <div class="checkBox-add-to-cart" >
     
-          <ion-checkbox color="primary"  slot="start"  (ionChange)="check($event)"></ion-checkbox>
+          <ion-checkbox color="primary"  slot="start"  (ionChange)="check($event, w.id)"></ion-checkbox>
         </div>
         <div class="image-container">
           <img src="{{w.info.image}}" alt="">
@@ -127,7 +127,7 @@
         </div>
       </div>
       <div class="buttons" >
-        <ion-button color="primary" > add to bag</ion-button>
+        <ion-button color="primary" (click)="viewProduct(myWish)"> add to bag</ion-button>
         <ion-button fill="clear" class="button2" > continue Shopping</ion-button>
       </div>
     </ion-list>
