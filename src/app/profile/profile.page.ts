@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class ProfilePage implements OnInit {
 
   uid
+  Allorders = [];
   Profile= []
   isprofile = false;
 
@@ -48,11 +49,13 @@ export class ProfilePage implements OnInit {
         this.admin.uid = user.uid
         this.admin.email = user.email
       this.getProfile();
+      this.GetOrders();
       } else {
         console.log('no admin');
         
       }
     })
+    // this.GetOrders();
   }
 
 
@@ -128,5 +131,16 @@ export class ProfilePage implements OnInit {
       
     }
     // console.log("history: " +this.historyOpen); 
+  }
+
+  GetOrders() {
+    firebase.firestore().collection("Order").where('userID', '==', firebase.auth().currentUser.uid).onSnapshot((data) => {
+      this.Allorders = [];
+      data.forEach((item) => {
+        this.Allorders.push({ ref: item.id, info: item.data(), total: item.data() })
+      })
+      console.log("orders ", this.Allorders);
+      
+    })
   }
 }
