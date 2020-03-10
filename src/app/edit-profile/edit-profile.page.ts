@@ -46,7 +46,10 @@ export class EditProfilePage implements OnInit {
   }
 
   ngOnInit() {
-
+    setTimeout(() => {
+      this. getProfile();
+    }, 100);
+    
   }
 
   createAccount() {
@@ -58,12 +61,39 @@ export class EditProfilePage implements OnInit {
       } else {
         this.profile.uid = firebase.auth().currentUser.uid;
         this.db.collection('UserProfile').doc(firebase.auth().currentUser.uid).set(this.profile).then(res => {
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/profile');
         }).catch(error => {
           console.log('Error');
         });
       }
     }
+  }
+
+  getProfile() {
+    this.db.collection('UserProfile').where('uid', '==', firebase.auth().currentUser.uid).onSnapshot(snapshot => {
+      if (snapshot.empty) {
+        this.isprofile = false;
+        console.log("No is not Profile");
+        
+      } else {
+        this.isprofile = false;
+        snapshot.forEach(doc => {
+          this.profile.address = doc.data().address;
+          this.profile.image = doc.data().image
+          this.profile.name = doc.data().name
+          this.profile.number = doc.data().number
+          this.profile.email = doc.data().email
+          // this.profile.streetAddress = doc.data().streetAddress;
+          // this.profile.city = doc.data().city;
+          // this.profile.code = doc.data().code
+          console.log("Yes is Profile");
+          
+
+        })
+      }
+    })
+    ////
+    //////
   }
 
   changeListener(event): void {

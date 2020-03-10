@@ -8,6 +8,10 @@ import * as firebase from 'firebase';
   styleUrls: ['./item-view.page.scss'],
 })
 export class ItemViewPage implements OnInit {
+  // cartItemCount:BehaviorSubject<number>;
+  // wishItemCount: BehaviorSubject<number>;
+  
+  value
   yudsegment: string;
   prod_id : string;
   prod_name;
@@ -35,8 +39,29 @@ export class ItemViewPage implements OnInit {
   }
 
   ngOnInit() {
+
+    // this.activatedRouter.queryParams.subscribe(params =>{
+    //   this.Mydata.prod_id = params["id"];
+    //   this.Mydata.prod_name = params["name"];
+    //   this.Mydata.prod_image = params["image"];
+    //   this.Mydata.prod_productCode = params["productCode"];
+    //   this.Mydata.prod_imageSide = params["imageSide"];
+    //   this.Mydata.prod_imageBack = params["imageBack"];
+    //   this.Mydata.prod_imageTop = params["prod_imageTop"];
+    //   this.Mydata.prod_categories = params["categories"];
+    //   this.Mydata.prod_price = params["price"];
+    //   this.Mydata.prod_quantity = params["quantity"];
+    //   this.Mydata.prod_items = params["items"];
+    //   this.Mydata.prod_checked = params["checked"];
+    //   this.Mydata.prod_lastcreated = params["lastcreated"];
+    //   this.Mydata.prod_description = params["description"]
+    // console.log("rrrrrrrrrr",  this.Mydata.prod_productCode, this.Mydata.prod_price, this.Mydata.prod_name);
+    // })
     this.yudsegment = "like";
+    // this.wishItemCount = this.cartService.getWishItemCount();
+    // this.cartItemCount = this.cartService.getCartItemCount();
   }
+
   segmentChanged(ev: any) {
     console.log('Segment changed', ev)
   }
@@ -178,4 +203,5 @@ export class ItemViewPage implements OnInit {
   popBack() {
     this.navCtrl.pop();
   }
+
 }
