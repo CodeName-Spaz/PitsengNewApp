@@ -44,6 +44,9 @@ export class WishListPage implements OnInit {
     }
     return this.currentNumber;
   }
+  goHome() {
+    this.navCtrl.navigateRoot('home');
+  }
   checkUser() {
     setTimeout(() => {
       firebase.auth().onAuthStateChanged((res) => {
@@ -82,17 +85,17 @@ export class WishListPage implements OnInit {
       })
     }, 0);
   }
-  viewProduct() {
-    if (this.itemChecked === true) {
+  viewProduct(id) {
+    // if (this.itemChecked === true) {
       let navigationExtras: NavigationExtras = {
       queryParams: {
-        id: this.prodId,
+        id: id,
       }
     };
     this.navCtrl.navigateForward(['/item-view'], navigationExtras).then(()=>{
-      this.delete(this.prodId);
+      this.delete(id);
     });
-    } 
+    // } 
   }
   async presentAlertConfirm1() {
     const alert = await this.alertCtrl.create({
