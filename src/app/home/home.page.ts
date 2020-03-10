@@ -85,6 +85,7 @@ export class HomePage implements OnInit{
     
   }
   viewProduct(val) {
+    this.dbProduct.doc(val.id).update({viewed : firebase.firestore.FieldValue.increment(1)})
     let navigationExtras: NavigationExtras = {
       queryParams: {
         id: val.id,
@@ -101,6 +102,7 @@ export class HomePage implements OnInit{
         price : val.data.price
       }
     };
+    
     this.navCtrl.navigateForward(['/item-view'], navigationExtras);
   }
 }

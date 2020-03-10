@@ -125,11 +125,11 @@
     
     <div class="segment_slides" [ngSwitch] ="yudsegment">
     <div class="pictures" *ngSwitchCase = "'like'">
-      <div class="image1">
-        <img src="https://i.pinimg.com/564x/c3/da/f7/c3daf7acc13ec2dd2d82d9a968d56fa7.jpg" alt="">
+      <div class="image1" *ngFor="let items of similarItems">
+        <img src="{{items.info.image}}" alt="" >
       </div>
 
-      <div class="image1">
+     <!--  <div class="image1">
         <img src="https://i.pinimg.com/564x/d8/01/f9/d801f95ec37ebdd439ca3a9298197ef4.jpg" alt="">
       </div>
 
@@ -140,7 +140,7 @@
       
       <div class="image1">
         <img src="https://i.pinimg.com/564x/ed/c8/be/edc8be711eca77eb40aa31101ccf0028.jpg" alt="">
-      </div>
+      </div> -->
     </div>
 
     <div class="reviewz" *ngSwitchCase = "'review'">
