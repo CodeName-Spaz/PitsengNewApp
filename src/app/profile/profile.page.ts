@@ -110,17 +110,24 @@ export class ProfilePage implements OnInit {
     
   }
 
-  viewOrder(item, name,i){
-    console.log("GGH ", item, name, i);
+  viewOrder(item){
+    console.log("GGH ", item);
 
     let navigationExtras: NavigationExtras = {
-      queryParams: {
-        image: item.info.image,
-        product_name: item.info.product_name,
-        cost: item.info.cost,
-        size: item.info.size
+      state: {
+        parms: item
       }
-    };
+    }
+    // this.active=i
+    // let navigationExtras: NavigationExtras = {
+    //   queryParams: {
+    //     id: item.id,
+    //     image: item.info.image,
+    //     product_name: item.info.product_name,
+    //     cost: item.info.cost,
+    //     size: item.info.size
+    //   }
+    // };
     this.navCtrl.navigateForward(['/order-tracking'], navigationExtras);
   
     

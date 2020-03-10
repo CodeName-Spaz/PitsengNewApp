@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-order-tracking',
@@ -7,11 +8,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderTrackingPage implements OnInit {
 
-  constructor() { }
 
-  ngOnInit() {
+    id: '';
+    product_name;
+    image;
+    productCode;
+    cost;
+  
+  constructor(public route: ActivatedRoute) { 
+    this.route.queryParams.subscribe(params =>{
+      this.id = params["doc.ref"]
+      this.product_name = params["product_name"];
+      this.image = params["image"];
+      this.productCode = params["productCode"];
+      this.cost = params["cost"];
+
+      console.log("my items ", this.id);
+      
+  })
   }
 
+  ngOnInit() {
+
+  }
+
+  getOrders(){
+   
+  }
   status = "received"
 
   changeState(){
