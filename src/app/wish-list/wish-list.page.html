@@ -9,41 +9,41 @@
 <div class="main-content">
   <div class="container">
     <ion-list>
-      <div class="order-list">
+      <div class="order-list" *ngFor="let w of myWish; let i = index">
         <div class="checkBox-add-to-cart" >
     
-          <ion-checkbox color="primary"  slot="start" [checked]="checked"  (ionChange)= "check"></ion-checkbox>
+          <ion-checkbox color="primary"  slot="start"  (ionChange)="check($event)"></ion-checkbox>
         </div>
         <div class="image-container">
-          <img src="https://i.pinimg.com/564x/fe/0d/b5/fe0db54acfbd94d56dff811c71c3fd70.jpg" alt="">
+          <img src="{{w.info.image}}" alt="">
         </div>
         <div class="item-description">
           <div class="last-div">
             <div class="name">
-              <ion-label>Pokémon Yellow</ion-label>
+              <ion-label>{{w.info.name}}</ion-label>
             </div>
-            <div>
+            <div (click)="delete(w.id)">
                 <ion-icon name="trash" color="primary"></ion-icon>
             </div>
           </div>
           <div class="price">
-            <ion-label>R 4567.00</ion-label>
+            <ion-label>{{w.info.price | currency:'R'}}</ion-label>
           </div>
-          <div class="last-div">
+          <!-- <div class="last-div">
             <div class="size">
-              <ion-label>Size: S</ion-label>
+              <ion-label>Size: {{w.info.size}}</ion-label>
             </div>
          
-          </div>
-          <div class="quantity">
+          </div> -->
+          <!-- <div class="quantity">
             <div>
                 <ion-icon name="add-circle-outline" color="secondaryColor" (click)="increment(j)"></ion-icon> <ion-label>  {{currentNumber}} </ion-label>
               <ion-icon name="remove-circle-outline"  color="secondaryColor" (click)="decrement(j)"></ion-icon>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
-      <div class="order-list">
+      <!-- <div class="order-list">
         <div class="checkBox-add-to-cart" >
     
           <ion-checkbox color="primary"  slot="start" [checked]="checked"  (ionChange)= "check"></ion-checkbox>
@@ -83,8 +83,8 @@
             </div>
           </div>
         </div>
-     </div>
-      <div class="order-list">
+     </div> -->
+      <!-- <div class="order-list">
         <div class="checkBox-add-to-cart" >
     
           <ion-checkbox color="primary"  slot="start" [checked]="checked"  (ionChange)= "check"></ion-checkbox>
@@ -117,7 +117,7 @@
             </div>
           </div>
         </div>
-      </div> 
+      </div>  -->
       <div class="total" >
         <div >
           <ion-label class="total-title" >Total Amount:</ion-label>

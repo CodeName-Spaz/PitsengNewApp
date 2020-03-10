@@ -8,13 +8,13 @@
     </ion-buttons>
     <ion-buttons slot="end">
 
-      <ion-button class="notification">
-        <ion-icon slot="icon-only" name="heart"></ion-icon>
+      <ion-button class="notification" (click)="visitWish()">
+        <ion-icon slot="icon-only" name="heart" ></ion-icon>
         <span class="badge"></span>
       </ion-button>
 
-      <ion-button class="notification">
-        <ion-icon slot="icon-only" name="basket" (click)="openWish()"></ion-icon>
+      <ion-button class="notification" (click)="visitCart()">
+        <ion-icon slot="icon-only" name="basket"></ion-icon>
         <span class="badge"></span>
       </ion-button>
       <ion-button color="secondary">
