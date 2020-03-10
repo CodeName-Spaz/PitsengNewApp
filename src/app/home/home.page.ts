@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ export class HomePage implements OnInit{
   dbProduct = firebase.firestore().collection('Products');
   myProduct = [];
   val = '';
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, public alertCtrl : AlertController) {}
 
   ngOnInit() {
     this.getProductsbyCategory('Pottery')
@@ -29,13 +29,60 @@ export class HomePage implements OnInit{
     })
   }
   visitWish() {
-    this.navCtrl.navigateForward('wish-list');
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.navCtrl.navigateForward('wish-list');
+      } else {
+        this.presentAlertConfirm1();
+      }
+
+    })
+    
+  }
+  async presentAlertConfirm1() {
+    const alert = await this.alertCtrl.create({
+      header: 'Message',
+      message: 'Please Sign-in',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            // this.alertView = true;
+            // this.localSt.store('alertShowed', this.alertView);
+          }
+        }, {
+          text: 'Sign In',
+          handler: () => {
+            // this.alertView = true;
+            // this.localSt.store('alertShowed', this.alertView);
+            this.navCtrl.navigateForward('login');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
   visitCart() {
-    this.navCtrl.navigateForward('cart');
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.navCtrl.navigateForward('cart');
+      } else {
+        this.presentAlertConfirm1();
+      }
+    })
   }
   visitProfile() {
-    this.navCtrl.navigateForward('profile');
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.navCtrl.navigateForward('profile');
+      } else {
+        this.presentAlertConfirm1();
+      }
+    })
+    
   }
   viewProduct(val) {
     let navigationExtras: NavigationExtras = {

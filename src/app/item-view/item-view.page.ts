@@ -25,7 +25,7 @@ export class ItemViewPage implements OnInit {
   dbCart = firebase.firestore().collection("Cart");
   dbWishlist = firebase.firestore().collection("Wishlist");
   category;
-  onWish="heart-outline";
+  onWish = "heart-outline";
   imageBack: any;
   imageSide: any;
   imageTop: any;
@@ -78,21 +78,26 @@ export class ItemViewPage implements OnInit {
       this.imageSide = doc.data().imageSide;
       this.imageTop = doc.data().imageTop;
     })
-  
+
   }
   getWishItems() {
-    this.dbWishlist.doc(this.prod_id).onSnapshot((res)=>{
-      if (res.exists === true) {
-        if (res.data().customerUID === firebase.auth().currentUser.uid) {
-          this.onWish = "heart";
-        } else {
-           this.onWish="heart-outline";
-        }
-      } else {
-       console.log("No items found");
-       
-      }
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.dbWishlist.doc(this.prod_id).onSnapshot((res) => {
+          if (res.exists === true) {
+            if (res.data().customerUID === user.uid) {
+              this.onWish = "heart";
+            } else {
+              this.onWish = "heart-outline";
+            }
+          } else {
+            console.log("No items found");
+
+          }
+        })
+      } 
     })
+
   }
   segmentChanged(ev: any) {
     console.log('Segment changed', ev)
@@ -112,10 +117,26 @@ export class ItemViewPage implements OnInit {
     return total;
   }
   visitWish() {
-    this.navCtrl.navigateForward('wish-list');
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.navCtrl.navigateForward('wish-list');
+      } else {
+        this.presentAlertConfirm1();
+      }
+
+    })
+    
   }
   visitCart() {
-    this.navCtrl.navigateForward('cart');
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.navCtrl.navigateForward('cart');
+      } else {
+        this.presentAlertConfirm1();
+      }
+
+    })
+    
   }
   sizeChosen(data, index) {
     // console.log("event ", ev);
@@ -210,13 +231,13 @@ export class ItemViewPage implements OnInit {
           // this.heartIndex = index;
           this.dbWishlist.doc(this.prod_id).get().then((res) => {
             if (res.exists == true) {
-              if (res.data().customerUID === res1.uid ) {
+              if (res.data().customerUID === res1.uid) {
                 this.dbWishlist.doc(res.id).delete().then((res) => {
                   this.toastController('Removed from wishlist..');
                 })
               } else {
                 console.log("uid not found, unable to delete");
-                
+
               }
             } else {
               this.dbWishlist.doc(this.prod_id).set({

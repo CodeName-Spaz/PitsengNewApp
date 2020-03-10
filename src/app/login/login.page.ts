@@ -104,7 +104,9 @@ export class LoginPage implements OnInit {
     this.navCtrl.navigateForward('/sign-up');
     // this.createModalRegister();
   }
-
+  explore() {
+    this.navCtrl.navigateForward('home');
+  }
   async createModalLogin() {
     const modal = await this.modalController.create({
       component: LoginPage,

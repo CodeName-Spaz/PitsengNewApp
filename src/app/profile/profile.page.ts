@@ -57,7 +57,9 @@ export class ProfilePage implements OnInit {
     })
     // this.GetOrders();
   }
-
+  logout() {
+    firebase.auth().signOut();
+  }
   popBack() {
     this.navCtrl.pop();
   }

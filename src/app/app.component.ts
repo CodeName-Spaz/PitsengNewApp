@@ -27,18 +27,5 @@ export class AppComponent {
       this.splashScreen.hide();
     });
   }
-  checkUser() {
-    setTimeout(() => {
-      firebase.auth().onAuthStateChanged((res) => {
-        if (res) {
-          this.router.navigateByUrl('home')
-          // this.splashScreen.hide();
-          // console.log("User..", res.phoneNumber);
-        } else {
-          this.router.navigateByUrl('login')
-        }
-      })
-    }, 3000);
 
-  }
 }
