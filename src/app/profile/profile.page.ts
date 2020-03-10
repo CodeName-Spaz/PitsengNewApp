@@ -58,7 +58,7 @@ export class ProfilePage implements OnInit {
 
   getProfile(){
 
-    firebase.firestore().collection('UserProfile').where('uid', '==', this.admin.uid).get().then(snapshot => {
+    firebase.firestore().collection('UserProfile').where('uid', '==', this.admin.uid).onSnapshot(snapshot => {
       console.log('Profile details');
       
       this.Profile=[]

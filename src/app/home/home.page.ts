@@ -28,12 +28,20 @@ export class HomePage implements OnInit{
       
     })
   }
+  openWish(){
+    
+  }
+  
   viewProduct(val) {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         id: val.id,
         image: val.data.image,
-        name: val.data.name
+        name: val.data.name,
+        productCode: val.data.productCode,
+        quantity: val.data.quantity,
+        price: val.data.price,
+        description: val.data.description
       }
     };
     this.navCtrl.navigateForward(['/item-view'], navigationExtras);

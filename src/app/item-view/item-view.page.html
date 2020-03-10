@@ -4,7 +4,7 @@
       <ion-button>
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
-      <p>{{prod_name}}</p>
+      <p>{{Mydata.prod_name}}</p>
     </ion-buttons>
 
     <ion-buttons slot="end">
@@ -29,7 +29,7 @@
 
   <div class='container'>
     <div class="image">
-      <img src="{{prod_image}}" alt="">
+      <img src="{{Mydata.prod_image}}" alt="">
       <p class="starz">
         <ion-icon name="star"></ion-icon>&nbsp;
         <ion-icon name="star"></ion-icon>&nbsp;
@@ -39,7 +39,7 @@
       </p>
 
       <div class="wishlist">
-        <ion-fab-button color="transparent" (click)="wishListAdd()">
+        <ion-fab-button color="transparent" (click)="wishListAdd(Mydata.prod_productCode)">
           <ion-icon name="heart-outline" ></ion-icon>
         </ion-fab-button>
       </div>
@@ -69,9 +69,9 @@
       </div>
 
       <div class="price">
-        <p>R450.00</p>
+        <p>{{Mydata.prod_price}}</p>
         <p>
-          <ion-icon slot="start" name="add"></ion-icon> 1 <ion-icon slot="start" name="remove"></ion-icon>
+          <ion-icon slot="start" name="add"></ion-icon>{{Mydata.prod_quantity}}<ion-icon slot="start" name="remove"></ion-icon>
         </p>
       </div>
 

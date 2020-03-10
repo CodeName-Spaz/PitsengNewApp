@@ -77,7 +77,7 @@ export class SignUpPage implements OnInit {
         email: email,
       }
     };
-    this.navCtrl.navigateForward(['/edit-profile'], navigationExtras);
+    this.navCtrl.navigateForward(['/home'], navigationExtras);
   }
 
 async openLogin(){
