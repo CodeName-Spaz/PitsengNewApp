@@ -1,5 +1,5 @@
 <ion-content>
-  <div class="backBtn">
+  <div class="backBtn" (click)="popBack()">
     <ion-icon name="arrow-back"></ion-icon>
   </div>
   <div class="content-container">
@@ -41,14 +41,14 @@
           <ion-icon name="arrow-down"></ion-icon>
         </div>
       </div>
-      <div id="myOrders">
-        <div class="OrderCard" *ngFor="let li of Allorders, let item=index;">
+      <div id="myOrders" *ngFor="let ord of Allorders">
+        <div class="OrderCard" *ngFor="let prod of ord.info.product" (click)="trackOrder(ord.ref)">
           <div>
-            <img src="../../assets/imgs/514275.jpg" alt="">
+            <img src="{{prod.picture}}" alt="">
           </div>
           <div>
-            <p><ion-icon name="receipt-sharp"></ion-icon>{{li.ref}}</p>
-            <p id="date-puechase"> <b>Purchased on: </b> {{li.info.timestamp}}</p>
+            <p><ion-icon name="receipt-sharp"></ion-icon> {{ord.ref}}</p>
+            <p id="date-puechase"> <b>Purchased on: </b> {{ord.info.timestamp | date:"mediumDate"}}</p>
             <p id="date-puechase"> <b>Delivery: </b> 13/01/2020</p>
             <div id="tracker" (click)="viewOrder(li,'pending', item)">TRACK</div>
           </div>
@@ -62,14 +62,14 @@
           <ion-icon name="arrow-down"></ion-icon>
         </div>
       </div>
-      <div id="myHistory">
-        <div class="OrderCard">
+      <div id="myHistory" *ngFor="let hstry of orderHistory">
+        <div class="OrderCard" *ngFor="let prod of hstry.info.product" (click)="viewReciept(hstry.ref)">
           <div>
-            <img src="../../assets/imgs/514275.jpg" alt="">
+            <img src="{{prod.picture}}" alt="">
           </div>
           <div>
-            <p><ion-icon name="receipt-sharp"></ion-icon> DFSHKGSK345376</p>
-            <p id="date-puechase"> <b>Purchased on: </b> 13/01/2020</p>
+            <p><ion-icon name="receipt-sharp"></ion-icon>{{ord.ref}}</p>
+            <p id="date-puechase"> <b>Purchased on: </b> {{ord.info.timestamp | date:"mediumDate"}}</p>
             <p id="date-puechase"> <b>Delivery Date: </b> 13/01/2020</p>
             <!-- <div id="tracker">TRACK</div> -->
           </div>

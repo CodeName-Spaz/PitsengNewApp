@@ -26,6 +26,9 @@ export class ItemViewPage implements OnInit {
   dbWishlist = firebase.firestore().collection("Wishlist");
   category;
   onWish="heart-outline";
+  imageBack: any;
+  imageSide: any;
+  imageTop: any;
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
       this.prod_id = params["id"];
@@ -71,6 +74,9 @@ export class ItemViewPage implements OnInit {
       this.desc = doc.data().description;
       this.price = doc.data().price;
       this.category = doc.data().category;
+      this.imageBack = doc.data().imageBack;
+      this.imageSide = doc.data().imageSide;
+      this.imageTop = doc.data().imageTop;
     })
   
   }

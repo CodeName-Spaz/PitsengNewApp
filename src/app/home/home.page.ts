@@ -34,6 +34,9 @@ export class HomePage implements OnInit{
   visitCart() {
     this.navCtrl.navigateForward('cart');
   }
+  visitProfile() {
+    this.navCtrl.navigateForward('profile');
+  }
   viewProduct(val) {
     let navigationExtras: NavigationExtras = {
       queryParams: {

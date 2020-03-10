@@ -27,9 +27,9 @@ export class ProfilePage implements OnInit {
      uid: '',
      email: ''
     }
-    active:any;
-
-  constructor(public alertCtrl: AlertController, private router: Router, public navCtrl: NavController) {
+  
+    orderHistory = []
+  constructor(public alertCtrl: AlertController, private router: Router, public navCtrl : NavController) {
     if(firebase.auth().currentUser) {
       this.profile.email = firebase.auth().currentUser.email;
       this.uid = firebase.auth().currentUser.uid;
@@ -45,11 +45,11 @@ export class ProfilePage implements OnInit {
 
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        console.log('Got admin', user);
         this.admin.uid = user.uid
         this.admin.email = user.email
       this.getProfile();
       this.GetOrders();
+      this.getHistory();
       } else {
         console.log('no admin');
         
@@ -58,12 +58,11 @@ export class ProfilePage implements OnInit {
     // this.GetOrders();
   }
 
-
+  popBack() {
+    this.navCtrl.pop();
+  }
   getProfile(){
-
     firebase.firestore().collection('UserProfile').where('uid', '==', this.admin.uid).onSnapshot(snapshot => {
-      console.log('Profile details');
-      
       this.Profile=[]
       if (snapshot.empty) {
         this.isprofile = false;
@@ -162,10 +161,31 @@ export class ProfilePage implements OnInit {
     firebase.firestore().collection("Order").where('userID', '==', firebase.auth().currentUser.uid).onSnapshot((data) => {
       this.Allorders = [];
       data.forEach((item) => {
-        this.Allorders.push({ ref: item.id, info: item.data(), total: item.data() })
+        this.Allorders.push({ ref: item.id, info: item.data()})
       })
-      console.log("orders ", this.Allorders);
+      //  console.log("orders ", this.Allorders);
       
     })
+  }
+  viewReciept(id) {
+
+  }
+  getHistory() {
+    firebase.firestore().collection("orderHistory").where('userID', '==', firebase.auth().currentUser.uid).onSnapshot((data) => {
+      this.orderHistory = [];
+      data.forEach((item) => {
+        this.orderHistory.push({ ref: item.id, info: item.data()})
+      })
+      //  console.log("orders ", this.Allorders);
+      
+    })
+  }
+  trackOrder(id){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        id: id,
+      }
+    };
+    this.navCtrl.navigateForward(['order-tracking'], navigationExtras)
   }
 }
