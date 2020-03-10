@@ -108,6 +108,24 @@ export class ProfilePage implements OnInit {
     // console.log("orders: " + this.ordersOpen);
     
   }
+
+  viewOrder(item, name,i){
+    console.log("GGH ", item, name, i);
+
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        image: item.info.image,
+        product_name: item.info.product_name,
+        cost: item.info.cost,
+        size: item.info.size
+      }
+    };
+    this.navCtrl.navigateForward(['/order-tracking'], navigationExtras);
+  
+    
+    // this.router.navigateByUrl('/order-tracking')
+  }
+
   toggleHistory(){
     
     var myArrow = document.getElementById("history-arrow");
@@ -143,7 +161,7 @@ export class ProfilePage implements OnInit {
     })
   }
   viewReciept(id) {
-    
+
   }
   getHistory() {
     firebase.firestore().collection("orderHistory").where('userID', '==', firebase.auth().currentUser.uid).onSnapshot((data) => {

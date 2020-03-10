@@ -50,7 +50,7 @@
             <p><ion-icon name="receipt-sharp"></ion-icon> {{ord.ref}}</p>
             <p id="date-puechase"> <b>Purchased on: </b> {{ord.info.timestamp | date:"mediumDate"}}</p>
             <p id="date-puechase"> <b>Delivery: </b> 13/01/2020</p>
-            <!-- <div id="tracker">TRACK</div> -->
+            <div id="tracker" (click)="viewOrder(li,'pending', item)">TRACK</div>
           </div>
         </div>
       </div>
