@@ -46,10 +46,7 @@ export class EditProfilePage implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this. getProfile();
-    }, 100);
-    
+    this.getProfile();
   }
 
   createAccount() {
@@ -70,27 +67,27 @@ export class EditProfilePage implements OnInit {
   }
 
   getProfile() {
-    this.db.collection('UserProfile').where('uid', '==', firebase.auth().currentUser.uid).onSnapshot(snapshot => {
-      if (snapshot.empty) {
+    this.db.collection('UserProfile').doc(firebase.auth().currentUser.uid).onSnapshot(snapshot => {
+      // if (snapshot.empty) {
+      //   this.isprofile = false;
+      //   console.log("No is not Profile");
+
+      // } else {
         this.isprofile = false;
-        console.log("No is not Profile");
-        
-      } else {
-        this.isprofile = false;
-        snapshot.forEach(doc => {
-          this.profile.address = doc.data().address;
-          this.profile.image = doc.data().image
-          this.profile.name = doc.data().name
-          this.profile.number = doc.data().number
-          this.profile.email = doc.data().email
+        // snapshot.forEach(doc => {
+          this.profile.address = snapshot.data().address;
+          this.profile.image = snapshot.data().image
+          this.profile.name = snapshot.data().name
+          this.profile.number = snapshot.data().number
+          this.profile.email = snapshot.data().email
           // this.profile.streetAddress = doc.data().streetAddress;
           // this.profile.city = doc.data().city;
           // this.profile.code = doc.data().code
-          console.log("Yes is Profile");
-          
+          // console.log("Yes is Profile");
 
-        })
-      }
+
+        // })
+      // }
     })
     ////
     //////
