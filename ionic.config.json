@@ -1,5 +1,7 @@
 {
   "name": "PitsengAppRedo",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
