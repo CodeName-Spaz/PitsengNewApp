@@ -18,7 +18,7 @@ export class AppComponent {
     private router : Router
   ) {
     this.initializeApp();
-    this.checkUser();
+    // this.checkUser();
   }
 
   initializeApp() {
@@ -38,7 +38,7 @@ export class AppComponent {
           this.router.navigateByUrl('login')
         }
       })
-    }, 0);
+    }, 3000);
 
   }
 }

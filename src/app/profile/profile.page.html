@@ -42,15 +42,15 @@
         </div>
       </div>
       <div id="myOrders">
-        <div class="OrderCard">
+        <div class="OrderCard" *ngFor="let li of Allorders, let item=index;">
           <div>
             <img src="../../assets/imgs/514275.jpg" alt="">
           </div>
           <div>
-            <p><ion-icon name="receipt-sharp"></ion-icon> DFSHKGSK345376</p>
-            <p id="date-puechase"> <b>Purchased on: </b> 13/01/2020</p>
+            <p><ion-icon name="receipt-sharp"></ion-icon>{{li.ref}}</p>
+            <p id="date-puechase"> <b>Purchased on: </b> {{li.info.timestamp}}</p>
             <p id="date-puechase"> <b>Delivery: </b> 13/01/2020</p>
-            <!-- <div id="tracker">TRACK</div> -->
+            <div id="tracker" (click)="viewOrder(li,'pending', item)">TRACK</div>
           </div>
         </div>
       </div>

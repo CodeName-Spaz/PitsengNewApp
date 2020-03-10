@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
-import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { AlertController, NavController } from '@ionic/angular';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -27,9 +27,9 @@ export class ProfilePage implements OnInit {
      uid: '',
      email: ''
     }
-  
+    active:any;
 
-  constructor(public alertCtrl: AlertController, private router: Router) {
+  constructor(public alertCtrl: AlertController, private router: Router, public navCtrl: NavController) {
     if(firebase.auth().currentUser) {
       this.profile.email = firebase.auth().currentUser.email;
       this.uid = firebase.auth().currentUser.uid;
@@ -109,6 +109,24 @@ export class ProfilePage implements OnInit {
     // console.log("orders: " + this.ordersOpen);
     
   }
+
+  viewOrder(item, name,i){
+    console.log("GGH ", item, name, i);
+
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        image: item.info.image,
+        product_name: item.info.product_name,
+        cost: item.info.cost,
+        size: item.info.size
+      }
+    };
+    this.navCtrl.navigateForward(['/order-tracking'], navigationExtras);
+  
+    
+    // this.router.navigateByUrl('/order-tracking')
+  }
+
   toggleHistory(){
     
     var myArrow = document.getElementById("history-arrow");
