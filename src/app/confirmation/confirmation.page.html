@@ -10,12 +10,21 @@
       </div>
 
       <div class="items">
-        <table>
-          <tr>
+        <table >
+          <div *ngFor="let prod of prodCart">
+             <tr *ngFor="let item of prod.data.product">
+            <td>{{item.product_name}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.cost | currency:"R"}}</td>
+          </tr>
+          </div>
+         
+          <!-- <tr>
             <td>name</td>
             <td>1</td>
             <td>R 456.00</td>
           </tr>
+
           <tr>
             <td>name</td>
             <td>1</td>
@@ -32,14 +41,8 @@
             <td>name</td>
             <td>1</td>
             <td>R 456.00</td>
-          </tr>
+          </tr> -->
 
-          <tr>
-            <td>name</td>
-            <td>1</td>
-            <td>R 456.00</td>
-          </tr>
-          
         </table>
       </div>
       <div class="delivery-container">
@@ -57,24 +60,25 @@
       </div>
       <div class="total">
         <div>Total Amount:</div>
-        <div>R400.00</div>
+        <div *ngIf="delType==='Delivery'">{{Delivery(getTotal()) | currency:'R'}}</div>
+        <div *ngIf="delType==='Collection'">{{notDelivery(getTotal()) | currency:'R'}}</div>
       </div>
 
       <div class="reference">
-        <p> Your reference for this transaction is <b>PITSENG 23285</b>, please use it to deposit the amount due</p>
+        <p> Your reference for this transaction is on your <b>Profile</b> under pending orders, please use it to deposit the amount due</p>
       </div>
 
       <div class="banking_details">
-        <p >Deposit Amount to:</p>
+        <p>Deposit Amount to:</p>
         <p><b>Pitseng Arts and Crafts</b> <br>
           Bank Name: Capitec Back <br>
-          Account Number:  173525554<br>
+          Account Number: 173525554<br>
           Branch Name: Soweto <br>
           Branch Code: 47100 </p>
       </div>
     </div>
     <div class="buttons">
-      <ion-button color="transparent">
+      <ion-button (click)="goHome()" color="transparent">
         DONE
       </ion-button>
     </div>

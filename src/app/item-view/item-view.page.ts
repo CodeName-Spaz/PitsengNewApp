@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { NavController, ToastController, AlertController } from '@ionic/angular';
+import * as firebase from 'firebase';
 @Component({
   selector: 'app-item-view',
   templateUrl: './item-view.page.html',
@@ -11,13 +12,24 @@ export class ItemViewPage implements OnInit {
   prod_id : string;
   prod_name;
   prod_image;
-  constructor(public route: ActivatedRoute) {
+  sizes = [];
+  desc;
+  quantity: number = 1;
+  price;
+  my_size: string = "";
+  sizeIndex = null;
+  dbCart = firebase.firestore().collection("Cart");
+  dbWishlist = firebase.firestore().collection("Wishlist");
+  category;
+  constructor(public route: ActivatedRoute, public navCtrl : NavController, public toastCtrl: ToastController, public alertCtrl : AlertController) {
     this.route.queryParams.subscribe(params => {
       this.prod_id = params["id"];
       this.prod_name = params["name"];
       this.prod_image = params["image"];
-      
-    console.log("rrrrrrrrrr", this.prod_id);
+      this.sizes = params["sizes"];
+      this.desc = params["description"];
+      this.price = params["price"];
+      this.category = params["category"];
     })
     
   }
@@ -28,8 +40,142 @@ export class ItemViewPage implements OnInit {
   segmentChanged(ev: any) {
     console.log('Segment changed', ev)
   }
+  getTotal() {
+    let total = 0;
+    // for (let i = 0; i < this.prodCart.length; i++) {
+      // let product = this.prodCart[i].data.product;
+      // console.log(product);
+      // product.forEach((item) => {
+        total += this.price * this.quantity
+      // })
+      //
+    // }
+    //console.log('My tot ', total);
 
-  wishListAdd(){
+    return total;
+  }
+  visitWish() {
+    this.navCtrl.navigateForward('wish-list');
+  }
+  visitCart() {
+    this.navCtrl.navigateForward('cart');
+  }
+  sizeChosen( data, index) {
+    // console.log("event ", ev);
+ /*    if (ev.detail.checked === true) {
+      this.myArr.push(data)
+      
+    } else {
+      this.myArr.splice(this.myArr.indexOf(data), 1);
+      
+      
+    } */
     
+    this.sizeIndex = index
+    this.my_size = data;
+    console.log('MY size ', this.my_size);
+  }
+  plus() {
+    this.quantity += 1
+  }
+  minus() {
+    if (this.quantity <= 1) {
+      this.toastController('Quantity must be positive')
+    } else {
+      this.quantity -= 1
+    }
+  }
+  async toastController(message) {
+    let toast = await this.toastCtrl.create({ message: message, duration: 2000 });
+    return toast.present();
+  }
+  
+  addToCart() {
+    setTimeout(() => {
+      firebase.auth().onAuthStateChanged((res) => {
+        if (res) {
+          let descr = "";
+          if (this.my_size === "") {
+            descr = "size"
+          }
+          if (this.my_size === "") {
+            this.toastController('Missing selection of ' + descr);
+          } else {
+            this.dbCart.add({
+              customerUID: firebase.auth().currentUser.uid, timestamp: new Date().getTime(), product: [{
+                product_name: this.prod_name, size: this.my_size,
+                quantity: this.quantity, cost: this.price, picture: this.prod_image,
+                prod_id: this.prod_id
+              }]
+            }).then(() => {
+              this.sizeIndex = null;
+              this.quantity = 1;
+              this.toastController('Added to basket')
+            })
+          }
+        } else {
+          // this.alertView = this.localSt.retrieve('alertShowed');
+          this.presentAlertConfirm1();
+        }
+      })
+    }, 0);
+  }
+  async presentAlertConfirm1() {
+    const alert = await this.alertCtrl.create({
+      header: 'Message',
+      message: 'Please Sign-in',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            // this.alertView = true;
+            // this.localSt.store('alertShowed', this.alertView);
+          }
+        }, {
+          text: 'Sign In',
+          handler: () => {
+            // this.alertView = true;
+            // this.localSt.store('alertShowed', this.alertView);
+            this.navCtrl.navigateForward('login');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+  wishListAdd(){
+    setTimeout(() => {
+      firebase.auth().onAuthStateChanged((res) => {
+        if (res) {
+          // this.heartIndex = index;
+          this.dbWishlist.doc(this.prod_id).get().then((res) => {
+            if (res.exists == true) {
+              this.dbWishlist.doc(this.prod_id).delete().then((res) => {
+                // this.myProduct[index].wish = 'heart-empty';
+                this.toastController('Removed from wishlist..');
+              })
+            } else {
+              this.dbWishlist.doc(this.prod_id).set({
+                customerUID: firebase.auth().currentUser.uid, price: this.price,
+                image: this.prod_image, name: this.prod_name, id: this.prod_id, category: this.category,
+              }).then(() => {
+                // this.myProduct[index].wish = 'heart';
+                this.toastController('Added to wishlist..');
+              })
+            }
+          })
+        } else {
+          // this.alertView = this.localSt.retrieve('alertShowed');
+          this.presentAlertConfirm1();
+        }
+      })
+    }, 0);
+  }
+ 
+  popBack() {
+    this.navCtrl.pop();
   }
 }

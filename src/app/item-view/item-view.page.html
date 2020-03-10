@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border" translucent="true">
   <ion-toolbar translucent="true">
     <ion-buttons slot="start">
-      <ion-button>
+      <ion-button (click)="popBack()">
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
       <p>{{prod_name}}</p>
@@ -9,12 +9,12 @@
 
     <ion-buttons slot="end">
 
-      <ion-button class="notification">
-        <ion-icon slot="icon-only" name="heart"></ion-icon>
+      <ion-button class="notification" (click)="visitWish()">
+        <ion-icon slot="icon-only" name="heart" ></ion-icon>
         <span class="badge"></span>
       </ion-button>
 
-      <ion-button class="notification">
+      <ion-button class="notification" (click)="visitCart()">
         <ion-icon slot="icon-only" name="basket"></ion-icon>
         <span class="badge"></span>
       </ion-button>
@@ -53,31 +53,29 @@
         </div>
 
         <div class="btnz">
-          <ion-button color="transparent">
-            S
+          <ion-button color="transparent" *ngFor="let s of sizes; let i = index" (click)="sizeChosen(s, i)" [ngClass]="{'sizeStyle':sizeIndex==i}">
+            {{s}}
           </ion-button>
 
-          <ion-button color="transparent">
+          <!-- <ion-button color="transparent">
             M
           </ion-button>
 
           <ion-button color="transparent">
             L
-          </ion-button>
+          </ion-button> -->
         </div>
 
       </div>
 
       <div class="price">
-        <p>R450.00</p>
+        <p>{{price | currency:"R"}}</p>
         <p>
-          <ion-icon slot="start" name="add"></ion-icon> 1 <ion-icon slot="start" name="remove"></ion-icon>
+          <ion-icon slot="start" (click)="plus()" name="add"></ion-icon> {{quantity}} <ion-icon slot="start" (click)="minus()" name="remove"></ion-icon>
         </p>
       </div>
 
-      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci modi doloremque id
-        architecto atque hic sequi ullam reiciendis praesentium optio, repellendus consectetur
-        ducimus rerum quo cum blanditiis minima provident eveniet?</p>
+      <p>{{desc}}</p>
 
       <p><span>Shipping Information</span><br>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem eum sit maxime temporibus
@@ -147,8 +145,8 @@
 
 
     <div class="add" >
-      <ion-button color="transparent">
-        ADD TO BAG
+      <ion-button color="transparent" (click)="addToCart()">
+        ADD TO BAG {{getTotal() | currency:"R"}}
       </ion-button>
     </div>
   </div>

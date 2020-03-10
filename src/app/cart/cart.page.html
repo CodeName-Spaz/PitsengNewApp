@@ -7,39 +7,39 @@
   </ion-fab>
 <ion-content fullscreen>
 <div class="main-content">
-  <div class="container">
-    <ion-list>
-      <div class="order-list">
-        <div class="image-container">
-          <img src="https://i.pinimg.com/564x/fe/0d/b5/fe0db54acfbd94d56dff811c71c3fd70.jpg" alt="">
+  <div class="container" >
+    <ion-list *ngFor="let cp of prodCart; let i of index">
+      <div class="order-list" *ngFor="let prod of cp.data.product">
+        <div class="image-container" >
+          <img src="{{prod.picture}}" alt="">
         </div>
         <div class="item-description">
           <div class="last-div">
             <div class="name">
-              <ion-label>Pokémon Yellow</ion-label>
+              <ion-label>{{prod.product_name}}</ion-label>
             </div>
-            <div>
+            <div (click)="removeProd(cp.id)">
                 <ion-icon name="trash" color="primary"></ion-icon>
             </div>
           </div>
           <div class="price">
-            <ion-label>R 4567.00</ion-label>
+            <ion-label>{{prod.cost | currency:"R"}}</ion-label>
           </div>
           <div class="last-div">
             <div class="size">
-              <ion-label>Size: S</ion-label>
+              <ion-label>Size: {{prod.size}}</ion-label>
             </div>
          
           </div>
           <div class="quantity">
             <div>
-                <ion-icon name="add-circle-outline" color="secondaryColor" (click)="increment(j)"></ion-icon> <ion-label>  {{currentNumber}} </ion-label>
-              <ion-icon name="remove-circle-outline"  color="secondaryColor" (click)="decrement(j)"></ion-icon>
+                <ion-icon name="add-circle-outline" color="secondaryColor" (click)="plus(prod, i)"></ion-icon> <ion-label>  {{prod.quantity}} </ion-label>
+              <ion-icon name="remove-circle-outline"  color="secondaryColor" (click)="minus(prod, i)"></ion-icon>
             </div>
           </div>
         </div>
       </div>
-      <div class="order-list">
+      <!-- <div class="order-list">
         <div class="image-container">
           <img src="https://i.pinimg.com/564x/c3/da/f7/c3daf7acc13ec2dd2d82d9a968d56fa7.jpg" alt="">
         </div>
@@ -75,8 +75,8 @@
             </div>
           </div>
         </div>
-     </div>
-      <div class="order-list">
+     </div> -->
+      <!-- <div class="order-list">
         <div class="image-container">
           <img src="https://i.pinimg.com/564x/d8/01/f9/d801f95ec37ebdd439ca3a9298197ef4.jpg" alt="">
         </div>
@@ -105,20 +105,21 @@
             </div>
           </div>
         </div>
-      </div> 
-      <div class="total" >
+      </div>  -->
+     
+    </ion-list>
+     <div class="total" >
         <div >
           <ion-label class="total-title" >Total Amount:</ion-label>
         </div>
         <div>
-          <ion-title>R 2394.00</ion-title>
+          <ion-title>{{getTotal() | currency:'R'}}</ion-title>
         </div>
       </div>
       <div class="buttons" >
-        <ion-button color="primary" > Place Order</ion-button>
+        <ion-button color="primary" (click)="confirmOrder()"> Place Order</ion-button>
         <ion-button fill="clear" class="button2" > continue Shopping</ion-button>
       </div>
-    </ion-list>
   </div>
 </div>
 </ion-content>
