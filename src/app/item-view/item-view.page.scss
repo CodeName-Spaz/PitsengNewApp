@@ -58,6 +58,7 @@ ion-toolbar {
       ion-icon{
         font-size: 20px;
        color: rgb(206, 169, 7) !important;
+       z-index: 9999999;
       }
     }
 
@@ -65,6 +66,7 @@ ion-toolbar {
       position: absolute;
       bottom: -25px;
       right: 10px;
+      z-index: 9999999;
       ion-fab-button {
         border: 1px solid rgb(170, 170, 170);
         border-radius: 50%;
@@ -84,6 +86,7 @@ ion-toolbar {
     .sizes {
       display: flex;
       flex-flow: row;
+      z-index: 999999999999999;
 
       .btnz {
         display: flex;

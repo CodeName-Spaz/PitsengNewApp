@@ -30,7 +30,7 @@
   <div class='container'>
     <div class="image">
       <!-- <img src="{{prod_image}}" alt=""> -->
-      <ion-slides style="height: 45vh;">
+      <ion-slides style="height: 45vh; z-index: 1;">
 
         <ion-slide>
           <img src="{{prod_image}}"/>
@@ -49,6 +49,11 @@
         </ion-slide>
       </ion-slides>
       <p class="starz">
+
+        <!-- <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
+            defaultColor="#D3D3D3" readonly="true" rating="{{item.rating}}" fontSize="32px"
+            (ratingChanged)="logRatingChange($event)"> -->
+          <!-- </ionic4-star-rating> -->
         <ion-icon name="star"></ion-icon>&nbsp;
         <ion-icon name="star"></ion-icon>&nbsp;
         <ion-icon name="star"></ion-icon>&nbsp;
@@ -147,13 +152,16 @@
       <!-- <p>Rate this product</p> -->
       <p class="starz1">
         Rate this product <br>
-        <ion-icon name="star-outline"></ion-icon>&nbsp;
-        <ion-icon name="star-outline"></ion-icon>&nbsp;
-        <ion-icon name="star-outline"></ion-icon>&nbsp;
-        <ion-icon name="star-outline"></ion-icon>&nbsp;
-        <ion-icon name="star-outline"></ion-icon> <br>
 
-        
+
+        <ion-icon name="star-outline" (click)="star(1, uid, productCode)"></ion-icon>&nbsp;
+        <ion-icon name="star-outline" (click)="star(2, uid, productCode)"></ion-icon>&nbsp;
+        <ion-icon name="star-outline" (click)="star(3, uid, productCode)"></ion-icon>&nbsp;
+        <ion-icon name="star-outline" (click)="star(4, uid, productCode)"></ion-icon>&nbsp;
+        <ion-icon name="star-outline" (click)="star(5, uid, productCode)"></ion-icon> <br>
+
+    
+
       <ion-button color="transparent">
         RATE
       </ion-button>
