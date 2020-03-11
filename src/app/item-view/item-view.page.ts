@@ -29,6 +29,7 @@ export class ItemViewPage implements OnInit {
   imageBack: any;
   imageSide: any;
   imageTop: any;
+  similarItems = [];
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
       this.prod_id = params["id"];
@@ -42,7 +43,10 @@ export class ItemViewPage implements OnInit {
   }
 
   ngOnInit() {
-    this.getProduct();
+    this.getProduct(this.prod_id);
+    setTimeout(() => {
+      this.mostViewed();
+    }, 1000);
     // this.activatedRouter.queryParams.subscribe(params =>{
     //   this.Mydata.prod_id = params["id"];
     //   this.Mydata.prod_name = params["name"];
@@ -65,8 +69,16 @@ export class ItemViewPage implements OnInit {
     // this.wishItemCount = this.cartService.getWishItemCount();
     // this.cartItemCount = this.cartService.getCartItemCount();
   }
-  getProduct() {
-    this.dbProduct.doc(this.prod_id).onSnapshot((doc) => {
+  mostViewed() {
+    this.dbProduct.orderBy('viewed','desc').onSnapshot((res)=>{
+      this.similarItems = [];
+      res.forEach((doc)=>{
+          this.similarItems.push({info:doc.data() , id : doc.id});
+      })
+    })
+  }
+  getProduct(id) {
+    this.dbProduct.doc(id).onSnapshot((doc) => {
       this.prod_image = doc.data().image;
       this.prod_name = doc.data().name;
       // this.prod_image = params["image"];
@@ -78,7 +90,6 @@ export class ItemViewPage implements OnInit {
       this.imageSide = doc.data().imageSide;
       this.imageTop = doc.data().imageTop;
     })
-
   }
   getWishItems() {
     firebase.auth().onAuthStateChanged((user) => {
