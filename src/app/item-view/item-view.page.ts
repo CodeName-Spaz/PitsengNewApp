@@ -70,10 +70,15 @@ export class ItemViewPage implements OnInit {
     // this.cartItemCount = this.cartService.getCartItemCount();
   }
   mostViewed() {
-    this.dbProduct.orderBy('viewed','desc').onSnapshot((res)=>{
+    this.dbProduct.orderBy('viewed','desc').limit(4).onSnapshot((res)=>{
       this.similarItems = [];
       res.forEach((doc)=>{
-          this.similarItems.push({info:doc.data() , id : doc.id});
+        if (doc.data().viewed) {
+           this.similarItems.push({info:doc.data() , id : doc.id});
+        } else {
+          console.log("No viewed");
+          
+        }
       })
     })
   }
@@ -102,13 +107,23 @@ export class ItemViewPage implements OnInit {
               this.onWish = "heart-outline";
             }
           } else {
-            console.log("No items found");
+            // console.log("No items found");
 
           }
         })
       } 
     })
 
+  }
+  visitProfile() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.navCtrl.navigateForward('profile');
+      } else {
+        this.presentAlertConfirm1();
+      }
+    })
+    
   }
   segmentChanged(ev: any) {
     console.log('Segment changed', ev)

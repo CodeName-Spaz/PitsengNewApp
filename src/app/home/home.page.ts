@@ -10,6 +10,8 @@ import { NavigationExtras } from '@angular/router';
 })
 export class HomePage implements OnInit{
   dbProduct = firebase.firestore().collection('Products');
+  dbCart = firebase.firestore().collection("Cart");
+  dbWishlist = firebase.firestore().collection('Wishlist');
   myProduct = [];
   val = '';
   constructor(public navCtrl: NavController, public alertCtrl : AlertController) {}
@@ -31,7 +33,14 @@ export class HomePage implements OnInit{
   visitWish() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.navCtrl.navigateForward('wish-list');
+        this.dbWishlist.where('customerUID', '==', user.uid).onSnapshot((info) => {
+          if (info.size==0) {
+            this.presentAlert('Wishlist');
+          } else {
+            this.navCtrl.navigateForward('wish-list');
+          }
+        })
+        
       } else {
         this.presentAlertConfirm1();
       }
@@ -68,11 +77,37 @@ export class HomePage implements OnInit{
   visitCart() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.navCtrl.navigateForward('cart');
+        this.dbCart.where('customerUID', '==', user.uid).onSnapshot((info) => {
+          if (info.size==0) {
+            this.presentAlert('Cart');
+          } else {
+            this.navCtrl.navigateForward('cart');
+          }
+        })
+        
       } else {
         this.presentAlertConfirm1();
       }
     })
+  }
+  async presentAlert(name) {
+    const alert = await this.alertCtrl.create({
+      header: name + ' empty',
+      message: 'Please view our new products and add to ' + name.toLowerCase(),
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            // this.alertView = true;
+            // this.localSt.store('alertShowed', this.alertView);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
   visitProfile() {
     firebase.auth().onAuthStateChanged((user) => {
