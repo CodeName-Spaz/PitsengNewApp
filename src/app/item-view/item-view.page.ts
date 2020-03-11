@@ -15,6 +15,7 @@ export class ItemViewPage implements OnInit {
   dbProduct = firebase.firestore().collection('Products');
   reviews = [];
   ratingTotal;
+  ratingTotalTotal;
   avgRating;
   value
   yudsegment: string;
@@ -93,8 +94,9 @@ export class ItemViewPage implements OnInit {
 
   star(num, uid, code) {
     console.log('hh', num, code)
+    // console.log(code);
 
-    firebase.firestore().collection('Reviews').where('uid', '==', uid || 'productCode', ).onSnapshot(snapshot => {
+    firebase.firestore().collection('Reviews').where('uid', '==', uid).where('productCode', '==', code).onSnapshot(snapshot => {
       if(snapshot.size > 0) {
          console.log('update');
          
@@ -104,7 +106,7 @@ export class ItemViewPage implements OnInit {
       Rating: num,
       uid: uid
     }, {merge : true})
-    this.getRatings()
+    this.getRatings(code)
       }
     });
    
@@ -125,21 +127,23 @@ export class ItemViewPage implements OnInit {
     })
   }
 
-  getRatings(){
+  getRatings(code){
 
-    firebase.firestore().collection('Reviews').where('productCode','==', this.productCode).onSnapshot(snapshot => {
+    firebase.firestore().collection('Reviews').where('productCode', '==', code).onSnapshot(snapshot => {
       this.reviews = [];
       snapshot.forEach(doc =>{
-        console.log('Document : ', doc.data().image);
-        
-        this.ratingTotal += parseInt(doc.data().rating);
+        console.log(doc.data());
+        // this.ratingTotal = +this.ratingTotal + +parseInt(doc.data().Rating);
+        this.ratingTotal = +parseFloat(doc.data().Rating);
        this.reviews.push(doc.data());
-       console.log("ratings ",  this.reviews);
+       
+      //  console.log("ratings ",  this.ratingTotal);
       })
-      this.avgRating = this.ratingTotal / this.reviews.length;
+      console.log("ratings ",  this.ratingTotal);
+      // this.avgRating = this.ratingTotal / this.reviews.length;
       
-      
-
+      this.ratingTotalTotal += parseFloat(this.ratingTotal);
+      console.log("ratings Total ",  this.ratingTotalTotal);
   })
 }
   getWishItems() {
