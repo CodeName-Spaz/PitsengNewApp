@@ -39,21 +39,21 @@
       <div class="order-range">
       <div>
       <div class="custom-button" (click)="toggleOrders()">
-        <div>Orders</div>
+        <div>Orders {{Allorders.length}}</div>
         <div id="orders-arrow">
           <ion-icon name="arrow-down"></ion-icon>
         </div>
       </div>
-      <div id="myOrders" *ngFor="let ord of Allorders">
-        <div class="OrderCard" *ngFor="let prod of ord.info.product" (click)="trackOrder(ord.ref)">
+      <div id="myOrders" >
+        <div class="OrderCard" *ngFor="let ord of Allorders; let i = index">
           <div>
-            <img src="{{prod.picture}}" alt="">
+            <img src="../../assets/shapes.svg" alt="">
           </div>
           <div>
             <p><ion-icon name="receipt-sharp"></ion-icon> {{ord.ref}}</p>
             <p id="date-puechase"> <b>Purchased on: </b> {{ord.info.timestamp | date:"mediumDate"}}</p>
             <p id="date-puechase"> <b>Delivery: </b> 13/01/2020</p>
-            <div id="tracker" (click)="viewOrder(prod)">TRACK</div>
+            <div id="tracker" (click)="trackOrder(ord.ref)">TRACK</div>
           </div>
         </div>
       </div>
@@ -65,16 +65,16 @@
           <ion-icon name="arrow-down"></ion-icon>
         </div>
       </div>
-      <div id="myHistory" *ngFor="let hstry of orderHistory">
-        <div class="OrderCard" *ngFor="let prod of hstry.info.product" (click)="viewReciept(hstry.ref)">
+      <div id="myHistory" >
+        <div class="OrderCard" *ngFor="let hstry of orderHistory" >
           <div>
-            <img src="{{prod.picture}}" alt="">
+            <img src="../../assets/shapes.svg" alt="">
           </div>
           <div>
-            <p><ion-icon name="receipt-sharp"></ion-icon>{{ord.ref}}</p>
-            <p id="date-puechase"> <b>Purchased on: </b> {{ord.info.timestamp | date:"mediumDate"}}</p>
+            <p><ion-icon name="receipt-sharp"></ion-icon>{{hstry.ref}}</p>
+            <p id="date-puechase"> <b>Purchased on: </b> {{hstry.info.timestamp | date:"mediumDate"}}</p>
             <p id="date-puechase"> <b>Delivery Date: </b> 13/01/2020</p>
-            <!-- <div id="tracker">TRACK</div> -->
+            <div id="tracker" (click)="viewReciept(hstry.ref)">TRACK</div>
           </div>
         </div>
       </div>
