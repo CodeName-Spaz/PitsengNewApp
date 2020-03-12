@@ -21,7 +21,14 @@ ion-toolbar {
     color: white;
   }
 }
-
+.sizeStyle {
+  background: rgba(175, 175, 175, 0.712);
+  border: 2px solid rgb(146, 146, 146);
+  color: white;
+  ion-button {
+    color: white;
+  }
+}
 .container {
   display: flex;
   flex-flow: column;

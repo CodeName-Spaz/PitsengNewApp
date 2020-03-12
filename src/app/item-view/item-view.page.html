@@ -34,24 +34,24 @@
 <ion-header class="ion-no-border" translucent="true" id="mobile">
   <ion-toolbar translucent="true">
     <ion-buttons slot="start">
-      <ion-button>
+      <ion-button (click)="popBack()">
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
-      <p>White Pendant Lamp</p>
+      <p>{{prod_name}}</p>
     </ion-buttons>
 
     <ion-buttons slot="end">
 
-      <ion-button class="notification">
-        <ion-icon slot="icon-only" name="heart"></ion-icon>
+      <ion-button class="notification" (click)="visitWish()">
+        <ion-icon slot="icon-only" name="heart" ></ion-icon>
         <span class="badge"></span>
       </ion-button>
 
-      <ion-button class="notification">
+      <ion-button class="notification" (click)="visitCart()">
         <ion-icon slot="icon-only" name="basket"></ion-icon>
         <span class="badge"></span>
       </ion-button>
-      <ion-button color="secondary">
+      <ion-button color="secondary" (click)="visitProfile()">
         <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -62,7 +62,25 @@
 
   <div class='container'>
     <div class="image">
-      <img src="https://i.pinimg.com/564x/fe/0d/b5/fe0db54acfbd94d56dff811c71c3fd70.jpg" alt="">
+      <!-- <img src="{{prod_image}}" alt=""> -->
+      <ion-slides style="height: 45vh;">
+
+        <ion-slide>
+          <img src="{{prod_image}}"/>
+        </ion-slide>
+
+        <ion-slide>
+          <img src="{{imageTop}}"/>
+        </ion-slide>
+
+        <ion-slide>
+          <img src="{{imageSide}}"/>
+        </ion-slide>
+
+        <ion-slide>
+          <img src="{{imageTop}}"/>
+        </ion-slide>
+      </ion-slides>
       <p class="starz">
         <ion-icon name="star"></ion-icon>&nbsp;
         <ion-icon name="star"></ion-icon>&nbsp;
@@ -72,8 +90,9 @@
       </p>
 
       <div class="wishlist">
-        <ion-fab-button color="transparent">
-          <ion-icon name="heart-outline"></ion-icon>
+        <ion-fab-button color="transparent" (click)="wishListAdd()">
+          <ion-icon name="{{onWish}}"></ion-icon>
+          <!-- <ion-icon name="heart"></ion-icon> -->
         </ion-fab-button>
       </div>
     </div>
@@ -86,31 +105,29 @@
         </div>
 
         <div class="btnz">
-          <ion-button color="transparent">
-            S
+          <ion-button color="transparent" *ngFor="let s of sizes; let i = index" (click)="sizeChosen(s, i)" [ngClass]="{'sizeStyle':sizeIndex==i}">
+            {{s}}
           </ion-button>
 
-          <ion-button color="transparent">
+          <!-- <ion-button color="transparent">
             M
           </ion-button>
 
           <ion-button color="transparent">
             L
-          </ion-button>
+          </ion-button> -->
         </div>
 
       </div>
 
       <div class="price">
-        <p>R450.00</p>
+        <p>{{price | currency:"R"}}</p>
         <p>
-          <ion-icon slot="start" name="add"></ion-icon> 1 <ion-icon slot="start" name="remove"></ion-icon>
+          <ion-icon slot="start" (click)="plus()" name="add"></ion-icon> {{quantity}} <ion-icon slot="start" (click)="minus()" name="remove"></ion-icon>
         </p>
       </div>
 
-      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci modi doloremque id
-        architecto atque hic sequi ullam reiciendis praesentium optio, repellendus consectetur
-        ducimus rerum quo cum blanditiis minima provident eveniet?</p>
+      <p>{{desc}}</p>
 
       <p><span>Shipping Information</span><br>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem eum sit maxime temporibus
@@ -138,26 +155,26 @@
       </ion-segment>
 
     </div>
+    
+    <div class="segment_slides" [ngSwitch] ="yudsegment">
+    <div class="pictures" *ngSwitchCase = "'like'">
+      <div class="image1" *ngFor="let items of similarItems">
+        <img src="{{items.info.image}}" alt="" >
+      </div>
 
-    <div class="segment_slides" [ngSwitch]="yudsegment">
-      <div class="pictures" *ngSwitchCase="'like'">
-        <div class="image1">
-          <img src="https://i.pinimg.com/564x/c3/da/f7/c3daf7acc13ec2dd2d82d9a968d56fa7.jpg" alt="">
-        </div>
+     <!--  <div class="image1">
+        <img src="https://i.pinimg.com/564x/d8/01/f9/d801f95ec37ebdd439ca3a9298197ef4.jpg" alt="">
+      </div>
 
         <div class="image1">
           <img src="https://i.pinimg.com/564x/d8/01/f9/d801f95ec37ebdd439ca3a9298197ef4.jpg" alt="">
         </div>
 
-        <div class="image1">
-          <img src="https://i.pinimg.com/564x/c5/aa/fa/c5aafa1f88a3b17dcfd7cd42cc14dd71.jpg" alt="">
-        </div>
-
-
-        <div class="image1">
-          <img src="https://i.pinimg.com/564x/ed/c8/be/edc8be711eca77eb40aa31101ccf0028.jpg" alt="">
-        </div>
-      </div>
+      
+      <div class="image1">
+        <img src="https://i.pinimg.com/564x/ed/c8/be/edc8be711eca77eb40aa31101ccf0028.jpg" alt="">
+      </div> -->
+    </div>
 
       <div class="reviewz" *ngSwitchCase="'review'">
         <p class="starz1">
@@ -177,9 +194,9 @@
     </div>
 
 
-    <div class="add">
-      <ion-button color="transparent">
-        ADD TO BAG
+    <div class="add" >
+      <ion-button color="transparent" (click)="addToCart()">
+        ADD TO BAG {{getTotal() | currency:"R"}}
       </ion-button>
     </div>
   </div>

@@ -58,16 +58,16 @@
     </ion-buttons>
     <ion-buttons slot="end">
 
-      <ion-button class="notification">
-        <ion-icon slot="icon-only" name="heart"></ion-icon>
+      <ion-button class="notification" (click)="visitWish()">
+        <ion-icon slot="icon-only" name="heart" ></ion-icon>
         <span class="badge"></span>
       </ion-button>
 
-      <ion-button class="notification">
+      <ion-button class="notification" (click)="visitCart()">
         <ion-icon slot="icon-only" name="basket"></ion-icon>
         <span class="badge"></span>
       </ion-button>
-      <ion-button color="secondary">
+      <ion-button color="secondary" (click)="visitProfile()">
         <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -84,46 +84,46 @@
     <div class="nav">
 
       <div class="icon">
-        <ion-button class="active" color="transparent">
-          <ion-icon src="../../assets/lamp.svg"></ion-icon>
+        <ion-button (click)="getProductsbyCategory('Pottery')" color="transparent">
+           <ion-icon name="square"></ion-icon>
         </ion-button>
       </div>
       <div class="icon">
-        <ion-button class="active" (click)="onClick()" color="transparent">
-          <ion-icon src="../../assets/frame.svg"></ion-icon>
-        </ion-button>
-
-      </div>
-      <div class="icon">
-        <ion-button class="active" (click)="onClick()" color="transparent">
-          <ion-icon src="../../assets/pottery.svg"></ion-icon>
+        <ion-button (click)="getProductsbyCategory('Vases')" color="transparent">
+          <ion-icon name="square"></ion-icon>
         </ion-button>
 
       </div>
       <div class="icon">
-        <ion-button class="active" (click)="onClick()" color="transparent">
-          <ion-icon src="../../assets/pot.svg"></ion-icon>
+        <ion-button (click)="getProductsbyCategory('Deco')" color="transparent">
+          <ion-icon name="square"></ion-icon>
+        </ion-button>
+
+      </div>
+      <div class="icon">
+        <ion-button (click)="getProductsbyCategory('Lamps')" color="transparent">
+          <ion-icon name="square"></ion-icon>
         </ion-button>
 
       </div>
     </div>
 
     <div class="info">
-      <p>120 Products</p>
+      <p>{{myProduct.length}} Products</p>
       <p class="best_selling">Best Selling <ion-icon name="chevron-down-outline"></ion-icon>
       </p>
     </div>
 
     <div class="cards">
-
-      <div id="card">
+   
+      <div id="card" *ngFor="let p of myProduct" (click)="viewProduct(p)">
 
         <div class="image">
-          <img src="https://i.pinimg.com/564x/fe/0d/b5/fe0db54acfbd94d56dff811c71c3fd70.jpg" alt="">
+          <img src="{{p.data.image}}" alt="">
         </div>
         <div class="text">
-          <p> White Pendant Lamp <br>
-            <span>R300.00</span></p>
+          <p> {{p.data.name}} <br>
+            <span>{{p.data.price | currency:"R"}}</span></p>
           <p class="starz">
             <ion-icon name="star"></ion-icon>
             <ion-icon name="star"></ion-icon>
@@ -134,7 +134,7 @@
         </div>
       </div>
 
-      <div id="card">
+  <!--     <div id="card">
 
         <div class="image">
           <img src="https://i.pinimg.com/564x/94/b0/33/94b033bd6596d2919e7a2f4c45226efc.jpg" alt="">
@@ -150,9 +150,9 @@
             <ion-icon name="star-half-outline"></ion-icon>
           </p>
         </div>
-      </div>
+      </div> -->
 
-      <div id="card">
+    <!--   <div id="card">
 
         <div class="image">
           <img src="https://i.pinimg.com/564x/d8/01/f9/d801f95ec37ebdd439ca3a9298197ef4.jpg" alt="">
@@ -168,9 +168,9 @@
             <ion-icon name="star-half-outline"></ion-icon>
           </p>
         </div>
-      </div>
+      </div> -->
 
-      <div id="card">
+     <!--  <div id="card">
 
         <div class="image">
           <img src="https://i.pinimg.com/564x/c5/aa/fa/c5aafa1f88a3b17dcfd7cd42cc14dd71.jpg" alt="">
@@ -186,9 +186,9 @@
             <ion-icon name="star-half-outline"></ion-icon>
           </p>
         </div>
-      </div>
+      </div> -->
 
-      <div id="card">
+    <!--   <div id="card">
 
         <div class="image">
           <img src="https://i.pinimg.com/564x/ed/c8/be/edc8be711eca77eb40aa31101ccf0028.jpg" alt="">
@@ -204,7 +204,7 @@
             <ion-icon name="star-half-outline"></ion-icon>
           </p>
         </div>
-      </div>
+      </div> -->
 
 
     </div>

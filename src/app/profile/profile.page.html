@@ -1,32 +1,35 @@
 <ion-content>
-  <div class="backBtn">
+  <div class="backBtn" (click)="popBack()">
     <ion-icon name="arrow-back"></ion-icon>
+  </div>
+  <div style="margin-left: 200px;" (click)="logout()">
+    <ion-icon name="log-out-outline"></ion-icon>
   </div>
   <div class="content-container">
   <div class="banner">
     <div class="dpHolder">
-      <img src="../../assets/imgs/1511539.jpg" id="userDP" alt="">
+      <img src="{{profile.image}}" id="userDP" alt="">
     </div>
     <img src="../../assets/imgs/514275.jpg" id="userBanner" alt="">
   </div>
   <div class="userContainer">
     <div class="details">
-      <h3>Elija Blake</h3>
-      <p>eli@elijah.com</p>
+      <h3>{{profile.name}}</h3>
+      <p>{{profile.email}}</p>
       <!-- <br> -->
       <div class="divider"></div>
-      <ion-button>
+      <ion-button  (click)="editProfile()">
         <ion-icon name="create"></ion-icon> Edit Profile
       </ion-button>
 
       <div class="detail-field">
-        <div>0813917127</div>
+        <div>{{profile.number}}</div>
         <div>
           <ion-icon name="call"></ion-icon>
         </div>
       </div>
       <div class="detail-field">
-        <div>House 22, Plein Str, Johanneburg</div>
+        <div>{{profile.address}}</div>
         <div>
           <ion-icon name="home"></ion-icon>
         </div>
@@ -36,21 +39,21 @@
       <div class="order-range">
       <div>
       <div class="custom-button" (click)="toggleOrders()">
-        <div>Orders</div>
+        <div>Orders {{Allorders.length}}</div>
         <div id="orders-arrow">
           <ion-icon name="arrow-down"></ion-icon>
         </div>
       </div>
-      <div id="myOrders">
-        <div class="OrderCard">
+      <div id="myOrders" >
+        <div class="OrderCard" *ngFor="let ord of Allorders; let i = index">
           <div>
-            <img src="../../assets/imgs/514275.jpg" alt="">
+            <img src="../../assets/shapes.svg" alt="">
           </div>
           <div>
-            <p><ion-icon name="receipt-sharp"></ion-icon> DFSHKGSK345376</p>
-            <p id="date-puechase"> <b>Date of Purchase: </b> 13/01/2020</p>
-            <p id="date-puechase"> <b>Delivery Date: </b> 13/01/2020</p>
-            <div id="tracker">TRACK</div>
+            <p><ion-icon name="receipt-sharp"></ion-icon> {{ord.ref}}</p>
+            <p id="date-puechase"> <b>Purchased on: </b> {{ord.info.timestamp | date:"mediumDate"}}</p>
+            <p id="date-puechase"> <b>Delivery: </b> 13/01/2020</p>
+            <div id="tracker" (click)="trackOrder(ord.ref)">TRACK</div>
           </div>
         </div>
       </div>
@@ -62,16 +65,16 @@
           <ion-icon name="arrow-down"></ion-icon>
         </div>
       </div>
-      <div id="myHistory">
-        <div class="OrderCard">
+      <div id="myHistory" >
+        <div class="OrderCard" *ngFor="let hstry of orderHistory" >
           <div>
-            <img src="../../assets/imgs/514275.jpg" alt="">
+            <img src="../../assets/shapes.svg" alt="">
           </div>
           <div>
-            <p><ion-icon name="receipt-sharp"></ion-icon> DFSHKGSK345376</p>
-            <p id="date-puechase"> <b>Date of Purchase: </b> 13/01/2020</p>
+            <p><ion-icon name="receipt-sharp"></ion-icon>{{hstry.ref}}</p>
+            <p id="date-puechase"> <b>Purchased on: </b> {{hstry.info.timestamp | date:"mediumDate"}}</p>
             <p id="date-puechase"> <b>Delivery Date: </b> 13/01/2020</p>
-            <div id="tracker">TRACK</div>
+            <div id="tracker" (click)="viewReciept(hstry.ref)">TRACK</div>
           </div>
         </div>
       </div>
