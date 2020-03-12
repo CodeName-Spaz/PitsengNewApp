@@ -1,7 +1,7 @@
 ion-toolbar {
   --background: transparent;
   --ion-color-base: transparent !important;
-  position: absolute;
+
 
   ion-icon {
     color: white;
@@ -10,12 +10,7 @@ ion-toolbar {
   p {
     color: white;
   }
-
-  
-  .notification:hover {
-    background: red;
-  }
-  
+ 
   .notification .badge {
     position: absolute;
     top: 1px;
@@ -181,4 +176,174 @@ ion-toolbar {
     }
   }
 }
+@media screen and (max-width: 768px) {
+  ion-toolbar{
+    position: absolute !important;
+  }
+  #webview {
+    display: none;
+  }
+
+  #web{
+    display: none;
+  }
+}
+
+
+@media screen and (min-width: 769px) {
+  #mobile {
+    display: none;
+  }
+  #web {
+    ion-toolbar {
+      width: 70%;
+      margin: auto;
+        ion-icon {
+          color: black;
+        }
+    }
+
+    .ribbon {
+      background: rgb(197, 54, 1);
+      text-align: center;
+      color: white;
+      width: 100vw !important;
+      ion-buttons {
+        width: 60%;
+        margin: auto;
+        text-align: center;
+        ion-button {
+          margin-right: 30px;
+          ion-icon{
+            color: white;
+          }
+        }
+
+        ion-button:hover{
+          border-bottom: 2px solid white;
+          ion-icon{
+            color: white;
+          }
+        }
+
+        #deco{
+          border-bottom: 2px solid white;
+        }
+      }
+    }
+  }
+  .container{
+    width: 60%;
+    margin: auto;
+    // position: relative;
+    // top: 15%;
+  }
+
+  .image{
+    height: 40vh !important;
+    margin-top: 10px;
+  .starz{
+      ion-icon{
+        font-size: 35px;
+      }
+    }
+  }
+
+  .add{
+    position: fixed;
+    width: 60% !important;
+    margin: auto !important;
+    left: 20% !important;
+  }
+
+  .reviewz{
+    width: 50% !important;
+    margin: 30px auto !important;
+    padding: 20px;
+  }
+
+  .segment_slides{
+   .image1{
+     height: 30vh !important;
+     min-width: 30%;
+   }
+  }
+
+
+}
+
+ion-footer {
+  text-align: center;
+  .footer {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-evenly;
+    width: 100vw;
+    background: rgb(0, 0, 32);
+    color: white;
+
+    .heading {
+      margin: 5px;
+      width: 250px;
+      height: 200px;
+    }
+
+    .app_store {
+      width: 10vw;
+      height: 5vw;
+    }
+
+    .contact_details {
+      font-size: 13px;
+      text-align: left;
+      p {
+        font-size: 13px;
+      }
+      h1 {
+        font-size: 20px;
+      }
+    }
+
+    .info {
+      font-size: 13px;
+      text-align: left;
+      display: flex;
+      flex-flow: column;
+      ion-button {
+        font-size: 13px;
+        color: white;
+
+        padding-left: 0 !important;
+        span {
+          text-align: left;
+          width: 100%;
+          left: 0px !important;
+          margin-left: -15%;
+        }
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+    }
+
+    .connect {
+      display: flex;
+      flex-flow: column;
+      ion-button {
+        overflow: hidden;
+      }
+      h1 {
+        font-size: 20px;
+      }
+    }
+  }
+
+  ion-toolbar {
+    text-align: center;
+    background: rgb(173, 46, 0);
+    color: white;
+  }
+}
+
 
