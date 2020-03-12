@@ -48,20 +48,22 @@
           <img src="{{imageTop}}"/>
         </ion-slide>
       </ion-slides>
-      <p class="starz">
+      <p class="starz" >
 
         <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
         defaultColor="#D3D3D3" readonly="true" rating="{{avgRating}}" fontSize="18px"
-        (ratingChanged)="getRatings()">
+        (ratingChanged)="getRatings(productCode)">
       </ionic4-star-rating>   
 
-        <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star-half-outline"></ion-icon>
-      </p>
 
+     <!-- <ion-icon name="star"></ion-icon>&nbsp;
+        <ion-icon name="star"></ion-icon>&nbsp;
+        <ion-icon name="star"></ion-icon>&nbsp;
+        <ion-icon name="star"></ion-icon>&nbsp;
+        <ion-icon name="star-half-outline"></ion-icon>  -->
+    
+      </p>
+  
       <div class="wishlist">
         <ion-fab-button color="transparent" (click)="wishListAdd()">
           <ion-icon name="{{onWish}}"></ion-icon>
@@ -135,27 +137,18 @@
         <img src="{{items.info.image}}" alt="" >
       </div>
 
-     <!--  <div class="image1">
-        <img src="https://i.pinimg.com/564x/d8/01/f9/d801f95ec37ebdd439ca3a9298197ef4.jpg" alt="">
-      </div>
-
-      <div class="image1">
-        <img src="https://i.pinimg.com/564x/c5/aa/fa/c5aafa1f88a3b17dcfd7cd42cc14dd71.jpg" alt="">
-      </div>
-
-      
-      <div class="image1">
-        <img src="https://i.pinimg.com/564x/ed/c8/be/edc8be711eca77eb40aa31101ccf0028.jpg" alt="">
-      </div> -->
     </div>
 
     <div class="reviewz" *ngSwitchCase = "'review'">
-      <!-- <p>Rate this product</p> -->
       <p class="starz1">
         Rate this product <br>
+<!-- 
+        <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
+        defaultColor="#D3D3D3" readonly="true" fontSize="18px"
+        (click)="star(2, uid, productCode)">
+      </ionic4-star-rating>  -->
 
-
-        <ion-icon name="star-outline" (click)="star(1, uid, productCode)"></ion-icon>&nbsp;
+        <ion-icon name="star-outline"  (click)="star(1, uid, productCode)"></ion-icon>&nbsp;
         <ion-icon name="star-outline" (click)="star(2, uid, productCode)"></ion-icon>&nbsp;
         <ion-icon name="star-outline" (click)="star(3, uid, productCode)"></ion-icon>&nbsp;
         <ion-icon name="star-outline" (click)="star(4, uid, productCode)"></ion-icon>&nbsp;

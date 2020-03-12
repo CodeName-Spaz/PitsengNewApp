@@ -17,6 +17,7 @@ export class ItemViewPage implements OnInit {
   ratingTotal = 0;
   ratingTotalTotal;
   avgRating;
+  stars=0
   value
   yudsegment: string;
   prod_id: string;
@@ -101,11 +102,11 @@ export class ItemViewPage implements OnInit {
       this.imageSide = doc.data().imageSide;
       this.imageTop = doc.data().imageTop;
       this.productCode = doc.data().productCode;
+      this.getRatings(doc.data().productCode)
     })
   }
 
-  getRatings(code){
-
+  getRatings(code) {
     firebase.firestore().collection('Reviews').where('productCode', '==', code).onSnapshot(snapshot => {
       this.reviews = [];
       snapshot.forEach(doc =>{
@@ -115,9 +116,10 @@ export class ItemViewPage implements OnInit {
         console.log("sdfsfsdf ",  this.ratingTotal);
        this.reviews.push(doc.data());
       })
-      console.log("ratings ",  this.ratingTotal);
+      
       this.avgRating = this.ratingTotal / this.reviews.length;
-      console.log("ratings average ",  this.avgRating);
+      console.log("Product Star Ratings ",  this.avgRating);
+  
   })
 }
   getWishItems() {
