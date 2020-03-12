@@ -28,7 +28,7 @@
 <ion-content fullscreen>
 
   <div class='container'>
-    <div class="image">
+    <div class="image" >
       <!-- <img src="{{prod_image}}" alt=""> -->
       <ion-slides style="height: 45vh; z-index: 1;">
 
@@ -50,10 +50,11 @@
       </ion-slides>
       <p class="starz">
 
-        <!-- <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
-            defaultColor="#D3D3D3" readonly="true" rating="{{item.rating}}" fontSize="32px"
-            (ratingChanged)="logRatingChange($event)"> -->
-          <!-- </ionic4-star-rating> -->
+        <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
+        defaultColor="#D3D3D3" readonly="true" rating="{{avgRating}}" fontSize="18px"
+        (ratingChanged)="getRatings()">
+      </ionic4-star-rating>   
+
         <ion-icon name="star"></ion-icon>&nbsp;
         <ion-icon name="star"></ion-icon>&nbsp;
         <ion-icon name="star"></ion-icon>&nbsp;
