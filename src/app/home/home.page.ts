@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 import { NavController, AlertController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { PaymentPage } from '../payment/payment.page';
-import { FaqsPage } from '../faqs/faqs.page' 
+import { FaqsPage } from '../faqs/faqs.page'
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -12,7 +12,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  
+
   dbProduct = firebase.firestore().collection('Products');
   dbCart = firebase.firestore().collection("Cart");
   dbWishlist = firebase.firestore().collection('Wishlist');
@@ -54,7 +54,7 @@ export class HomePage implements OnInit {
     this.checkUser();
     this.getProductsbyCategory('Deco')
   }
-  getProductsbyCategory(name : string) {
+  getProductsbyCategory(name: string) {
     this.val = name.toLowerCase();
     this.dbProduct.where('category', '==', name).onSnapshot((res) => {
       this.myProduct = [];
@@ -75,7 +75,7 @@ export class HomePage implements OnInit {
               this.History.push({ ref: item.id, info: item.data() })
             })
             //  console.log("orders ", this.Allorders);
-      
+
           })
           firebase.firestore().collection("Order").where('userID', '==', res.uid).onSnapshot((data) => {
             this.Allorders = [];
@@ -119,11 +119,11 @@ export class HomePage implements OnInit {
             })
           })
           this.dbProfile.doc(res.uid).onSnapshot(snapshot => {
-                this.profile.image = snapshot.data().image;
-                this.profile.name = snapshot.data().name;
-                this.profile.number = snapshot.data().number;
-                this.profile.address = snapshot.data().address;
-                this.profile.email = snapshot.data().email;
+            this.profile.image = snapshot.data().image;
+            this.profile.name = snapshot.data().name;
+            this.profile.number = snapshot.data().number;
+            this.profile.address = snapshot.data().address;
+            this.profile.email = snapshot.data().email;
           })
         } else {
           // this.alertView = this.localSt.retrieve('alertShowed');
@@ -156,12 +156,12 @@ export class HomePage implements OnInit {
   }
   viewProd(id) {
     // if (this.itemChecked === true) {
-      let navigationExtras: NavigationExtras = {
+    let navigationExtras: NavigationExtras = {
       queryParams: {
         id: id,
       }
     };
-    this.navCtrl.navigateForward(['/item-view'], navigationExtras).then(()=>{
+    this.navCtrl.navigateForward(['/item-view'], navigationExtras).then(() => {
       this.delete(id);
     });
     // } 
@@ -176,7 +176,7 @@ export class HomePage implements OnInit {
     let id = index.id
     let product = [prod]
     this.dbCart.doc(id).update({ product: product }).then(res => {
-  
+
     })
   }
   minus(prod, index) {
@@ -230,9 +230,7 @@ export class HomePage implements OnInit {
       } else {
         this.presentAlertConfirm1();
       }
-
     })
-
   }
   async presentAlertConfirm1() {
     const alert = await this.alertCtrl.create({
@@ -331,13 +329,13 @@ export class HomePage implements OnInit {
       product: this.myOrder, timestamp: new Date().getTime(), status: 'received', userID: firebase.auth().currentUser.uid, totalPrice: this.getTotal(),
       deliveryType: this.delType, deliveryCost: this.delCost
     }).then(() => {
+      this.myOrder = [];
+      this.delType = '';
+      this.delCost = 0;
       this.prodCart.forEach((i) => {
         this.dbCart.doc(i.id).delete().then(() => {
         });
       })
-      this.myOrder = [];
-      this.delType = '';
-      this.delCost = 0;
     })
   }
   async alertConfirm() {
@@ -418,34 +416,38 @@ export class HomePage implements OnInit {
     this.viewBackdrop = !this.viewBackdrop
   }
 
-  viewPendingOrders(){
+  viewPendingOrders() {
     this.viewPending = !this.viewPending
   }
 
-  pending(){
-    this.pendingOrders= !this.pendingOrders
+  pending() {
+    this.pendingOrders = !this.pendingOrders
   }
 
-  history(){
+  history() {
     this.orderHistory = !this.orderHistory
   }
 
-  async presentModal(id,name) {
+  async presentModal(id, name) {
     const modal = await this.modalController.create({
       component: PaymentPage,
       cssClass: "home",
-      componentProps : {
-        id : id,
-        name : name
+      componentProps: {
+        id: id,
+        name: name
       }
     });
     return await modal.present();
   }
 
-  async presentHistory() {
+  async presentHistory(id) {
     const modal = await this.modalController.create({
       component: FaqsPage,
-      cssClass: "home"
+      cssClass: "home",
+      componentProps: {
+        id: id,
+        name: name
+      }
     });
     return await modal.present();
   }

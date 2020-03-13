@@ -25,6 +25,7 @@
     "@ionic/angular": "^5.0.0",
     "cordova-browser": "6.0.0",
     "core-js": "^2.5.4",
+    "file-saver": "^2.0.2",
     "firebase": "^7.9.3",
     "ionic4-star-rating": "^1.1.1",
     "moment": "^2.24.0",

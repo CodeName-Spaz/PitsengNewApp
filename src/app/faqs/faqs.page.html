@@ -9,16 +9,36 @@
 
   <div class="overlayer">
     <div class="infographics">
-      <div class="dismisser">
+      <div class="dismisser" (click)="dismiss()">
         <ion-icon name="arrow-back"></ion-icon>
       </div>
       <div class="details" id="left">
         <div class="header">
           Items Ordered
-          <div class="total">Total:R400</div>
+          <div class="total">Total:{{ getTotal() | currency:"R"}}</div>
         </div>
         <div class="list">
-          <ion-card class="product">
+          <ion-card class="product" *ngFor="let order of myOrder; let i = index" (click)="viewProduct(i)">
+            <div>
+              <img src="{{order.picture}}" alt="">
+            </div>
+            <div>
+              <p id="prod-name">{{order.name}}</p>
+              <p>
+                <b>Code:</b> {{order.productCode}}
+              </p>
+              <p>
+                <b>Size:</b> {{order.size}}
+              <p>
+                <b>Price:</b>{{order.cost | currency:"R"}}
+              </p>
+              <p>
+                <b>Qty:</b> {{order.quantity}}
+              </p>
+            </div>
+          </ion-card>
+
+          <!-- <ion-card class="product">
             <div>
               <img src="../../assets/Group 235.png" alt="">
             </div>
@@ -36,29 +56,9 @@
                 <b>Qty:</b> 5
               </p>
             </div>
-          </ion-card>
+          </ion-card> -->
 
-          <ion-card class="product">
-            <div>
-              <img src="../../assets/Group 235.png" alt="">
-            </div>
-            <div>
-              <p id="prod-name">Vase</p>
-              <p>
-                <b>Code:</b> vase133456
-              </p>
-              <p>
-                <b>Size:</b> M
-              <p>
-                <b>Price:</b> R900
-              </p>
-              <p>
-                <b>Qty:</b> 5
-              </p>
-            </div>
-          </ion-card>
-
-          <ion-card class="product">
+          <!-- <ion-card class="product">
             <div>
               <img src="../../assets/Group 235.png" alt="">
             </div>
@@ -76,8 +76,9 @@
                 <b>Qty:</b> 5
               </p>
             </div>
-          </ion-card>
+          </ion-card> -->
         </div>
+
       
         <div class="tracker">
           <p>Order Progress Status Collected </p>
@@ -101,21 +102,19 @@
         </div>
       </div>
       <div class="details" id="right">
-        <img id="selected-image" src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
+        <img id="selected-image" src="{{order.picture}}" alt="">
 
         <div class="about-prod">
-          <p id="item-price">R500</p>
-          <p id="item-name"><b>Vase</b></p>
-          <p id="item-name"><b>Product Code:</b> HFHG87669686865</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, eos praesentium earum voluptatem qui ab dignissimos id voluptatibus neque deleniti ad quo sequi molestias in rerum ex! Asperiores, commodi cum?</p>
-        
-        
-          <ion-button >
+          <p id="item-price">{{order.cost | currency:"R"}}</p>
+          <p id="item-name"><b>{{order.name}}</b></p>
+          <p id="item-name"><b>Product Code:</b> {{order.productCode}}</p>
+          <p>{{order.description}}</p>
+          <ion-button (click)="download(reciept)">
             Download PDF
           </ion-button>
-        
         </div>
       </div>
+        
     </div>
   </div>
 
