@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { NavController, AlertController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
+import { PaymentPage } from '../payment/payment.page';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +11,7 @@ import { NavigationExtras } from '@angular/router';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
+  
   dbProduct = firebase.firestore().collection('Products');
   dbCart = firebase.firestore().collection("Cart");
   dbWishlist = firebase.firestore().collection('Wishlist');
@@ -24,7 +27,7 @@ export class HomePage implements OnInit {
   orderHistory = false;
   loaderMessages = 'Loading...';
   loaderAnimate: boolean = true;
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController) { }
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public modalController: ModalController) { }
 
   ngOnInit() {
     setTimeout(() => {
@@ -189,5 +192,13 @@ export class HomePage implements OnInit {
 
   history(){
     this.orderHistory = !this.orderHistory
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: PaymentPage,
+      cssClass: "home"
+    });
+    return await modal.present();
   }
 }
