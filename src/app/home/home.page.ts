@@ -30,10 +30,10 @@ export class HomePage implements OnInit {
     setTimeout(() => {
       this.loaderAnimate = false;
     }, 4000);
-    this.getProductsbyCategory('Pottery')
+    this.getProductsbyCategory('Deco')
   }
-  getProductsbyCategory(name) {
-    this.val = 'active';
+  getProductsbyCategory(name : string) {
+    this.val = name.toLowerCase();
     this.dbProduct.where('category', '==', name).onSnapshot((res) => {
       this.myProduct = [];
       res.forEach((doc) => {
