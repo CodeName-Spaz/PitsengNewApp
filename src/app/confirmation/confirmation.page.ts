@@ -16,6 +16,7 @@ export class ConfirmationPage implements OnInit {
   prodCart = [];
   delCost: number;
   delType: string;
+  productCode;
   myOrder = [];
   constructor(public alertCtrl: AlertController, public navCtrl: NavController, public toastCtrl: ToastController) {
   }
