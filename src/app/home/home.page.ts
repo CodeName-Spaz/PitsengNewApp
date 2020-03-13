@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 import { NavController, AlertController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { PaymentPage } from '../payment/payment.page';
+import { FaqsPage } from '../faqs/faqs.page' 
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -437,6 +438,14 @@ export class HomePage implements OnInit {
         id : id,
         name : name
       }
+    });
+    return await modal.present();
+  }
+
+  async presentHistory() {
+    const modal = await this.modalController.create({
+      component: FaqsPage,
+      cssClass: "home"
     });
     return await modal.present();
   }
