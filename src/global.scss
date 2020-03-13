@@ -95,6 +95,11 @@ textarea {
       --height: 90%;
       --border: red;
     }
+
+    .home .modal-wrapper{
+      --width: 100%;
+      --height: 100%;
+    }
   }
   @media screen and (max-width: 768px) {
     .order-details .modal-wrapper {
@@ -107,6 +112,11 @@ textarea {
       --width: 100%;
       --height: 100%;
       --border: red;
+    }
+
+    .home .modal-wrapper{
+      --width: 100%;
+      --height: 100%;
     }
   }
 
