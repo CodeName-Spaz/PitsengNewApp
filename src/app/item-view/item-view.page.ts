@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, ToastController, AlertController } from '@ionic/angular';
 import * as firebase from 'firebase';
+// import { IonicRatingModule } from ‘ionic4-rating’;
+
 @Component({
   selector: 'app-item-view',
   templateUrl: './item-view.page.html',
@@ -11,10 +13,16 @@ export class ItemViewPage implements OnInit {
   // cartItemCount:BehaviorSubject<number>;
   // wishItemCount: BehaviorSubject<number>;
   dbProduct = firebase.firestore().collection('Products');
+  reviews = [];
+  ratingTotal = 0;
+  ratingTotalTotal;
+  avgRating;
+  stars=0
   value
   yudsegment: string;
   prod_id: string;
   prod_name;
+  productCode;
   prod_image;
   sizes = [];
   desc;
@@ -30,15 +38,10 @@ export class ItemViewPage implements OnInit {
   imageSide: any;
   imageTop: any;
   similarItems = [];
+  uid=firebase.auth().currentUser.uid;
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
       this.prod_id = params["id"];
-      /* this.prod_name = params["name"];
-      this.prod_image = params["image"];
-      this.sizes = params["sizes"];
-      this.desc = params["description"];
-      this.price = params["price"];
-      this.category = params["category"]; */
     })
   }
 
@@ -47,24 +50,8 @@ export class ItemViewPage implements OnInit {
     setTimeout(() => {
       this.mostViewed();
     }, 1000);
-    // this.activatedRouter.queryParams.subscribe(params =>{
-    //   this.Mydata.prod_id = params["id"];
-    //   this.Mydata.prod_name = params["name"];
-    //   this.Mydata.prod_image = params["image"];
-    //   this.Mydata.prod_productCode = params["productCode"];
-    //   this.Mydata.prod_imageSide = params["imageSide"];
-    //   this.Mydata.prod_imageBack = params["imageBack"];
-    //   this.Mydata.prod_imageTop = params["prod_imageTop"];
-    //   this.Mydata.prod_categories = params["categories"];
-    //   this.Mydata.prod_price = params["price"];
-    //   this.Mydata.prod_quantity = params["quantity"];
-    //   this.Mydata.prod_items = params["items"];
-    //   this.Mydata.prod_checked = params["checked"];
-    //   this.Mydata.prod_lastcreated = params["lastcreated"];
-    //   this.Mydata.prod_description = params["description"]
-    // console.log("rrrrrrrrrr",  this.Mydata.prod_productCode, this.Mydata.prod_price, this.Mydata.prod_name);
-    // })
     this.getWishItems();
+    // this.getRatings()
     this.yudsegment = "like";
     // this.wishItemCount = this.cartService.getWishItemCount();
     // this.cartItemCount = this.cartService.getCartItemCount();
@@ -82,6 +69,26 @@ export class ItemViewPage implements OnInit {
       })
     })
   }
+
+  star(num, uid, code) {
+    console.log('hh', num, code)
+    // console.log(code);
+
+    firebase.firestore().collection('Reviews').where('uid', '==', uid).where('productCode', '==', code).onSnapshot(snapshot => {
+      if(snapshot.size > 0) {
+         console.log('update');
+         
+      }else {
+         firebase.firestore().collection('Reviews').doc().set({
+      productCode: code,
+      Rating: num,
+      uid: uid,
+    }, {merge : true})
+    this.getRatings(code)
+      }
+    });
+   
+  }
   getProduct(id) {
     this.dbProduct.doc(id).onSnapshot((doc) => {
       this.prod_image = doc.data().image;
@@ -94,8 +101,27 @@ export class ItemViewPage implements OnInit {
       this.imageBack = doc.data().imageBack;
       this.imageSide = doc.data().imageSide;
       this.imageTop = doc.data().imageTop;
+      this.productCode = doc.data().productCode;
+      this.getRatings(doc.data().productCode)
     })
   }
+
+  getRatings(code) {
+    firebase.firestore().collection('Reviews').where('productCode', '==', code).onSnapshot(snapshot => {
+      this.reviews = [];
+      snapshot.forEach(doc =>{
+        console.log(doc.data());
+       
+        this.ratingTotal += parseFloat(doc.data().Rating);
+        console.log("sdfsfsdf ",  this.ratingTotal);
+       this.reviews.push(doc.data());
+      })
+      
+      this.avgRating = this.ratingTotal / this.reviews.length;
+      console.log("Product Star Ratings ",  this.avgRating);
+  
+  })
+}
   getWishItems() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {

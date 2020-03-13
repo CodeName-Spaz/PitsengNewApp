@@ -1,37 +1,4 @@
-<ion-header class="ion-no-border" id="web">
-  <ion-toolbar>
-    <img src="../../assets/Group 235.png" alt="">
-
-    <ion-buttons slot="end">
-
-      <ion-button>
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-
-      <ion-button class="notification">
-        <ion-icon slot="icon-only" name="heart"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-
-      <ion-button class="notification">
-        <ion-icon slot="icon-only" name="basket"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-      <ion-button color="secondary">
-        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-
-  <ion-toolbar class="ribbon" color="transparent" style="text-align: center;">
-
-    <ion-title>Autumn Harvest Lamp</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-header class="ion-no-border" translucent="true" id="mobile">
+<ion-header class="ion-no-border" translucent="true">
   <ion-toolbar translucent="true">
     <ion-buttons slot="start">
       <ion-button (click)="popBack()">
@@ -61,9 +28,9 @@
 <ion-content fullscreen>
 
   <div class='container'>
-    <div class="image">
+    <div class="image" >
       <!-- <img src="{{prod_image}}" alt=""> -->
-      <ion-slides style="height: 45vh;">
+      <ion-slides style="height: 45vh; z-index: 1;">
 
         <ion-slide>
           <img src="{{prod_image}}"/>
@@ -81,14 +48,22 @@
           <img src="{{imageTop}}"/>
         </ion-slide>
       </ion-slides>
-      <p class="starz">
-        <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star-half-outline"></ion-icon>
-      </p>
+      <p class="starz" >
 
+        <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
+        defaultColor="#D3D3D3" readonly="true" rating="{{avgRating}}" fontSize="18px"
+        (ratingChanged)="getRatings(productCode)">
+      </ionic4-star-rating>   
+
+
+     <!-- <ion-icon name="star"></ion-icon>&nbsp;
+        <ion-icon name="star"></ion-icon>&nbsp;
+        <ion-icon name="star"></ion-icon>&nbsp;
+        <ion-icon name="star"></ion-icon>&nbsp;
+        <ion-icon name="star-half-outline"></ion-icon>  -->
+    
+      </p>
+  
       <div class="wishlist">
         <ion-fab-button color="transparent" (click)="wishListAdd()">
           <ion-icon name="{{onWish}}"></ion-icon>
@@ -97,7 +72,7 @@
       </div>
     </div>
     <div class="item_info">
-
+     
 
       <div class="sizes">
         <div class="text">
@@ -162,36 +137,32 @@
         <img src="{{items.info.image}}" alt="" >
       </div>
 
-     <!--  <div class="image1">
-        <img src="https://i.pinimg.com/564x/d8/01/f9/d801f95ec37ebdd439ca3a9298197ef4.jpg" alt="">
-      </div>
-
-        <div class="image1">
-          <img src="https://i.pinimg.com/564x/d8/01/f9/d801f95ec37ebdd439ca3a9298197ef4.jpg" alt="">
-        </div>
-
-      
-      <div class="image1">
-        <img src="https://i.pinimg.com/564x/ed/c8/be/edc8be711eca77eb40aa31101ccf0028.jpg" alt="">
-      </div> -->
     </div>
 
-      <div class="reviewz" *ngSwitchCase="'review'">
-        <p class="starz1">
-          Rate this product <br>
-          <ion-icon name="star-outline"></ion-icon>&nbsp;
-          <ion-icon name="star-outline"></ion-icon>&nbsp;
-          <ion-icon name="star-outline"></ion-icon>&nbsp;
-          <ion-icon name="star-outline"></ion-icon>&nbsp;
-          <ion-icon name="star-outline"></ion-icon> <br>
+    <div class="reviewz" *ngSwitchCase = "'review'">
+      <p class="starz1">
+        Rate this product <br>
+<!-- 
+        <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
+        defaultColor="#D3D3D3" readonly="true" fontSize="18px"
+        (click)="star(2, uid, productCode)">
+      </ionic4-star-rating>  -->
 
-          <ion-button color="transparent">
-            RATE
-          </ion-button>
-        </p>
+        <ion-icon name="star-outline"  (click)="star(1, uid, productCode)"></ion-icon>&nbsp;
+        <ion-icon name="star-outline" (click)="star(2, uid, productCode)"></ion-icon>&nbsp;
+        <ion-icon name="star-outline" (click)="star(3, uid, productCode)"></ion-icon>&nbsp;
+        <ion-icon name="star-outline" (click)="star(4, uid, productCode)"></ion-icon>&nbsp;
+        <ion-icon name="star-outline" (click)="star(5, uid, productCode)"></ion-icon> <br>
 
-      </div>
+    
+
+      <ion-button color="transparent">
+        RATE
+      </ion-button>
+      </p>
+
     </div>
+  </div>
 
 
     <div class="add" >
@@ -200,70 +171,6 @@
       </ion-button>
     </div>
   </div>
-
-  <ion-footer id="webview">
-    <div class="footer">
-      <div class="heading">
-        <img src="../../assets/Group 235.png" alt="">
-      </div>
-
-      <div class="contact_details">
-        <h1>FIND US</h1>
-        <p>
-          <ion-icon slot="start" name="call"></ion-icon> +27 71 567 3284
-        </p>
-        <p>
-          <ion-icon slot="start" name="mail"></ion-icon> pitsengartsandcrafts.co.za
-        </p>
-
-        <p class="address">
-          <ion-icon slot="start" name="location"></ion-icon> Soweto Empowerment Zone <br>
-          Diepkloof, Chris Hani Road <br>
-          SOWETO<br>
-          1862
-        </p>
-
-      </div>
-
-      <div class="info">
-        <h1>QUICK LINKS</h1>
-        <ion-button color="transparent">
-          <span>FAQs</span>
-        </ion-button>
-        <ion-button color="transparent">
-          <span>Terms and Privacy Policy</span>
-        </ion-button>
-        <ion-button color="transparent">
-          <span>Disclaimer</span>
-        </ion-button>
-      </div>
-
-      <div class="connect">
-        <h1>CONNECT</h1>
-        <ion-button color="transparent">
-          <ion-icon slot="start" name="logo-facebook"></ion-icon>
-          Facebook
-        </ion-button>
-        <ion-button color="transparent">
-          <ion-icon slot="start" name="logo-instagram"></ion-icon>
-          Instagram
-        </ion-button>
-
-        <ion-button color="transparent">
-          <ion-icon slot="start" name="logo-twitter"></ion-icon>
-          Twitter
-        </ion-button>
-      </div>
-
-      <div class="app_store">
-        <img src="../../assets/android.png" alt="App Store">
-      </div>
-
-    </div>
-    <ion-toolbar color="transparent">
-      <ion-title>&copy; Pitseng Arts & Crafts 2020</ion-title>
-    </ion-toolbar>
-  </ion-footer>
 
 
 </ion-content>
