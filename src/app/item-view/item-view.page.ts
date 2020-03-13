@@ -251,7 +251,7 @@ export class ItemViewPage implements OnInit {
             this.dbCart.add({
               customerUID: firebase.auth().currentUser.uid, timestamp: new Date().getTime(), product: [{
                 product_name: this.prod_name, size: this.my_size,
-                quantity: this.quantity, cost: this.price, picture: this.prod_image,
+                quantity: this.quantity, cost: this.price, picture: this.prod_image, productCode: this.productCode, description : this.desc,
                 prod_id: this.prod_id
               }]
             }).then(() => {
@@ -304,6 +304,7 @@ export class ItemViewPage implements OnInit {
               if (res.data().customerUID === res1.uid) {
                 this.dbWishlist.doc(res.id).delete().then((res) => {
                   this.toastController('Removed from wishlist..');
+                  this.onWish = "heart-outline";
                 })
               } else {
                 console.log("uid not found, unable to delete");
