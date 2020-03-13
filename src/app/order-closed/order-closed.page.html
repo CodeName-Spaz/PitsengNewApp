@@ -8,16 +8,16 @@
     </div>
     <div class="scroll-content">
       <div class="ordered-items">
-        <div class="item">
+        <div class="item" *ngFor="let order of myOrder">
           <div>
-            <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
+            <img src="{{order.picture}}" alt="">
           </div>
           <div>
-            <p id="head">Product Name</p>
-            <p id="restOf">Code: 4gf144</p>
-            <p id="restOf">Size: M</p>
-            <p id="restOf">Price: R300.00</p>
-            <p id="restOf">QTY: 5</p>
+            <p id="head">{{order.name}}</p>
+            <p id="restOf">Code: {{order.productCode}}</p>
+            <p id="restOf">Size: {{order.size}}</p>
+            <p id="restOf">Price: {{order.cost | currency:"R"}}</p>
+            <p id="restOf">QTY: {{order.quantity}}</p>
           </div>
         </div>
       </div>
