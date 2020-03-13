@@ -69,7 +69,7 @@ export class ConfirmationPage implements OnInit {
     // this.navCtrl.navigateRoot('home');
   }
   placeOrder() {
-    let docname = 'PITSENG' + new Date().getMilliseconds();
+    let docname = 'PITSENG' + new Date().getTime();
     this.dbOrder.doc(docname).set({
       product: this.myOrder, timestamp: new Date().getTime(), status: 'received', userID: firebase.auth().currentUser.uid, totalPrice: this.getTotal(),
       deliveryType: this.delType, deliveryCost: this.delCost

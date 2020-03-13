@@ -30,9 +30,6 @@ export class CartPage implements OnInit {
             })
           })
         } else {
-          // this.alertView = this.localSt.retrieve('alertShowed');
-          // console.log('My data ',this.alertView);
-          // if (this.localSt.retrieve('alertShowed') !== true) {
             this.presentAlertConfirm1();
           // }
         }

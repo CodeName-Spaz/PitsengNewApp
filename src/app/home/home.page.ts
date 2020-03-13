@@ -12,7 +12,18 @@ export class HomePage implements OnInit {
   dbProduct = firebase.firestore().collection('Products');
   dbCart = firebase.firestore().collection("Cart");
   dbWishlist = firebase.firestore().collection('Wishlist');
+  dbOrder = firebase.firestore().collection('Order');
+  dbProfile = firebase.firestore().collection('UserProfile');
+  profile = {
+    image: '',
+    name: '',
+    number: '',
+    address: '',
+    email: '',
+    uid: '',
+  }
   myProduct = [];
+  prodCart = [];
   val = '';
   viewBackdrop = false;
   viewCart = false;
@@ -24,12 +35,17 @@ export class HomePage implements OnInit {
   orderHistory = false;
   loaderMessages = 'Loading...';
   loaderAnimate: boolean = true;
+  delCost: number;
+  delType: string;
+  myOrder = [];
+  myWish = [];
   constructor(public navCtrl: NavController, public alertCtrl: AlertController) { }
 
   ngOnInit() {
     setTimeout(() => {
       this.loaderAnimate = false;
     }, 4000);
+    this.checkUser();
     this.getProductsbyCategory('Deco')
   }
   getProductsbyCategory(name : string) {
@@ -41,6 +57,127 @@ export class HomePage implements OnInit {
       })
       // console.log("My items ", this.myProduct);
 
+    })
+  }
+  checkUser() {
+    setTimeout(() => {
+      firebase.auth().onAuthStateChanged((res) => {
+        if (res) {
+          this.dbCart.where('customerUID', '==', res.uid).onSnapshot((info) => {
+            // this.cartCount = info.size;
+            this.prodCart = [];
+            // this.totalCost = 0;
+            info.forEach((doc) => {
+              doc.data().product.forEach((z) => {
+                this.myOrder.push(z)
+              })
+              this.prodCart.push({ data: doc.data(), id: doc.id });
+            })
+          })
+          this.dbWishlist.where('customerUID', '==', res.uid).onSnapshot((res) => {
+            this.myWish = [];
+            res.forEach((doc) => {
+              // if (doc.data().brand === "Specials") {
+              //   this.dbSales.doc(doc.id).onSnapshot((data) => {
+              //     if (data.data().hideItem === true) {
+              //       this.itemAvailable.push("Out of stock");
+              //     } else {
+              //       this.itemAvailable.push("In stock");
+              //     }
+              //   })
+              // } else {
+              //   this.itemAvailable = [];
+              //   this.dbProduct.doc(doc.id).onSnapshot((data) => {
+              //     if (data.data().hideItem === true) {
+              //       this.itemAvailable.push("Out of stock");
+              //     } else {
+              //       this.itemAvailable.push("In stock");
+              //     }
+              //   })
+              // }
+              this.myWish.push({ info: doc.data(), id: doc.id });
+            })
+          })
+          this.dbProfile.doc(res.uid).onSnapshot(snapshot => {
+                this.profile.image = snapshot.data().image;
+                this.profile.name = snapshot.data().name;
+                this.profile.number = snapshot.data().number;
+                this.profile.address = snapshot.data().address;
+                this.profile.email = snapshot.data().email;
+          })
+        } else {
+          // this.alertView = this.localSt.retrieve('alertShowed');
+          // console.log('My data ',this.alertView);
+          // if (this.localSt.retrieve('alertShowed') !== true) {
+          this.presentAlertConfirm1();
+          // }
+        }
+      })
+    }, 0);
+  }
+  editProfile() {
+    this.navCtrl.navigateForward('/edit-profile')
+  }
+  viewProd(id) {
+    // if (this.itemChecked === true) {
+      let navigationExtras: NavigationExtras = {
+      queryParams: {
+        id: id,
+      }
+    };
+    this.navCtrl.navigateForward(['/item-view'], navigationExtras).then(()=>{
+      this.delete(id);
+    });
+    // } 
+  }
+  delete(id) {
+    this.dbWishlist.doc(id).delete().then((res) => {
+    })
+  }
+  plus(prod, index) {
+    let num = index.data.product[0].quantity++
+    index.data.product[0].cost = index.data.product[0].cost
+    let id = index.id
+    let product = [prod]
+    this.dbCart.doc(id).update({ product: product }).then(res => {
+  
+    })
+  }
+  minus(prod, index) {
+    if (index.data.product[0].quantity === 1) {
+      this.presentAlertConfirm(index.id);
+    } else {
+      let num = index.data.product[0].quantity--
+      index.data.product[0].cost = index.data.product[0].cost
+      let id = index.id
+      let product = [prod]
+      this.dbCart.doc(id).update({ product: product }).then(res => {
+
+      })
+    }
+  }
+  async presentAlertConfirm(id) {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm!',
+      message: 'Do you want to remove this product?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        }, {
+          text: 'Okay',
+          handler: () => {
+            //console.log('Id is ', id);
+            this.removeProd(id)
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+  removeProd(id) {
+    this.dbCart.doc(id).delete().then((res) => {
     })
   }
   visitWish() {
@@ -152,19 +289,83 @@ export class HomePage implements OnInit {
 
     this.navCtrl.navigateForward(['/item-view'], navigationExtras);
   }
-
+  placeOrder() {
+    let docname = 'PITSENG' + new Date().getTime();
+    this.dbOrder.doc(docname).set({
+      product: this.myOrder, timestamp: new Date().getTime(), status: 'received', userID: firebase.auth().currentUser.uid, totalPrice: this.getTotal(),
+      deliveryType: this.delType, deliveryCost: this.delCost
+    }).then(() => {
+      this.prodCart.forEach((i) => {
+        this.dbCart.doc(i.id).delete().then(() => {
+        });
+      })
+      this.alertConfirm();
+    })
+  }
+  async alertConfirm() {
+    const alert = await this.alertCtrl.create({
+      header: 'Order placed',
+      message: 'Thank you for shopping with us',
+      buttons: [
+        {
+          text: 'Continue Shopping',
+          handler: () => {
+            this.navCtrl.navigateRoot('home');
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
   getCart() {
     this.viewCart = !this.viewCart
     this.viewBackdrop = !this.viewBackdrop
   }
-
+  getTotal() {
+    let total = 0;
+    for (let i = 0; i < this.prodCart.length; i++) {
+      let product = this.prodCart[i].data.product;
+      product.forEach((item) => {
+        total += (item.cost * item.quantity);
+      })
+      //
+    }
+    //console.log('My tot ', total);
+    return total;
+  }
+  Delivery(tot) {
+    let total = 0;
+    this.delCost = 100;
+    this.delType = "Delivery";
+    for (let i = 0; i < this.prodCart.length; i++) {
+      let product = this.prodCart[i].data.product;
+      product.forEach((item) => {
+        total = tot + 100
+      })
+    }
+    return total;
+  }
+  notDelivery(tot) {
+    let total = 0;
+    this.delCost = 0;
+    this.delType = "Collection";
+    for (let i = 0; i < this.prodCart.length; i++) {
+      let product = this.prodCart[i].data.product;
+      product.forEach((item) => {
+        total = tot
+      })
+    }
+    return total;
+  }
   switchView(state) {
     switch (state) {
       case 'd':
         this.buttonActive = true;
+        this.Delivery(this.getTotal());
         break;
       case 'c':
         this.buttonActive = false;
+        this.notDelivery(this.getTotal());
         break;
     }
   }
