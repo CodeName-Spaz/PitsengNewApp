@@ -334,7 +334,9 @@ export class HomePage implements OnInit {
         this.dbCart.doc(i.id).delete().then(() => {
         });
       })
-      this.alertConfirm();
+      this.myOrder = [];
+      this.delType = '';
+      this.delCost = 0;
     })
   }
   async alertConfirm() {
@@ -427,10 +429,14 @@ export class HomePage implements OnInit {
     this.orderHistory = !this.orderHistory
   }
 
-  async presentModal() {
+  async presentModal(id,name) {
     const modal = await this.modalController.create({
       component: PaymentPage,
-      cssClass: "home"
+      cssClass: "home",
+      componentProps : {
+        id : id,
+        name : name
+      }
     });
     return await modal.present();
   }
