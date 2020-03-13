@@ -8,45 +8,58 @@ import { NavigationExtras } from '@angular/router';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit{
+export class HomePage implements OnInit {
   dbProduct = firebase.firestore().collection('Products');
   dbCart = firebase.firestore().collection("Cart");
   dbWishlist = firebase.firestore().collection('Wishlist');
   myProduct = [];
   val = '';
-  constructor(public navCtrl: NavController, public alertCtrl : AlertController) {}
+  viewBackdrop = false;
+  viewCart = false;
+  viewProfile = false;
+  viewWishlist = false;
+  buttonActive: boolean = true;
+  viewPending = false;
+  pendingOrders = false;
+  orderHistory = false;
+  loaderMessages = 'Loading...';
+  loaderAnimate: boolean = true;
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController) { }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.loaderAnimate = false;
+    }, 4000);
     this.getProductsbyCategory('Pottery')
   }
   getProductsbyCategory(name) {
-    this.val='active';
-    this.dbProduct.where('category','==',name).onSnapshot((res)=>{
+    this.val = 'active';
+    this.dbProduct.where('category', '==', name).onSnapshot((res) => {
       this.myProduct = [];
-      res.forEach((doc)=>{
-        this.myProduct.push({data: doc.data(), id : doc.id})
+      res.forEach((doc) => {
+        this.myProduct.push({ data: doc.data(), id: doc.id })
       })
       // console.log("My items ", this.myProduct);
-      
+
     })
   }
   visitWish() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.dbWishlist.where('customerUID', '==', user.uid).onSnapshot((info) => {
-          if (info.size==0) {
+          if (info.size == 0) {
             this.presentAlert('Wishlist');
           } else {
             this.navCtrl.navigateForward('wish-list');
           }
         })
-        
+
       } else {
         this.presentAlertConfirm1();
       }
 
     })
-    
+
   }
   async presentAlertConfirm1() {
     const alert = await this.alertCtrl.create({
@@ -78,13 +91,12 @@ export class HomePage implements OnInit{
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.dbCart.where('customerUID', '==', user.uid).onSnapshot((info) => {
-          if (info.size==0) {
+          if (info.size == 0) {
             this.presentAlert('Cart');
           } else {
             this.navCtrl.navigateForward('cart');
           }
         })
-        
       } else {
         this.presentAlertConfirm1();
       }
@@ -117,10 +129,10 @@ export class HomePage implements OnInit{
         this.presentAlertConfirm1();
       }
     })
-    
+
   }
   viewProduct(val) {
-    this.dbProduct.doc(val.id).update({viewed : firebase.firestore.FieldValue.increment(1)})
+    this.dbProduct.doc(val.id).update({ viewed: firebase.firestore.FieldValue.increment(1) })
     let navigationExtras: NavigationExtras = {
       queryParams: {
         id: val.id,
@@ -130,14 +142,52 @@ export class HomePage implements OnInit{
         imageTop: val.data.imageTop,
         item: val.data.item,
         name: val.data.name,
-        sizes : val.data.sizes,
-        description : val.data.description,
-        productCode : val.data.productCode,
-        category : val.data.category,
-        price : val.data.price
+        sizes: val.data.sizes,
+        description: val.data.description,
+        productCode: val.data.productCode,
+        category: val.data.category,
+        price: val.data.price
       }
     };
-    
+
     this.navCtrl.navigateForward(['/item-view'], navigationExtras);
+  }
+
+  getCart() {
+    this.viewCart = !this.viewCart
+    this.viewBackdrop = !this.viewBackdrop
+  }
+
+  switchView(state) {
+    switch (state) {
+      case 'd':
+        this.buttonActive = true;
+        break;
+      case 'c':
+        this.buttonActive = false;
+        break;
+    }
+  }
+
+  reviewed() {
+    this.viewWishlist = !this.viewWishlist
+    this.viewBackdrop = !this.viewBackdrop
+  }
+
+  gotoProfile() {
+    this.viewProfile = !this.viewProfile
+    this.viewBackdrop = !this.viewBackdrop
+  }
+
+  viewPendingOrders(){
+    this.viewPending = !this.viewPending
+  }
+
+  pending(){
+    this.pendingOrders= !this.pendingOrders
+  }
+
+  history(){
+    this.orderHistory = !this.orderHistory
   }
 }
