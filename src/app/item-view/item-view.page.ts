@@ -14,9 +14,11 @@ export class ItemViewPage implements OnInit {
   // wishItemCount: BehaviorSubject<number>;
   dbProduct = firebase.firestore().collection('Products');
   reviews = [];
-  ratingTotal = 0;
-  ratingTotalTotal;
-  avgRating;
+  avgRating
+  
+  
+  ratingTotal= 0
+  ratingTotalTotal
   stars=0
   value
   yudsegment: string;
@@ -83,11 +85,22 @@ export class ItemViewPage implements OnInit {
       productCode: code,
       Rating: num,
       uid: uid,
+      prod_id: this.prod_id
     }, {merge : true})
-    this.getRatings(code)
+    this.getRatings(code, this.prod_id)
       }
     });
    
+  }
+  logRatingChange(Rating){
+    firebase.firestore().collection('Products').onSnapshot(snapshot => {
+      this.reviews = []
+      snapshot.forEach(item => {
+        this.reviews.push(item.data());
+        console.log("Rates ", item.data());
+        
+      })
+    })
   }
   getProduct(id) {
     this.dbProduct.doc(id).onSnapshot((doc) => {
@@ -102,25 +115,29 @@ export class ItemViewPage implements OnInit {
       this.imageSide = doc.data().imageSide;
       this.imageTop = doc.data().imageTop;
       this.productCode = doc.data().productCode;
-      this.getRatings(doc.data().productCode)
+      // this.getRatings(doc.data().productCode, id)
     })
   }
 
-  getRatings(code) {
-    firebase.firestore().collection('Reviews').where('productCode', '==', code).onSnapshot(snapshot => {
+  getRatings(code, id) {
+    console.log('i am running');
+    
+    firebase.firestore().collection('Reviews').where('productCode', '==', code).get().then(snapshot => {
       this.reviews = [];
       snapshot.forEach(doc =>{
         console.log(doc.data());
        
         this.ratingTotal += parseFloat(doc.data().Rating);
-        console.log("sdfsfsdf ",  this.ratingTotal);
        this.reviews.push(doc.data());
       })
       
       this.avgRating = this.ratingTotal / this.reviews.length;
       console.log("Product Star Ratings ",  this.avgRating);
-  
+      return firebase.firestore().collection('Products').doc(id).update({
+        Rating: this.avgRating
+      })
   })
+  
 }
   getWishItems() {
     firebase.auth().onAuthStateChanged((user) => {
@@ -250,6 +267,7 @@ export class ItemViewPage implements OnInit {
       })
     }, 0);
   }
+
   async presentAlertConfirm1() {
     const alert = await this.alertCtrl.create({
       header: 'Message',

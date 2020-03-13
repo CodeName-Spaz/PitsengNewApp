@@ -48,28 +48,32 @@
           <img src="{{imageTop}}"/>
         </ion-slide>
       </ion-slides>
-      <p class="starz" >
+      <p class="starz"></p>
 
+       
+      <div class="stars" *ngFor="let item of reviews">  
         <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
-        defaultColor="#D3D3D3" readonly="true" rating="{{avgRating}}" fontSize="18px"
-        (ratingChanged)="getRatings(productCode)">
-      </ionic4-star-rating>   
+          defaultColor="#D3D3D3" readonly="true" rating="{{item.Rating}}" fontSize="18px"
+          (ratingChanged)="logRatingChange(item.Rating)">
+        </ionic4-star-rating>          
+    </div>
 
-
-     <!-- <ion-icon name="star"></ion-icon>&nbsp;
+      <!-- <ion-icon name="star"></ion-icon>&nbsp;
         <ion-icon name="star"></ion-icon>&nbsp;
         <ion-icon name="star"></ion-icon>&nbsp;
         <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star-half-outline"></ion-icon>  -->
+        <ion-icon name="star-half-outline"></ion-icon>   -->
     
-      </p>
+     
   
+      
+
       <div class="wishlist">
         <ion-fab-button color="transparent" (click)="wishListAdd()">
           <ion-icon name="{{onWish}}"></ion-icon>
-          <!-- <ion-icon name="heart"></ion-icon> -->
+       
         </ion-fab-button>
-      </div>
+      </div> -->
     </div>
     <div class="item_info">
      
@@ -108,7 +112,6 @@
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem eum sit maxime temporibus
         in nobis voluptatibus nihil alias quaerat. Velit tenetur doloribus assumenda autem error
         porro, rerum voluptas quisquam minus!</p>
-
       <p><span>Delivery Infomation</span> <br>
         items avilable at the following address: <br>
         <br>
@@ -142,11 +145,6 @@
     <div class="reviewz" *ngSwitchCase = "'review'">
       <p class="starz1">
         Rate this product <br>
-<!-- 
-        <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
-        defaultColor="#D3D3D3" readonly="true" fontSize="18px"
-        (click)="star(2, uid, productCode)">
-      </ionic4-star-rating>  -->
 
         <ion-icon name="star-outline"  (click)="star(1, uid, productCode)"></ion-icon>&nbsp;
         <ion-icon name="star-outline" (click)="star(2, uid, productCode)"></ion-icon>&nbsp;

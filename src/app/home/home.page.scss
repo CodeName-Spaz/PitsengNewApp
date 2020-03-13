@@ -401,6 +401,14 @@ ion-toolbar {
   #web {
     display: none;
   }
+
+  #wish{
+    display: none;
+  }
+
+  #cart{
+    display: none;
+  }
 }
 
 @media screen and (min-width: 769px) {
@@ -703,7 +711,7 @@ ion-toolbar {
           }
 
           .item_details {
-            width: 12vw;
+            width: 70%;
             margin: 5px;
             p {
               font-size: 14px;
@@ -730,7 +738,7 @@ ion-toolbar {
               ion-button {
                 font-size: 14px;
                 height: 20px;
-                width: 3vw;
+                //width: 3vw;
                 color: black;
                 margin: 0 !important;
                 margin-bottom: 3px;
@@ -998,10 +1006,10 @@ ion-toolbar {
       .items {
         display: flex;
         flex-flow: row;
-        justify-content: space-around;
+        justify-content: space-evenly;
         margin: 10px;
+        width: 90%;
         min-height: 7vh;
-        margin: 5px;
         border-bottom: 1px solid black;
         .left {
           display: flex;
@@ -1022,7 +1030,7 @@ ion-toolbar {
           }
 
           .item_details {
-            width: 12vw;
+            // width: 12vw;
             p {
               font-size: 13px;
             }
@@ -1202,6 +1210,7 @@ ion-toolbar {
         display: flex;
         flex-flow: row;
         width: 95%;
+        height: fit-content;
         align-items: flex-start !important;
         border: 1px solid grey;
         padding: 5px;

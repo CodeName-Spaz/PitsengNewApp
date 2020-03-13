@@ -4,11 +4,11 @@ ion-toolbar {
 
 
   ion-icon {
-    color: white;
+    color: rgb(0, 0, 0);
   }
 
   p {
-    color: white;
+    color: rgb(0, 0, 0);
   }
  
   .notification .badge {
@@ -82,6 +82,7 @@ ion-toolbar {
       display: flex;
       flex-flow: row;
       z-index: 999999999999999;
+      margin-top: 30px;
 
       .btnz {
         display: flex;
@@ -245,8 +246,8 @@ ion-toolbar {
   .container{
     width: 60%;
     margin: auto;
-    // position: relative;
-    // top: 15%;
+    position: relative;
+    top: 15%;
   }
 
   .image{
