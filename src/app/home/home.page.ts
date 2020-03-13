@@ -39,6 +39,8 @@ export class HomePage implements OnInit {
   delType: string;
   myOrder = [];
   myWish = [];
+  Allorders = [];
+  History = [];
   constructor(public navCtrl: NavController, public alertCtrl: AlertController) { }
 
   ngOnInit() {
@@ -63,6 +65,20 @@ export class HomePage implements OnInit {
     setTimeout(() => {
       firebase.auth().onAuthStateChanged((res) => {
         if (res) {
+          firebase.firestore().collection("orderHistory").where('userID', '==', res.uid).onSnapshot((data) => {
+            this.History = [];
+            data.forEach((item) => {
+              this.History.push({ ref: item.id, info: item.data() })
+            })
+            //  console.log("orders ", this.Allorders);
+      
+          })
+          firebase.firestore().collection("Order").where('userID', '==', res.uid).onSnapshot((data) => {
+            this.Allorders = [];
+            data.forEach((item) => {
+              this.Allorders.push({ ref: item.id, info: item.data() })
+            })
+          })
           this.dbCart.where('customerUID', '==', res.uid).onSnapshot((info) => {
             // this.cartCount = info.size;
             this.prodCart = [];
@@ -114,6 +130,22 @@ export class HomePage implements OnInit {
         }
       })
     }, 0);
+  }
+  viewReciept(id) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        id: id,
+      }
+    };
+    this.navCtrl.navigateForward(['order-closed'], navigationExtras)
+  }
+  trackOrder(id) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        id: id,
+      }
+    };
+    this.navCtrl.navigateForward(['order-tracking'], navigationExtras)
   }
   editProfile() {
     this.navCtrl.navigateForward('/edit-profile')

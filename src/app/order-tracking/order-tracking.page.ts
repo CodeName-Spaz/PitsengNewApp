@@ -11,6 +11,7 @@ export class OrderTrackingPage implements OnInit {
   prod_id: any;
   dbOrder = firebase.firestore().collection("Order");
   myOrder = [];
+  status: string;
   constructor(public route: ActivatedRoute, public navCtrl: NavController) {
     this.route.queryParams.subscribe(params => {
       this.prod_id = params["id"];
@@ -25,6 +26,7 @@ export class OrderTrackingPage implements OnInit {
 
   ngOnInit() {
     this.getItem();
+    this.changeState();
   }
   popBack() {
     this.navCtrl.pop();
@@ -49,26 +51,34 @@ export class OrderTrackingPage implements OnInit {
 
     return total;
   }
-  status = "received"
+  // status = "received"
 
   changeState() {
-    let a = "received"
-    let b = "processed"
-    let c = "ready"
-    let d = "delivered"
-    if (this.status == "received") {
-      this.status = "processed"
-    }
-    else if (this.status == "processed") {
-      this.status = "ready"
-    }
-    else if (this.status == "ready") {
-      this.status = "delivered"
-    }
-    else {
+    // let a = "received"
+    // let b = "processed"
+    // let c = "ready"
+    // let d = "delivered"
+    this.dbOrder.doc(this.prod_id).onSnapshot((doc)=>{
+      // console.log(doc.data());
+      
+       if (doc.data().status === "received") {
       this.status = "received"
     }
-    console.log(this.status);
+    else if (doc.data().status === "processed") {
+      this.status = "processed"
+      
+    }
+    else if (doc.data().status === "ready") {
+      this.status = "ready"
+      
+    }
+    else {
+      this.status = "delivered"
+    }
+    // console.log(this.status); 
+     })
+   
+     
   }
   done() {
     this.navCtrl.pop();

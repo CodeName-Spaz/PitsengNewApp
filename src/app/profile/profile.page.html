@@ -72,7 +72,7 @@
           </div>
           <div>
             <p><ion-icon name="receipt-sharp"></ion-icon>{{hstry.ref}}</p>
-            <p id="date-puechase"> <b>Purchased on: </b> {{hstry.info.timestamp | date:"mediumDate"}}</p>
+            <p id="date-puechase"> <b>Purchased on: </b> {{hstry.info.dateClosed | date:"mediumDate"}}</p>
             <p id="date-puechase"> <b>Delivery Date: </b> 13/01/2020</p>
             <div id="tracker" (click)="viewReciept(hstry.ref)">TRACK</div>
           </div>

@@ -395,26 +395,26 @@
       </div>
       <div class="orders" *ngIf="pendingOrders">
 
-        <div class="card" >
+        <div class="card" *ngFor="let ord of Allorders; let i = index">
           <div class="img">
             <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
           </div>
 
           <div class="details">
             <p class="code">
-              <ion-icon slot="start" name="clipboard"></ion-icon> KHJ123568
+              <ion-icon slot="start" name="clipboard"></ion-icon> {{ord.ref}}
             </p>
-            <p><span>Date of Purchase:</span> 13/08/20
+            <p><span>Date of Purchase:</span> {{ord.info.timestamp | date:"mediumDate"}}
             </p>
             <p><span>Delivery Date:</span> 13/08/20</p>
 
-            <ion-button>
+            <ion-button (click)="trackOrder(ord.ref)">
               Track
             </ion-button>
           </div>
         </div>
 
-        <div class="card">
+        <!-- <div class="card">
           <div class="img">
             <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
           </div>
@@ -431,9 +431,9 @@
               Track
             </ion-button>
           </div>
-        </div>
+        </div> -->
 
-        <div class="card">
+        <!-- <div class="card">
           <div class="img">
             <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
           </div>
@@ -450,7 +450,7 @@
               Track
             </ion-button>
           </div>
-        </div>
+        </div> -->
 
 
       </div>
@@ -463,26 +463,26 @@
       </div>
       <div class="orders" *ngIf="orderHistory">
 
-        <div class="card">
+        <div class="card" *ngFor="let hstry of History">
           <div class="img">
             <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
           </div>
 
           <div class="details">
             <p class="code">
-              <ion-icon slot="start" name="clipboard"></ion-icon> KHJ123568
+              <ion-icon slot="start" name="clipboard"></ion-icon>{{hstry.ref}}
             </p>
-            <p><span>Date of Purchase:</span> 13/08/20
+            <p><span>Date of Purchase:</span> {{hstry.info.dateClosed | date:"mediumDate"}}
             </p>
             <p><span>Delivery Date:</span> 13/08/20</p>
 
-            <ion-button>
+            <ion-button (click)="viewReciept(hstry.ref)">
               View
             </ion-button>
           </div>
         </div>
 
-        <div class="card">
+        <!-- <div class="card">
           <div class="img">
             <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
           </div>
@@ -499,9 +499,9 @@
               View
             </ion-button>
           </div>
-        </div>
+        </div> -->
 
-        <div class="card">
+        <!-- <div class="card">
           <div class="img">
             <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
           </div>
@@ -518,7 +518,7 @@
               View
             </ion-button>
           </div>
-        </div>
+        </div> -->
 
 
       </div>
