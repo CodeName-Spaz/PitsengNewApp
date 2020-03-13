@@ -313,7 +313,8 @@ export class ItemViewPage implements OnInit {
             } else {
               this.dbWishlist.doc(this.prod_id).set({
                 customerUID: firebase.auth().currentUser.uid, price: this.price,
-                image: this.prod_image, name: this.prod_name, id: this.prod_id, category: this.category,
+                image: this.prod_image, name: this.prod_name, id: this.prod_id, category: this.category, productCode : this.productCode,
+                description : this.desc
               }).then(() => {
                 // this.myProduct[index].wish = 'heart';
                 this.toastController('Added to wishlist..');

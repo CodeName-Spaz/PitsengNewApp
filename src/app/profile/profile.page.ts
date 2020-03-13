@@ -83,8 +83,6 @@ export class ProfilePage implements OnInit {
   }
 
   editProfile() {
-    console.log("Going to edit profile");
-
     this.router.navigateByUrl('/edit-profile')
   }
   ordersOpen: boolean = false;

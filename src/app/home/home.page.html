@@ -304,19 +304,16 @@
 
     <div class="profile_details">
       <div class="profile_image">
-        <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
+        <img src="{{profile.image}}" alt="">
       </div>
 
       <div class="user_details">
-        <h1>Sinazo Mqikela</h1>
-        <p>sinazomqikela@gmail.com <br>
-          7893 uGago Street <br>
-          Protea Glen Ext 3 <br>
-          johannesburg <br>
-          1234 <br>
-          0987654321</p>
+        <h1>{{profile.name}}</h1>
+        <p>{{profile.email}} <br>
+          {{profile.address}} <br>
+          {{profile.number}}</p>
       </div>
-      <div class="edit_icon">
+      <div class="edit_icon" (click)="editProfile()">
         <ion-icon name="create"></ion-icon>
       </div>
     </div>
