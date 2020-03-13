@@ -1,0 +1,115 @@
+<ion-content>
+  <!-- <div *ngIf='status'>
+    <button (click)='closeOrder("cancelled")' *ngIf='status === "received"'>Cancel</button>
+    <button (click)='processOrder("processed")' *ngIf='status === "received"'>Process</button>
+    <button (click)='processOrder("ready")' *ngIf='status === "processed"'>Ready</button>
+    <button (click)='closeOrder("collected")' *ngIf='status === "ready"'>Collected</button>
+    <button (click)='closeOrder("delivered")' *ngIf='status === "ready"'>Delivered</button>
+  </div> -->
+
+  <div class="overlayer">
+    <div class="infographics">
+      <div class="dismisser">
+        <ion-icon name="arrow-back"></ion-icon>
+      </div>
+      <div class="details" id="left">
+        <div class="header">
+          Items Ordered
+          <div class="total">Total:R400</div>
+        </div>
+        <div class="list">
+          <ion-card class="product">
+            <div>
+              <img src="../../assets/Group 235.png" alt="">
+            </div>
+            <div>
+              <p id="prod-name">Vase</p>
+              <p>
+                <b>Code:</b> vase133456
+              </p>
+              <p>
+                <b>Size:</b> M
+              <p>
+                <b>Price:</b> R900
+              </p>
+              <p>
+                <b>Qty:</b> 5
+              </p>
+            </div>
+          </ion-card>
+
+          <ion-card class="product">
+            <div>
+              <img src="../../assets/Group 235.png" alt="">
+            </div>
+            <div>
+              <p id="prod-name">Vase</p>
+              <p>
+                <b>Code:</b> vase133456
+              </p>
+              <p>
+                <b>Size:</b> M
+              <p>
+                <b>Price:</b> R900
+              </p>
+              <p>
+                <b>Qty:</b> 5
+              </p>
+            </div>
+          </ion-card>
+
+          <ion-card class="product">
+            <div>
+              <img src="../../assets/Group 235.png" alt="">
+            </div>
+            <div>
+              <p id="prod-name">Vase</p>
+              <p>
+                <b>Code:</b> vase133456
+              </p>
+              <p>
+                <b>Size:</b> M
+              <p>
+                <b>Price:</b> R900
+              </p>
+              <p>
+                <b>Qty:</b> 5
+              </p>
+            </div>
+          </ion-card>
+        </div>
+        <div class="tracker">
+          <p>Order Progress Status Collected Same thing</p>
+          <div class="prog-bar">
+            <div id="one">1</div>
+            <div></div>
+            <div id="two">2</div>
+            <div></div>
+            <div id="three">3</div>
+            <div></div>
+            <div id="four">4</div>
+          </div>
+
+          <div class="buttons">
+            <button id="cancel" (click)="cancelOrder()" *ngIf="status === 'received'">Cancel</button>
+            <button id="approve" (click)="approveOrder()" *ngIf="status === 'received'">Approve</button>
+            <button id="ready" (click)="prepareOrder()" *ngIf="status === 'processed'">Order Ready</button>
+            <button id="ready" (click)="concludeOrder()" *ngIf="status == 'ready'">Conclude Order</button>
+            <p id="cancelledOrder" *ngIf="status === 'cancelled'">Order was cancelled</p>
+          </div>
+        </div>
+      </div>
+      <div class="details" id="right">
+        <img id="selected-image" src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
+
+        <div class="about-prod">
+          <p id="item-price">R500</p>
+          <p id="item-name"><b>Vase</b></p>
+          <p id="item-name"><b>Product Code:</b> HFHG87669686865</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, eos praesentium earum voluptatem qui ab dignissimos id voluptatibus neque deleniti ad quo sequi molestias in rerum ex! Asperiores, commodi cum?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
