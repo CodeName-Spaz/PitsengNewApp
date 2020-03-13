@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginPageModule } from '../app/login/login.module';
 import { SignUpPageModule } from '../app/sign-up/sign-up.module';
 import { ProfilePageModule } from './profile/profile.module';
+import { StarRatingModule } from 'ionic4-star-rating';
 
 var firebaseConfig = {
   apiKey: "AIzaSyD96pHc4rjR85yGc7y1Es4e1mGocFqHVjE",
@@ -35,6 +36,7 @@ firebase.analytics();
     IonicModule.forRoot(), 
     AppRoutingModule,
     FormsModule, 
+    StarRatingModule,
     ReactiveFormsModule,
     LoginPageModule,
     SignUpPageModule,
