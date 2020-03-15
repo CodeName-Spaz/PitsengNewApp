@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import * as firebase from 'firebase'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IonicSelectableModule } from 'ionic-selectable';
+
 
 import { LoginPageModule } from '../app/login/login.module';
 import { SignUpPageModule } from '../app/sign-up/sign-up.module';
@@ -38,6 +40,7 @@ firebase.analytics();
     IonicModule.forRoot(), 
     AppRoutingModule,
     FormsModule, 
+    IonicSelectableModule,
     // StarRatingModule,
     ReactiveFormsModule,
     LoginPageModule,

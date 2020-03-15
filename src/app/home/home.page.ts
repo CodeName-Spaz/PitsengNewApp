@@ -45,6 +45,7 @@ export class HomePage implements OnInit {
   myWish = [];
   History = [];
   Allorders = [];
+  itemAvailable = [];
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public modalController: ModalController) { }
 
   ngOnInit() {
@@ -59,6 +60,7 @@ export class HomePage implements OnInit {
     this.dbProduct.where('category', '==', name).onSnapshot((res) => {
       this.myProduct = [];
       res.forEach((doc) => {
+ 
         this.myProduct.push({ data: doc.data(), id: doc.id })
       })
       // console.log("My items ", this.myProduct);
@@ -115,6 +117,14 @@ export class HomePage implements OnInit {
               //     }
               //   })
               // }
+              this.itemAvailable = [];
+              this.dbProduct.doc(doc.id).onSnapshot((data) => {
+                if (data.data().hideItem === true) {
+                  this.itemAvailable.push("Out of stock");
+                } else {
+                  this.itemAvailable.push("In stock");
+                }
+              })
               this.myWish.push({ info: doc.data(), id: doc.id });
             })
           })
@@ -439,7 +449,9 @@ export class HomePage implements OnInit {
     });
     return await modal.present();
   }
-
+  search() {
+    this.navCtrl.navigateForward('search');
+  }
   async presentHistory(id) {
     const modal = await this.modalController.create({
       component: FaqsPage,

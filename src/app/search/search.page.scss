@@ -1,0 +1,524 @@
+ion-content{
+    background: rgb(226, 225, 225);
+  }
+  .container {
+    display: flex;
+    flex-flow: column;
+    background: rgb(226, 225, 225);
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container2 {
+    position: relative;
+    top: 20px;
+    margin: 0;
+    padding: 0;
+    background: rgb(226, 225, 225);
+  }
+  
+  .search {
+    display: flex;
+    flex-flow: row;
+    border: 1px solid rgb(196, 196, 196);
+    width: 100%;
+    position: relative;
+    //height: 40px;
+    background: maroon;
+    .back {
+      width: 15vw;
+      height: 40px;
+      display: grid;
+      align-items: center;
+      ion-icon {
+        text-align: center;
+        font-size: 2em;
+        margin-left: 10px;
+        color: white;
+      }
+    }
+    .bar {
+      width: 85vw;
+      height: 40px;
+      display: grid;
+      align-items: center;
+      position: relative;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: rgb(255, 255, 255);
+      ion-item {
+        position: absolute;
+        width: 100%;
+        height: 90%;
+        object-fit: cover;
+        display: grid;
+        align-items: center;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
+    }
+  }
+  
+  .quantity {
+    margin: 0px 0px 0px 20px;
+    p {
+      font-family: "Poppins";
+      margin-bottom: -2px;
+    }
+  }
+  
+  .line {
+    width: 100vw;
+    height: 1px;
+    background: grey;
+  }
+  
+  .cards {
+    display: flex;
+    flex-flow: column;
+    position: relative;
+    top: 20px;
+    height: 85vh;
+    overflow-y: auto;
+  }
+  
+  .list {
+    display: flex;
+    flex-flow: row;
+    width: 95%;
+    // display: grid;
+    // align-items: center;
+    min-height: 8.3vh;
+    margin: 1px 10px;
+  
+    border-radius: 5px;
+    background: white;
+    border: 1px solid rgb(197, 197, 197);
+    //   box-shadow: 5px 5px 10px rgb(190, 190, 190);
+    .image {
+      width: 20vw;
+      min-height: 8vh;
+      max-height: 8vh;
+      border-radius: 5px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 5px;
+      }
+    }
+  
+    .itemname {
+      width: 60vw;
+    
+      margin-left: 5px;
+      margin-top: 8px;
+      display: grid;
+      align-items: center;
+      p {
+        font-family: "Poppins";
+        font-weight: lighter;
+        font-size: 3vw;
+      }
+    }
+  
+    .amount {
+      width: 20vw;
+  
+      margin-top: 8px;
+      margin-right: 5px;
+      display: grid;
+      align-items: center;
+      p {
+        font-family: "Poppins";
+        font-weight: lighter;
+        font-size: 3vw;
+      }
+    }
+  }
+  .loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    background:rgb(0, 27, 63);
+    background-repeat: repeat-x;
+    transform: scale(1);
+    overflow: hidden;
+    transition: 0.4s;
+    transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation: backgroundmover 30s linear infinite;
+  
+  
+  
+    .loader {
+      width: 10em;
+      height: 10em;
+      font-size: 25px;
+      box-sizing: border-box;
+      border-top: 0.3em solid rgb(58, 0, 29);
+      border-radius: 50%;
+      position: relative;
+      animation: rotating 2s ease-in-out infinite;
+      --direction: 1;
+    }
+  
+    .loader::before,
+    .loader::after {
+      content: "";
+      position: absolute;
+      width: inherit;
+      height: inherit;
+      border-radius: 50%;
+      box-sizing: border-box;
+      top: -0.2em;
+    }
+  
+    .loader::before {
+      border-top: 0.3em solid rgb(0, 20, 39);
+      transform: rotate(120deg);
+    }
+  
+    .loader::after {
+      border-top: 0.3em solid rgb(70, 70, 70);
+      transform: rotate(240deg);
+    }
+  
+    .loader span {
+      position: absolute;
+      color: white !important;
+      width: inherit;
+      height: inherit;
+      text-align: center;
+      line-height: 10em;
+      font-family: sans-serif;
+      animation: rotating 2s linear infinite;
+      --direction: -1;
+    }
+  
+    @keyframes rotating {
+      50% {
+        transform: rotate(calc(180deg * var(--direction)));
+      }
+  
+      100% {
+        transform: rotate(calc(360deg * var(--direction)));
+      }
+    }
+  
+    // .maploader {
+    //   .lds-ellipsis {
+    //     display: inline-block;
+    //     position: relative;
+    //     width: 80px;
+    //     height: 80px;
+    //   }
+    //   .lds-ellipsis div {
+    //     position: absolute;
+    //     top: 33px;
+    //     width: 13px;
+    //     height: 13px;
+    //     border-radius: 50%;
+    //     background: #fff;
+    //     animation-timing-function: cubic-bezier(0, 1, 1, 0);
+    //   }
+    //   .lds-ellipsis div:nth-child(1) {
+    //     left: 8px;
+    //     animation: lds-ellipsis1 0.6s infinite;
+    //   }
+    //   .lds-ellipsis div:nth-child(2) {
+    //     left: 8px;
+    //     animation: lds-ellipsis2 0.6s infinite;
+    //   }
+    //   .lds-ellipsis div:nth-child(3) {
+    //     left: 32px;
+    //     animation: lds-ellipsis2 0.6s infinite;
+    //   }
+    //   .lds-ellipsis div:nth-child(4) {
+    //     left: 56px;
+    //     animation: lds-ellipsis3 0.6s infinite;
+    //   }
+    //   @keyframes lds-ellipsis1 {
+    //     0% {
+    //       transform: scale(0);
+    //     }
+    //     100% {
+    //       transform: scale(1);
+    //     }
+    //   }
+    //   @keyframes lds-ellipsis3 {
+    //     0% {
+    //       transform: scale(1);
+    //     }
+    //     100% {
+    //       transform: scale(0);
+    //     }
+    //   }
+    //   @keyframes lds-ellipsis2 {
+    //     0% {
+    //       transform: translate(0, 0);
+    //     }
+    //     100% {
+    //       transform: translate(24px, 0);
+    //     }
+    //   }
+    // }
+   }
+   .loading-text {
+    // color: yellow;
+    position: absolute;
+    bottom: 50vh;
+    left: 0px;
+    width: 100vw;
+    text-align: center;
+    // background: red;
+    height: 50vh;
+    //z-index: 90;
+    margin: auto;
+   }
+   .loader-hide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 20;
+    background: rgb(255, 255, 255);
+    transform: scale(0);
+    overflow: hidden;
+    transition: 0.4s;
+    transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    .maploader {
+      .lds-ellipsis {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+      }
+      .lds-ellipsis div {
+        position: absolute;
+        top: 33px;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: #fff;
+        animation-timing-function: cubic-bezier(0, 1, 1, 0);
+      }
+      .lds-ellipsis div:nth-child(1) {
+        left: 8px;
+        animation: lds-ellipsis1 0.6s infinite;
+      }
+      .lds-ellipsis div:nth-child(2) {
+        left: 8px;
+        animation: lds-ellipsis2 0.6s infinite;
+      }
+      .lds-ellipsis div:nth-child(3) {
+        left: 32px;
+        animation: lds-ellipsis2 0.6s infinite;
+      }
+      .lds-ellipsis div:nth-child(4) {
+        left: 56px;
+        animation: lds-ellipsis3 0.6s infinite;
+      }
+      @keyframes lds-ellipsis1 {
+        0% {
+          transform: scale(0);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      @keyframes lds-ellipsis3 {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(0);
+        }
+      }
+      @keyframes lds-ellipsis2 {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(24px, 0);
+        }
+      }
+    }
+   }
+   @keyframes maploader {
+    0% {
+      // transform: rotate(0deg);
+      border-color: rgb(182, 70, 95);
+      // background: rgb(255, 192, 192);
+    }
+    50% {
+      // background: rgb(206, 206, 255);
+      // transform: rotate(360deg);
+      border-color: rgb(42, 50, 75);
+    }
+    100% {
+      border-color: rgb(250, 182, 43);
+      // background: rgb(255, 167, 167);
+      // transform: rotate(360deg);
+    }
+   }
+  
+   @media only screen and (max-width: 1024px) {
+    .web_view {
+      display: none;
+      width: 0%;
+      height: 0%;
+    }
+  }
+  
+  @media only screen and (min-width: 1330px) {
+    .container {
+      display: none;
+      width: 0 !important;
+      height: 0 !important;
+    }
+  
+    .web_view {
+      min-width: 800px;
+      max-width: 1000px;
+      margin: auto;
+  
+      .container2 {
+        position: relative;
+        top: 20px;
+        margin: 0;
+        padding: 0;
+        background: rgb(226, 225, 225);
+      }
+      
+      .search {
+        display: flex;
+        flex-flow: row;
+        border: 1px solid rgb(196, 196, 196);
+        width: 100%;
+        position: relative;
+        //height: 40px;
+        background: maroon;
+        .back {
+          width: 15vw;
+          height: 40px;
+          display: grid;
+          align-items: center;
+          ion-icon {
+            text-align: center;
+            font-size: 2em;
+            margin-left: 10px;
+            color: white;
+          }
+        }
+        .bar {
+          width: 85vw;
+          height: 40px;
+          display: grid;
+          align-items: center;
+          position: relative;
+          margin: 0 !important;
+          padding: 0 !important;
+          background: rgb(255, 255, 255);
+          ion-item {
+            position: absolute;
+            width: 100%;
+            height: 90%;
+            object-fit: cover;
+            display: grid;
+            align-items: center;
+            margin: 0 !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+          }
+        }
+      }
+      
+      .quantity {
+        margin: 0px 0px 0px 20px;
+        p {
+          font-family: "Poppins";
+          margin-bottom: -2px;
+        }
+      }
+      
+      .line {
+        width: 100%;
+        height: 1px;
+        background: grey;
+      }
+      
+      .cards {
+        display: flex;
+        flex-flow: column;
+        position: relative;
+        top: 20px;
+        height: 85vh;
+        overflow-y: auto;
+      }
+      
+      .list {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-evenly;
+        justify-items: center;
+        width: 95%;
+        min-height: 8.3vh;
+        margin: 1px 10px 10px 20px;
+        border-radius: 5px;
+        background: white;
+        border: 1px solid rgb(197, 197, 197);
+        .image {
+          width: 15vw;
+          min-height: 6vw;
+          max-height: 6vw;
+          border-radius: 5px;
+          margin: 10px;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+          }
+        }
+      
+        .itemname {
+          width: 60vw;
+          margin-left: 15px;
+          margin-top: 8px;
+          display: grid;
+          align-items: center;
+          p {
+            font-family: "Poppins";
+            font-weight: lighter;
+      font-size: 1.2vw;
+          }
+        }
+      
+        .amount {
+          width: 20vw;
+          margin-top: 8px;
+          margin-right: 5px;
+          display: grid;
+          align-items: center;
+          p {
+            font-family: "Poppins";
+            font-weight: lighter;
+            font-size: 1.2vw;
+          }
+        }
+      } 
+    }
+  }
