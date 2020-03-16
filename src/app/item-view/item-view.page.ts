@@ -92,7 +92,7 @@ export class ItemViewPage implements OnInit {
     });
    
   }
-  logRatingChange(Rating){
+  logRatingChange(){
     firebase.firestore().collection('Products').onSnapshot(snapshot => {
       this.reviews = []
       snapshot.forEach(item => {
@@ -115,7 +115,7 @@ export class ItemViewPage implements OnInit {
       this.imageSide = doc.data().imageSide;
       this.imageTop = doc.data().imageTop;
       this.productCode = doc.data().productCode;
-      // this.getRatings(doc.data().productCode, id)
+      this.getRatings(doc.data().productCode, id)
     })
   }
 

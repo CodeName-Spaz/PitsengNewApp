@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import * as firebase from 'firebase';
 import { NavController, AlertController, ToastController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
@@ -12,7 +12,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-
+  @ViewChild('rating', {static: true}) rating : any;
   dbProduct = firebase.firestore().collection('Products');
   dbCart = firebase.firestore().collection("Cart");
   dbWishlist = firebase.firestore().collection('Wishlist');
@@ -31,6 +31,7 @@ export class HomePage implements OnInit {
 
   myProduct = [];
   prodCart = [];
+  Products=[]
   val = '';
   viewBackdrop = false;
   viewCart = false;
@@ -58,6 +59,19 @@ export class HomePage implements OnInit {
     }, 4000);
     this.checkUser();
     this.getProductsbyCategory('Deco')
+
+    // this.getProducts();
+  }
+
+  getProducts(){
+
+    firebase.firestore().collection("Products").onSnapshot(snapshot => {
+      this.myProduct=[]
+      snapshot.forEach(item =>{
+        this.myProduct.push(item.data());
+      })
+    })
+
   }
   getProductsbyCategory(name: string) {
     this.val = name.toLowerCase();
@@ -67,10 +81,15 @@ export class HomePage implements OnInit {
 
         this.myProduct.push({ data: doc.data(), id: doc.id })
       })
-      // console.log("My items ", this.myProduct);
+      console.log("My items ", this.myProduct);
 
     })
   }
+
+  displayRating(rates) {
+    
+  }
+
   checkUser() {
     setTimeout(() => {
       firebase.auth().onAuthStateChanged((res) => {

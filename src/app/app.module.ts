@@ -20,6 +20,7 @@ import { PaymentPageModule } from './payment/payment.module';
 import { FaqsPageModule } from './faqs/faqs.module';
 // import { StarRatingModule } from 'ionic4-star-rating';
 
+
 var firebaseConfig = {
   apiKey: "AIzaSyD96pHc4rjR85yGc7y1Es4e1mGocFqHVjE",
   authDomain: "pitseng-arts.firebaseapp.com",
@@ -54,6 +55,7 @@ firebase.analytics();
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+ 
 })
 export class AppModule {}
