@@ -52,10 +52,16 @@
 
        
       <div class="stars" *ngFor="let item of reviews">  
-        <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
-          defaultColor="#D3D3D3" readonly="true" rating="{{item.Rating}}" fontSize="18px"
-          (ratingChanged)="logRatingChange(item.Rating)">
-        </ionic4-star-rating>          
+         <ion-rating [rate]="rate"
+            activeIcon = "ios-star"
+            defaultIcon = "ios-star-outline"
+            activeColor = "#ff0000"
+            defaultColor = "#aaaaaa"
+            rating = "{{p.data.rating}}"
+            fontSize = "18px"
+        readonly="true"
+        (rateChange)="getProductsbyCategory($event)">
+</ion-rating>        
     </div>
 
       <!-- <ion-icon name="star"></ion-icon>&nbsp;

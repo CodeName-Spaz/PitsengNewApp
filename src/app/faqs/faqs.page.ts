@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { NavParams, ModalController } from '@ionic/angular';
-const FileSaver = require('file-saver');
+// const FileSaver = require('file-saver');
 @Component({
   selector: 'app-faqs',
   templateUrl: './faqs.page.html',
@@ -78,7 +78,7 @@ export class FaqsPage implements OnInit {
     })
   }
   download(pdf) {
-    FileSaver.saveAs(pdf);
+    // FileSaver.saveAs(pdf);
   }
   getTotal() {
     let total = 0;
