@@ -1176,6 +1176,32 @@ ion-toolbar {
         }
       }
     }
+
+    .inputs{
+      width: 85% !important;
+      margin: 10px;
+      ion-input{
+        width: 100%;
+        border-bottom: 1px solid rgb(160, 160, 160);
+      }
+
+      .button{
+        width: 100%;
+      }
+      #done{
+        background: rgb(11, 66, 0);
+        width: 45%;
+        margin: 5px;
+      }
+
+      #cancel{
+        background: rgb(119, 0, 0);
+        width: 45%;
+        margin: 5px;
+      }
+
+    }
+
     .line {
       width: 95%;
       height: 1.5px;

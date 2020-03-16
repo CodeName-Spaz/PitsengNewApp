@@ -26,6 +26,9 @@ export class HomePage implements OnInit {
     email: '',
     uid: '',
   }
+
+  showInputs = false
+
   myProduct = [];
   prodCart = [];
   Products=[]
@@ -455,6 +458,10 @@ export class HomePage implements OnInit {
 
   history() {
     this.orderHistory = !this.orderHistory
+  }
+
+  editInputs() {
+    this.showInputs = !this.showInputs
   }
 
   async presentModal(id, name) {
