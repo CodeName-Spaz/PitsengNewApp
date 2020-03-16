@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, ToastController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 import { PaymentPage } from '../payment/payment.page';
 import { FaqsPage } from '../faqs/faqs.page'
@@ -49,7 +49,8 @@ export class HomePage implements OnInit {
   History = [];
   Allorders = [];
   itemAvailable = [];
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public modalController: ModalController) { }
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public modalController: ModalController,
+    public toastCtrl: ToastController) { }
 
   ngOnInit() {
     setTimeout(() => {
@@ -63,7 +64,7 @@ export class HomePage implements OnInit {
     this.dbProduct.where('category', '==', name).onSnapshot((res) => {
       this.myProduct = [];
       res.forEach((doc) => {
- 
+
         this.myProduct.push({ data: doc.data(), id: doc.id })
       })
       // console.log("My items ", this.myProduct);
@@ -138,15 +139,12 @@ export class HomePage implements OnInit {
             this.profile.address = snapshot.data().address;
             this.profile.email = snapshot.data().email;
           })
-        } else {
-          // this.alertView = this.localSt.retrieve('alertShowed');
-          // console.log('My data ',this.alertView);
-          // if (this.localSt.retrieve('alertShowed') !== true) {
-          this.presentAlertConfirm1();
-          // }
         }
       })
     }, 0);
+  }
+  logout() {
+    firebase.auth().signOut();
   }
   viewReciept(id) {
     let navigationExtras: NavigationExtras = {
@@ -315,6 +313,22 @@ export class HomePage implements OnInit {
     })
 
   }
+
+  updateProfile() {
+    this.dbProfile.doc(firebase.auth().currentUser.uid).update({
+      name: this.profile.name, email: this.profile.email, address: this.profile.address,
+      number: this.profile.number
+    }).then(() => {
+      // this.editprofile = !this.editprofile;
+      this.toastController();
+    })
+    //console.log('My profile ', p);
+  }
+  async toastController() {
+    let toast = await this.toastCtrl.create({ message: 'Profile update', duration: 2000 })
+    return toast.present()
+  }
+
   viewProduct(val) {
     this.dbProduct.doc(val.id).update({ viewed: firebase.firestore.FieldValue.increment(1) })
     let navigationExtras: NavigationExtras = {
@@ -367,8 +381,14 @@ export class HomePage implements OnInit {
     await alert.present();
   }
   getCart() {
-    this.viewCart = !this.viewCart
-    this.viewBackdrop = !this.viewBackdrop
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.viewCart = !this.viewCart
+        this.viewBackdrop = !this.viewBackdrop
+      } else {
+        this.presentAlertConfirm1();
+      }
+    })
   }
   getTotal() {
     let total = 0;
@@ -420,13 +440,28 @@ export class HomePage implements OnInit {
   }
 
   reviewed() {
-    this.viewWishlist = !this.viewWishlist
-    this.viewBackdrop = !this.viewBackdrop
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.viewWishlist = !this.viewWishlist
+        this.viewBackdrop = !this.viewBackdrop
+      } else {
+        this.presentAlertConfirm1();
+      }
+    })
+
   }
 
   gotoProfile() {
-    this.viewProfile = !this.viewProfile
-    this.viewBackdrop = !this.viewBackdrop
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.viewProfile = !this.viewProfile
+        this.viewBackdrop = !this.viewBackdrop
+      } else {
+        this.presentAlertConfirm1();
+      }
+    })
+
+
   }
 
   viewPendingOrders() {

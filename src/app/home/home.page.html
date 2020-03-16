@@ -319,10 +319,10 @@
     </div>
 
     <div class='inputs' *ngIf="showInputs">
-      <ion-input type="text" placeholder="Name"></ion-input>
-      <ion-input type="text" placeholder="Email"></ion-input>
-      <ion-input type="text" placeholder="Number"></ion-input>
-      <ion-input type="text" placeholder="Address"></ion-input>
+      <ion-input type="text" [(ngModel)]="profile.name" placeholder="Name"></ion-input>
+      <ion-input type="text" [(ngModel)]="profile.email" placeholder="Email"></ion-input>
+      <ion-input type="text" [(ngModel)]="profile.number" placeholder="Number"></ion-input>
+      <ion-input type="text" [(ngModel)]="profile.address" placeholder="Address"></ion-input>
       <div class="button">
         <ion-button id=done color="transparent">
           DONE
@@ -333,7 +333,7 @@
         </ion-button>
       </div>
     </div>
-
+   
     <div class="line"></div>
 
     <div class="pending_orders">
@@ -434,6 +434,9 @@
 
       </div>
     </div>
+    <ion-button id="logout" (click)="logout()">
+      SIGN-OUT
+    </ion-button>
   </div>
 
   <ion-footer id="webview">
