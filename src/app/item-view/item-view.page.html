@@ -57,10 +57,10 @@
             defaultIcon = "ios-star-outline"
             activeColor = "#ff0000"
             defaultColor = "#aaaaaa"
-            rating = "{{p.data.rating}}"
+            rating = "{{item.Rating}}"
             fontSize = "18px"
         readonly="true"
-        (rateChange)="getProductsbyCategory($event)">
+        (rateChange)="logRatingChange()">
 </ion-rating>        
     </div>
 
@@ -72,12 +72,12 @@
     
      
   
-      <!-- <div class="wishlist">
+      <div class="wishlist">
         <ion-fab-button color="transparent" (click)="wishListAdd()">
           <ion-icon name="{{onWish}}"></ion-icon>
        
         </ion-fab-button>
-      </div> -->
+      </div>
     </div>
     <div class="item_info">
      
