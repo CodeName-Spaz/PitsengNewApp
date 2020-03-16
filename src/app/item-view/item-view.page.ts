@@ -47,7 +47,7 @@ export class ItemViewPage implements OnInit {
   imageSide: any;
   imageTop: any;
   similarItems = [];
-  uid=firebase.auth().currentUser.uid;
+  // uid=firebase.auth().currentUser.uid;
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
       this.prod_id = params["id"];
@@ -99,7 +99,7 @@ export class ItemViewPage implements OnInit {
     });
    
   }
-  logRatingChange(Rating){
+  logRatingChange(){
     firebase.firestore().collection('Products').onSnapshot(snapshot => {
       this.reviews = []
       snapshot.forEach(item => {
@@ -122,7 +122,7 @@ export class ItemViewPage implements OnInit {
       this.imageSide = doc.data().imageSide;
       this.imageTop = doc.data().imageTop;
       this.productCode = doc.data().productCode;
-      // this.getRatings(doc.data().productCode, id)
+      this.getRatings(doc.data().productCode, id)
     })
   }
 

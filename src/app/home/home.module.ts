@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
+import { IonicRatingModule } from 'ionic-rating';
 import { HomePage } from './home.page';
 
 @NgModule({
@@ -11,6 +11,7 @@ import { HomePage } from './home.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    IonicRatingModule,
     RouterModule.forChild([
       {
         path: '',
@@ -19,6 +20,7 @@ import { HomePage } from './home.page';
     ])
   ],
   declarations: [HomePage],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+   exports: [ ]
 })
 export class HomePageModule {}

@@ -142,16 +142,27 @@
             <span>{{p.data.price | currency:"R"}}</span></p>
           <p class="starz">
 
-            <!-- <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
+            <ion-rating [rate]="rate"
+            activeIcon = "ios-star"
+            defaultIcon = "ios-star-outline"
+            activeColor = "#ff0000"
+            defaultColor = "#aaaaaa"
+            rating = "{{p.data.rating}}"
+            fontSize = "18px"
+        readonly="true"
+        (rateChange)="getProductsbyCategory(p.data.name)">
+</ion-rating>
+
+             <!-- <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
         defaultColor="#D3D3D3" readonly="true" rating="{{avgRating}}" fontSize="18px"
         (ratingChanged)="getRatings()">
-      </ionic4-star-rating> -->
+      </ionic4-star-rating>  -->
       
+          <!--   <ion-icon name="star"></ion-icon>
             <ion-icon name="star"></ion-icon>
             <ion-icon name="star"></ion-icon>
             <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star-half-outline"></ion-icon>
+            <ion-icon name="star-half-outline"></ion-icon> -->
           </p>
         </div>
       </div>
@@ -325,10 +336,10 @@
     <div class="line"></div>
 
     <div class='inputs' *ngIf="showInputs">
-      <ion-input type="text" placeholder="Name"></ion-input>
-      <ion-input type="text" placeholder="Email"></ion-input>
-      <ion-input type="text" placeholder="Number"></ion-input>
-      <ion-input type="text" placeholder="Address"></ion-input>
+      <ion-input type="text" [(ngModel)]="profile.name" placeholder="Name"></ion-input>
+      <ion-input type="text" [(ngModel)]="profile.email" placeholder="Email"></ion-input>
+      <ion-input type="text" [(ngModel)]="profile.number" placeholder="Number"></ion-input>
+      <ion-input type="text" [(ngModel)]="profile.address" placeholder="Address"></ion-input>
       <ion-input type="file" id="file" ></ion-input>
       <div class="button">
         <ion-button id=done color="transparent">
@@ -340,7 +351,7 @@
         </ion-button>
       </div>
     </div>
-
+   
     <div class="line"></div>
 
     <div class="pending_orders">
@@ -404,6 +415,9 @@
         
       </div>
     </div>
+    <ion-button id="logout" (click)="logout()">
+      SIGN-OUT
+    </ion-button>
   </div>
 
   <ion-footer id="webview">

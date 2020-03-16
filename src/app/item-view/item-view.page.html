@@ -58,10 +58,16 @@
 
        
       <div class="stars" *ngFor="let item of reviews">  
-        <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
-          defaultColor="#D3D3D3" readonly="true" rating="{{item.Rating}}" fontSize="18px"
-          (ratingChanged)="logRatingChange(item.Rating)">
-        </ionic4-star-rating>          
+         <ion-rating [rate]="rate"
+            activeIcon = "ios-star"
+            defaultIcon = "ios-star-outline"
+            activeColor = "#ff0000"
+            defaultColor = "#aaaaaa"
+            rating = "{{item.Rating}}"
+            fontSize = "18px"
+        readonly="true"
+        (rateChange)="logRatingChange()">
+</ion-rating>        
     </div>
 
       <!-- <ion-icon name="star"></ion-icon>&nbsp;
@@ -70,12 +76,14 @@
         <ion-icon name="star"></ion-icon>&nbsp;
         <ion-icon name="star-half-outline"></ion-icon>   -->
     
-      <!-- <div class="wishlist">
+     
+  
+      <div class="wishlist">
         <ion-fab-button color="transparent" (click)="wishListAdd()">
           <ion-icon name="{{onWish}}"></ion-icon>
        
         </ion-fab-button>
-      </div> -->
+      </div>
     </div>
     <div class="item_info">
      

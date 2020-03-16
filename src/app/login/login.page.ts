@@ -69,7 +69,7 @@ export class LoginPage implements OnInit {
   loginUser(value){
     firebase.auth().signInWithEmailAndPassword(value.email, value.password)
     .then(res => {
-      this.presentLoading();
+      // this.presentLoading();
       this.errorMessage = "";
       this.navCtrl.navigateForward('/home');
     }, err => {
