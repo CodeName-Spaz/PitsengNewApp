@@ -1,29 +1,35 @@
-<ion-header class="ion-no-border" translucent="true">
-  <ion-toolbar translucent="true">
-    <ion-buttons slot="start">
-      <ion-button (click)="popBack()">
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-      </ion-button>
-      <p>{{prod_name}}</p>
-    </ion-buttons>
+<ion-header class="ion-no-border" id="web">
+  <ion-toolbar>
+    <img src="../../assets/Group 235.png" alt="">
+
 
     <ion-buttons slot="end">
 
-      <ion-button class="notification" (click)="visitWish()">
-        <ion-icon slot="icon-only" name="heart" ></ion-icon>
+      <ion-button (click)="search()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+
+      <ion-button class="notification" (click)="reviewed()">
+        <ion-icon slot="icon-only" name="heart"></ion-icon>
         <span class="badge"></span>
       </ion-button>
 
-      <ion-button class="notification" (click)="visitCart()">
+      <ion-button class="notification" (click)="getCart()">
         <ion-icon slot="icon-only" name="basket"></ion-icon>
         <span class="badge"></span>
       </ion-button>
-      <ion-button color="secondary" (click)="visitProfile()">
-        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
-      </ion-button>
+
     </ion-buttons>
   </ion-toolbar>
+
+  <ion-toolbar class="ribbon" color="transparent">
+
+    <h1>{{prod_name}}</h1>
+  </ion-toolbar>
 </ion-header>
+
 
 <ion-content fullscreen>
 
@@ -64,8 +70,6 @@
         <ion-icon name="star"></ion-icon>&nbsp;
         <ion-icon name="star-half-outline"></ion-icon>   -->
     
-     
-  
       <!-- <div class="wishlist">
         <ion-fab-button color="transparent" (click)="wishListAdd()">
           <ion-icon name="{{onWish}}"></ion-icon>
@@ -167,6 +171,139 @@
         ADD TO BAG {{getTotal() | currency:"R"}}
       </ion-button>
     </div>
+  </div>
+
+  <div class="backdrop1" *ngIf="viewBackdrop"></div>
+  <div id="cart" [ngClass]="{'viewcart': viewCart, 'closecart': !viewCart}">
+
+    <div class="heading">
+      <p>Your Cart</p>
+
+      <ion-icon slot="icon-only" name="close" (click)="getCart()"></ion-icon>
+
+    </div>
+
+
+    <div class="wishlist_items">
+      <div class="div">
+
+
+        <div class="items" >
+          <div class="left" >
+            <div class="img">
+              <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
+            </div>
+
+            <div class="item_details">
+              <p> <b>Name <br> R400.00</b><br>
+                <span>size: S</span><br>
+              </p>
+
+              <div class="add_buttons">
+                <p>QTY:2</p>
+                <div class="clicks">
+                  <ion-button (click)="plus(prod, i)" color="transparent" class="adds">
+                    <span>
+                      <ion-icon slot="start" name="add"></ion-icon>
+                    </span>
+                  </ion-button>
+                  <ion-button (click)="minus(prod, i)" color="transparent" class="adds1">
+                    <span>
+                      <ion-icon slot="start" name="remove"></ion-icon>
+                    </span>
+                  </ion-button>
+                </div>
+
+                <!-- <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
+                3 <ion-icon slot="end" name="add-circle-outline"></ion-icon> -->
+              </div>
+
+            </div>
+          </div>
+
+          <div class="right">
+            <div class="trash_icon" (click)="removeProd(cp.id)">
+              <ion-icon slot="start" name="trash"></ion-icon>
+            </div>
+
+
+          </div>
+        </div>
+
+        <!-- <div class="items" id="noItems" *ngIf="prodCart.length === 0">
+          <p>Basket Empty</p>
+          <img src="../../assets/empty-cart.svg" alt="">
+        </div> -->
+
+
+        <div class="add_to_basket">
+          <p style="width: 100%; text-align: left; font-size: 13px; color: rgb(129, 35, 1)">Shipping Methods</p>
+          <div class="delivery_options">
+            <ion-button (click)="switchView('d')" color="transparent" id="del"
+              [ngClass]="{'delivery':buttonActive, 'delivery-inactive': !buttonActive}">
+              DELIVERY
+            </ion-button>
+            <ion-button (click)="switchView('c')" color="transparent" id="col"
+              [ngClass]="{'collection': !buttonActive, 'collection-inactive': buttonActive}">
+              COLLECTION
+            </ion-button>
+          </div>
+
+          <p style="width: 100%; text-align: right; font-size: 13px; color: rgb(129, 35, 1)">
+            <i>Please Note: Delivery will take up to four days
+            </i></p>
+
+          <p style="width: 100%; text-align: right; font-size: 13px; color:rgb(129, 35, 1)">
+            <i>Please Note: You can collect your items at any time
+            </i></p>
+          <ion-button color="transparent" [disabled]="!delType" (click)="placeOrder()">
+            <!-- <div *ngIf="delType==='Delivery'">  PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div> -->
+            <!-- <div *ngIf="delType==='Collection'">PLACE ORDER ({{notDelivery(getTotal()) | currency:'R'}})</div> -->
+            <div>PLACE ORDER</div>
+          </ion-button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div id="wish" [ngClass]="{'viewwishlist': viewWishlist, 'closewishlist': !viewWishlist}">
+    <div class="heading">
+      <p> Your Wishlist
+      </p>
+      <ion-icon slot="icon-only" name="close" (click)="reviewed()"></ion-icon>
+    </div>
+    <div class="wishlist_items">
+      <div class="div">
+        <div class="items" >
+          <ion-checkbox ></ion-checkbox>
+          <div class="left">
+            <div class="img">
+              <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
+            </div>
+
+            <div class="item_details">
+              <p>Name<br>R400 <br> Code: JT656555</p>
+              <p style="color: rgb(77, 1, 1)"><i>Unavailable</i></p>
+            </div>
+          </div>
+
+          <div class="right">
+            <div class="trash_icon" (click)="delete(w.id)">
+              <ion-icon slot="start" name="trash"></ion-icon>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <!-- <div class="add_to_basket">
+      <ion-button color="transparent">
+        ADD TO CART (R500.00)
+      </ion-button>
+    </div> -->
   </div>
 
 

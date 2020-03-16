@@ -320,17 +320,17 @@ export class HomePage implements OnInit {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         id: val.id,
-        image: val.data.image,
-        imageBack: val.data.imageBack,
-        imageSide: val.data.imageSide,
-        imageTop: val.data.imageTop,
-        item: val.data.item,
-        name: val.data.name,
-        sizes: val.data.sizes,
-        description: val.data.description,
-        productCode: val.data.productCode,
-        category: val.data.category,
-        price: val.data.price
+        //image: val.data.image,
+        // imageBack: val.data.imageBack,
+        // imageSide: val.data.imageSide,
+        // imageTop: val.data.imageTop,
+        // item: val.data.item,
+        // name: val.data.name,
+        // sizes: val.data.sizes,
+        // description: val.data.description,
+        // productCode: val.data.productCode,
+        // category: val.data.category,
+        // price: val.data.price
       }
     };
 

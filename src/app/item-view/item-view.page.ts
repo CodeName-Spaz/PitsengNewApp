@@ -15,8 +15,15 @@ export class ItemViewPage implements OnInit {
   dbProduct = firebase.firestore().collection('Products');
   reviews = [];
   avgRating
-  
-  
+  viewBackdrop = false;
+  viewCart = false;
+  viewWishlist = false;
+  buttonActive: boolean = true;
+  viewPending = false;
+  pendingOrders = false;
+  orderHistory = false;
+  showInputs = false
+  viewProfile = false;
   ratingTotal= 0
   ratingTotalTotal
   stars=0
@@ -331,6 +338,48 @@ export class ItemViewPage implements OnInit {
 
   popBack() {
     this.navCtrl.pop();
+  }
+
+  reviewed() {
+    this.viewWishlist = !this.viewWishlist
+    this.viewBackdrop = !this.viewBackdrop
+  }
+
+  gotoProfile() {
+    this.viewProfile = !this.viewProfile
+    this.viewBackdrop = !this.viewBackdrop
+  }
+
+  getCart() {
+    this.viewCart = !this.viewCart
+    this.viewBackdrop = !this.viewBackdrop
+  }
+
+  viewPendingOrders() {
+    this.viewPending = !this.viewPending
+  }
+
+  pending() {
+    this.pendingOrders = !this.pendingOrders
+  }
+
+  history() {
+    this.orderHistory = !this.orderHistory
+  }
+
+  editInputs() {
+    this.showInputs = !this.showInputs
+  }
+
+  switchView(state) {
+    switch (state) {
+      case 'd':
+        this.buttonActive = true;
+        break;
+      case 'c':
+        this.buttonActive = false;
+        break;
+    }
   }
 
 }
