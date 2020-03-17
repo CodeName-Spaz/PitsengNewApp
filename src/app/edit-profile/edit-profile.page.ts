@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
-import { AlertController, PopoverController, NavParams } from '@ionic/angular';
+import { AlertController, PopoverController, NavParams, NavController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -38,7 +38,7 @@ export class EditProfilePage implements OnInit {
   loader: boolean = true;
   isprofile: boolean = false;
   ;
-  constructor(public alertCtrl: AlertController, private router: Router, public route: ActivatedRoute) {
+  constructor(public alertCtrl: AlertController, private router: Router, public route: ActivatedRoute, public navCtrl: NavController) {
     this.route.queryParams.subscribe(params => {
       this.profile.name = params["name"];
       this.profile.email = params["email"];
@@ -107,5 +107,9 @@ export class EditProfilePage implements OnInit {
         this.profile.image = dwnURL;
       });
     });
+  }
+
+  popBack() {
+    this.navCtrl.pop();
   }
 }

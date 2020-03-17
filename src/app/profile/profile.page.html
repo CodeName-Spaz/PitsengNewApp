@@ -2,13 +2,14 @@
   <div class="backBtn" (click)="popBack()">
     <ion-icon name="arrow-back"></ion-icon>
   </div>
-  <div style="margin-left: 200px;"  class="backBtn" (click)="logout()">
+  <div  class="backBtn right" (click)="logout()">
     <ion-icon name="log-out-outline"></ion-icon>
   </div>
   <div class="content-container">
   <div class="banner">
     <div class="dpHolder">
       <img src="{{profile.image}}" id="userDP" alt="">
+      <img src="../../assets/imgs/1511539.jpg" *ngIf="!profile.image" id="userDP" alt="">
     </div>
     <img src="../../assets/imgs/514275.jpg" id="userBanner" alt="">
   </div>
