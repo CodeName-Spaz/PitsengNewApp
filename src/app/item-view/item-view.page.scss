@@ -2,9 +2,8 @@ ion-toolbar {
   --background: transparent;
   --ion-color-base: transparent !important;
 
-
   ion-icon {
-    color: rgb(0, 0, 0);
+    color: white;
   }
 
   p {
@@ -61,7 +60,7 @@ ion-toolbar {
       position: absolute;
       bottom: -25px;
       right: 10px;
-      z-index: 9999999;
+      z-index: 10;
       ion-fab-button {
         border: 1px solid rgb(170, 170, 170);
         border-radius: 50%;
@@ -172,7 +171,7 @@ ion-toolbar {
       object-fit: cover;
       background: rgb(131, 35, 0);
       border: 1px solid grey;
-      border-radius: 10px;
+      border-radius: 5px;
       font-size: 12px;
     }
   }
@@ -196,6 +195,14 @@ ion-toolbar {
   }
 
   #web{
+    display: none;
+  }
+
+  #cart{
+    display: none;
+  }
+
+  #wish{
     display: none;
   }
 }
