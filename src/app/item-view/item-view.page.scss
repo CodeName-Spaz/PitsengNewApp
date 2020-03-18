@@ -39,6 +39,7 @@ ion-toolbar {
     width: 100%;
     height: 40vh;
     top: 0;
+
     img {
       width: 100%;
       height: 100%;
@@ -258,16 +259,16 @@ ion-toolbar {
     width: 60%;
     margin: auto;
     position: relative;
-    top: 5%;
+    top: 1.5%;
   }
 
   .image{
     height: 50vh !important;
-    ion-slide{
+    ion-slides{
         width: 100%;
         height: 100%;
-        object-fit: cover;
-   img{
+        object-fit: cover !important;
+   ion-slide{
      width: 100%;
      height: 100%;
      object-fit: cover;  
@@ -279,6 +280,7 @@ ion-toolbar {
       }
     }
   }
+
 
   .add{
     position: fixed;
@@ -339,7 +341,6 @@ ion-toolbar {
       width: 100%;
       height: 100%;
       border-radius: 30px;
-      //font-family: "Poiret One";
       font-weight: bold;
       letter-spacing: 3px;
       background: #bf967e;
@@ -356,7 +357,7 @@ ion-toolbar {
       width: 100%;
       height: 100%;
       border-radius: 30px;
-      //font-family: "Poiret One";
+
       font-weight: bold;
       letter-spacing: 3px;
       background: #bf967e;
@@ -374,7 +375,6 @@ ion-toolbar {
       width: 100%;
       height: 100%;
       border-radius: 30px;
-      //font-family: "Poiret One";
       font-weight: bold;
       letter-spacing: 3px;
       background: #bf967e;
@@ -491,12 +491,10 @@ ion-toolbar {
             width: 120px;
             height: 80%;
             margin: 3px;
-            //border-radius: 5px;
             img {
               width: 100%;
               height: 100%;
               object-fit: cover;
-              //border-radius: 5px;
             }
           }
 
@@ -536,10 +534,6 @@ ion-toolbar {
                 border: 0.5px solid rgb(190, 190, 190);
                 border-radius: 0 !important;
                 box-shadow: none;
-                span {
-                  // width: 100%;
-                  // text-align: center !important;
-                }
               }
 
               .adds {
@@ -785,14 +779,6 @@ ion-toolbar {
           color: grey;
         }
       }
-      // .div {
-      //   height: 65vh;
-      //   overflow-y: auto;
-      //   padding: 5px;
-      //   scrollbar-width: 2px;
-      //   display: flex;
-      //   flex-flow: column;
-      // }
       .items {
         display: flex;
         flex-flow: row;
