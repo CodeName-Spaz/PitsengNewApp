@@ -20,7 +20,7 @@
         <ion-icon slot="icon-only" name="basket"></ion-icon>
         <span class="badge"></span>
       </ion-button>
-      <ion-button color="secondary" (click)="gotoProfile()">
+      <ion-button color="secondary" (click)="visitProfile()">
         <ion-icon slot="icon-only" name="person"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -53,7 +53,7 @@
   <ion-toolbar>
     <ion-buttons slot="start">
 
-      <ion-button>
+      <ion-button (click)="search()">
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -69,7 +69,7 @@
         <span class="badge"></span>
       </ion-button>
       <ion-button color="secondary" (click)="visitProfile()">
-        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+        <ion-icon slot="icon-only" name="person"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -158,8 +158,8 @@
         defaultColor="#D3D3D3" readonly="true" rating="{{avgRating}}" fontSize="18px"
         (ratingChanged)="getRatings()">
       </ionic4-star-rating>  -->
-      
-          <!--   <ion-icon name="star"></ion-icon>
+
+            <!--   <ion-icon name="star"></ion-icon>
             <ion-icon name="star"></ion-icon>
             <ion-icon name="star"></ion-icon>
             <ion-icon name="star"></ion-icon>
@@ -257,7 +257,7 @@
             <i>Please Note: You can collect your items at any time
             </i></p>
           <ion-button color="transparent" [disabled]="!delType" (click)="placeOrder()">
-            <div *ngIf="delType==='Delivery'">  PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div>
+            <div *ngIf="delType==='Delivery'"> PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div>
             <div *ngIf="delType==='Collection'">PLACE ORDER ({{notDelivery(getTotal()) | currency:'R'}})</div>
             <div *ngIf="!delType">PLACE ORDER</div>
           </ion-button>
@@ -330,7 +330,7 @@
           {{profile.address}} <br>
           {{profile.number}}</p> -->
       </div>
-      <div class="edit_icon" (click)="editInputs()" >
+      <div class="edit_icon" (click)="editInputs()">
         <ion-icon name="create"></ion-icon>
       </div>
     </div>
@@ -352,7 +352,7 @@
         </ion-button>
       </div>
     </div>
-   
+
     <div class="line"></div>
 
     <div class="pending_orders">
@@ -380,7 +380,7 @@
           </div>
         </div>
 
-     
+
 
 
       </div>
@@ -389,7 +389,7 @@
     <div class="order_history">
       <div class="history_button" (click)="history()">
         <p> <span>Order History <ion-icon name="chevron-down-outline"></ion-icon></span></p>
-        
+
       </div>
       <div class="orders" *ngIf="orderHistory">
 

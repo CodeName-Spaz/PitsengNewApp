@@ -1,7 +1,7 @@
 <ion-content>
 
   <ion-fab>
-    <ion-button icon-only fill="clear">
+    <ion-button icon-only fill="clear" color="light" (click)="popBack()">
       <ion-icon name="close"></ion-icon>
     </ion-button>
   </ion-fab>
@@ -61,7 +61,8 @@
   </div>
   <div class="app-container">
     <div class="image">
-      <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
+      <img [src]="profile.image" alt="">
+      <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" *ngIf="!profile.image" alt="">
     </div>
   </div>
 </ion-content>
