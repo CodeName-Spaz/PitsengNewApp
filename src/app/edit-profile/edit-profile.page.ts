@@ -9,11 +9,11 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit-profile.page.scss'],
 })
 export class EditProfilePage implements OnInit {
-  db = firebase.firestore()
+  db = firebase.firestore().collection('UserProfile')
 
 
-  name
-  email
+  // name
+  // email
 
 
   storage = firebase.storage().ref();
@@ -39,10 +39,14 @@ export class EditProfilePage implements OnInit {
   isprofile: boolean = false;
   ;
   constructor(public alertCtrl: AlertController, private router: Router, public route: ActivatedRoute, public navCtrl: NavController) {
-    this.route.queryParams.subscribe(params => {
-      this.profile.name = params["name"];
-      this.profile.email = params["email"];
-    })
+    // this.route.queryParams.subscribe(params => {
+    //   this.profile.name = params["name"];
+    //   this.profile.email = params["email"];
+    //   this.profile.name = params["name"];
+    //   this.profile.email = params["email"];
+    //   this.profile.name = params["name"];
+    //   this.profile.email = params["email"];
+    // })
   }
 
   ngOnInit() {
@@ -50,43 +54,37 @@ export class EditProfilePage implements OnInit {
   }
 
   createAccount() {
-    if (!this.profile.address || !this.profile.name || !this.profile.number) {
-      this.errtext = 'Fields should not be empty'
-    } else {
-      if (!this.profile.image) {
-        this.errtext = 'Profile image still uploading or not selected';
-      } else {
-        this.profile.uid = firebase.auth().currentUser.uid;
-        this.db.collection('UserProfile').doc(firebase.auth().currentUser.uid).set(this.profile).then(res => {
-          this.router.navigateByUrl('/profile');
-        }).catch(error => {
-          console.log('Error');
-        });
-      }
-    }
+    this.db.doc(firebase.auth().currentUser.uid).update({ name: this.profile.name,
+       number: this.profile.number,
+        email: this.profile.email, 
+        address: this.profile.address }).then(res => {
+      this.router.navigateByUrl('/profile');
+    }).catch(error => {
+      console.log('Error');
+    });
   }
 
   getProfile() {
-    this.db.collection('UserProfile').doc(firebase.auth().currentUser.uid).onSnapshot(snapshot => {
+    this.db.doc(firebase.auth().currentUser.uid).onSnapshot(snapshot => {
       // if (snapshot.empty) {
       //   this.isprofile = false;
       //   console.log("No is not Profile");
 
       // } else {
-        this.isprofile = false;
-        // snapshot.forEach(doc => {
-          this.profile.address = snapshot.data().address;
-          this.profile.image = snapshot.data().image
-          this.profile.name = snapshot.data().name
-          this.profile.number = snapshot.data().number
-          this.profile.email = snapshot.data().email
-          // this.profile.streetAddress = doc.data().streetAddress;
-          // this.profile.city = doc.data().city;
-          // this.profile.code = doc.data().code
-          // console.log("Yes is Profile");
+      this.isprofile = false;
+      // snapshot.forEach(doc => {
+      this.profile.address = snapshot.data().address;
+      this.profile.image = snapshot.data().image
+      this.profile.name = snapshot.data().name
+      this.profile.number = snapshot.data().number
+      this.profile.email = snapshot.data().email
+      // this.profile.streetAddress = doc.data().streetAddress;
+      // this.profile.city = doc.data().city;
+      // this.profile.code = doc.data().code
+      // console.log("Yes is Profile");
 
 
-        // })
+      // })
       // }
     })
     ////
@@ -103,7 +101,8 @@ export class EditProfilePage implements OnInit {
     }, err => {
     }, () => {
       upload.snapshot.ref.getDownloadURL().then(dwnURL => {
-        console.log('File avail at: ', dwnURL);
+        this.db.doc(firebase.auth().currentUser.uid).set({image:dwnURL
+      }, { merge: true })
         this.profile.image = dwnURL;
       });
     });

@@ -13,6 +13,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
   @ViewChild('rating', {static: true}) rating : any;
+  storage = firebase.storage().ref();
   dbProduct = firebase.firestore().collection('Products');
   dbCart = firebase.firestore().collection("Cart");
   dbWishlist = firebase.firestore().collection('Wishlist');
@@ -469,7 +470,32 @@ export class HomePage implements OnInit {
     })
 
   }
-
+  createAccount() {
+    this.dbProfile.doc(firebase.auth().currentUser.uid).update({ name: this.profile.name,
+       number: this.profile.number,
+        email: this.profile.email, 
+        address: this.profile.address }).then(res => {
+          this.editInputs()
+    }).catch(error => {
+      console.log('Error', error);
+    });
+  }
+  changeListener(event): void {
+    const i = event.target.files[0];
+    console.log(i);
+    const upload = this.storage.child(i.name).put(i);
+    upload.on('state_changed', snapshot => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('upload is: ', progress, '% done.');
+    }, err => {
+    }, () => {
+      upload.snapshot.ref.getDownloadURL().then(dwnURL => {
+        this.dbProfile.doc(firebase.auth().currentUser.uid).set({image:dwnURL
+      }, { merge: true })
+        this.profile.image = dwnURL;
+      });
+    });
+  }
   gotoProfile() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
