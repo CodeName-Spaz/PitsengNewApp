@@ -62,9 +62,9 @@ export class ProfilePage implements OnInit {
     firebase.auth().signOut();
     this.navCtrl.navigateForward('/login');
   }
-  // popBack() {
-  //   this.navCtrl.pop();
-  // }
+  popBack() {
+    this.navCtrl.pop();
+  }
   getProfile() {
     firebase.firestore().collection('UserProfile').where('uid', '==', this.admin.uid).onSnapshot(snapshot => {
       this.Profile = []

@@ -12,7 +12,7 @@
       <div class="order-list" *ngFor="let w of myWish; let i = index">
         <div class="checkBox-add-to-cart" >
     
-          <ion-checkbox color="primary"  slot="start" [checked]="w.id.checked"  (ionChange)= "checkUser(); w.checked = !w.checked;"></ion-checkbox>
+          <ion-checkbox color="primary"  slot="start" [checked]="w.id.checked" (ionChange)="viewProduct(w.id); w.id.checked = !w.id.checked;"></ion-checkbox>
         </div>
         <div class="image-container">
           <img src="{{w.info.image}}" alt="">
@@ -34,26 +34,14 @@
             <ion-label>{{w.info.price | currency:'R'}}</ion-label>
           </div>
         </div>
-      </div>  -->
-      <!-- <div class="total" > -->
-        <!-- <div >
-          <ion-label class="total-title" >Total Amount:</ion-label>
-        </div> -->
-        <!-- <div>
-          <ion-title>R 2394.00</ion-title>
-        </div> -->
-      <!-- </div> -->
-      <div class="buttons" >
-        <ion-button color="primary" class="button2" (click)="addToCart(productCode)"> Add to Bag</ion-button>
-      </div>
-  
+      </div>  
      
     </ion-list>
 
     
   </div>
   <div class="buttons" >
-    <ion-button color="primary" (click)="viewProduct(myWish)"> Add to bag</ion-button>
+    <!-- <ion-button color="primary" (click)="viewProduct(myWish)"> Add to bag</ion-button> -->
     <ion-button color="primary" class="button2" (click)="goHome()" color="transparent"> continue Shopping</ion-button>
   </div>
 </div>

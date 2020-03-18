@@ -47,7 +47,7 @@ export class ItemViewPage implements OnInit {
   imageSide: any;
   imageTop: any;
   similarItems = [];
-  // uid=firebase.auth().currentUser.uid;
+  uid=firebase.auth().currentUser.uid;
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
       this.prod_id = params["id"];
@@ -81,7 +81,7 @@ export class ItemViewPage implements OnInit {
 
   star(num, uid, code) {
     console.log('hh', num, code)
-    // console.log(code);
+    console.log(code);
 
     firebase.firestore().collection('Reviews').where('uid', '==', uid).where('productCode', '==', code).onSnapshot(snapshot => {
       if(snapshot.size > 0) {
@@ -122,7 +122,7 @@ export class ItemViewPage implements OnInit {
       this.imageSide = doc.data().imageSide;
       this.imageTop = doc.data().imageTop;
       this.productCode = doc.data().productCode;
-      this.getRatings(doc.data().productCode, id)
+      // this.getRatings(doc.data().productCode, id)
     })
   }
 
@@ -334,40 +334,7 @@ export class ItemViewPage implements OnInit {
     await alert.present();
   }
 
-  wishListAdd(productCode) {
-
-
-//     console.log(productCode);
-  
-//     let wish = firebase.firestore().collection('Wishlist')
-//     let increment: number = 0
-//     wish.where('productCode', '==', productCode).get().then((snapshot => {
-//     if(snapshot.size > 0){
-//      console.log('Do not add to wish list');
-//       snapshot.forEach(data => {
-//         increment = data.data().quantity + this.quantity
-//         wish.doc(data.id).set({quantity: increment }, {merge: true});
-//         console.log('items increment by one');
-        
-//       })
-//     }else{
-//       this.dbWishlist.doc(this.prod_id).set({
-//                     customerUID: firebase.auth().currentUser.uid, price: this.price,
-//                     image: this.prod_image, name: this.prod_name, id: this.prod_id, category: this.category, productCode : this.productCode,
-//                     description : this.desc
-//                   }).then(() => {
-//                     // this.myProduct[index].wish = 'heart';
-//                     this.toastController('Added to wishlist..');
-//                   })
-//     }
-//     })) 
-
-
-// }
-
-
-
-
+  wishListAdd() {
 
     setTimeout(() => {
       firebase.auth().onAuthStateChanged((res1) => {

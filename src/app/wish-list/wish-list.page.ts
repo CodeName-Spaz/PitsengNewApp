@@ -53,6 +53,7 @@ export class WishListPage implements OnInit {
     return this.currentNumber;
   }
 
+  
   addToCart(productCode) {
     
     console.log(productCode);
