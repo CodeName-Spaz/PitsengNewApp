@@ -31,12 +31,39 @@
 </ion-header>
 
 
+
+<ion-header class="ion-no-border" id="mobile">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+
+      <ion-button>
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+
+      <ion-button class="notification" (click)="visitWish()">
+        <ion-icon slot="icon-only" name="heart"></ion-icon>
+        <span class="badge"></span>
+      </ion-button>
+
+      <ion-button class="notification" (click)="visitCart()">
+        <ion-icon slot="icon-only" name="basket"></ion-icon>
+        <span class="badge"></span>
+      </ion-button>
+      <ion-button color="secondary" (click)="visitProfile()">
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content fullscreen>
 
   <div class='container'>
     <div class="image" >
       <!-- <img src="{{prod_image}}" alt=""> -->
-      <ion-slides style="height: 45vh; z-index: 1;">
+      <ion-slides style=" z-index: 1;" pager="true">
 
         <ion-slide>
           <img src="{{prod_image}}"/>
@@ -54,9 +81,8 @@
           <img src="{{imageTop}}"/>
         </ion-slide>
       </ion-slides>
-      <p class="starz"></p>
 
-       
+      <p class="starz"></p>
       <div class="stars" *ngFor="let item of reviews">  
          <ionic4-star-rating [rate]="rate"
             activeIcon = "ios-star"
@@ -70,14 +96,6 @@
     </ionic4-star-rating>        
     </div>
 
-      <!-- <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star-half-outline"></ion-icon>   -->
-    
-     
-  
       <div class="wishlist">
         <ion-fab-button color="transparent" (click)="wishListAdd()">
           <ion-icon name="{{onWish}}"></ion-icon>
@@ -111,8 +129,8 @@
 
       <div class="price">
         <p>{{price | currency:"R"}}</p>
-        <p>
-          <ion-icon slot="start" (click)="plus()" name="add"></ion-icon> {{quantity}} <ion-icon slot="start" (click)="minus()" name="remove"></ion-icon>
+        <p class="addz">
+          <ion-icon slot="start" (click)="plus()" name="add"></ion-icon> &nbsp; {{quantity}} &nbsp;<ion-icon slot="start" (click)="minus()" name="remove"></ion-icon>
         </p>
       </div>
 
