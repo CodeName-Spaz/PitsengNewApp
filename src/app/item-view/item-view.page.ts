@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, ToastController, AlertController } from '@ionic/angular';
 import * as firebase from 'firebase';
-// import { IonicRatingModule } from ‘ionic4-rating’;
+// import { StarRatingModule } from 'ionic4-star-rating';
 
 @Component({
   selector: 'app-item-view',
