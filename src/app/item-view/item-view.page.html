@@ -270,47 +270,54 @@
       <div class="div">
 
 
-        <div class="items">
-          <div class="left">
-            <div class="img">
-              <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
-            </div>
-
-            <div class="item_details">
-              <p> <b>Name <br> R400.00</b><br>
-                <span>size: S</span><br>
-              </p>
-
-              <div class="add_buttons">
-                <p>QTY:2</p>
-                <div class="clicks">
-                  <ion-button (click)="plus(prod, i)" color="transparent" class="adds">
-                    <span>
-                      <ion-icon slot="start" name="add"></ion-icon>
-                    </span>
-                  </ion-button>
-                  <ion-button (click)="minus(prod, i)" color="transparent" class="adds1">
-                    <span>
-                      <ion-icon slot="start" name="remove"></ion-icon>
-                    </span>
-                  </ion-button>
-                </div>
-
-                <!-- <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
-                3 <ion-icon slot="end" name="add-circle-outline"></ion-icon> -->
+       
+          <div class="items" *ngFor="let cp of prodCart; let i of index">
+            <div class="left" *ngFor="let prod of cp.data.product">
+              <div class="img">
+                <img src="{{prod.picture}}" alt="">
               </div>
-
+  
+              <div class="item_details">
+                <p> <b>{{prod.product_name}} <br> {{prod.cost | currency:"R"}}</b><br>
+                  <span>size: {{prod.size}}</span><br>
+                </p>
+  
+                <div class="add_buttons">
+                  <p>QTY: {{prod.quantity}}</p>
+                  <div class="clicks">
+                    <ion-button (click)="pluss(prod, i)" color="transparent" class="adds">
+                      <span>
+                        <ion-icon slot="start" name="add"></ion-icon>
+                      </span>
+                    </ion-button>
+                    <ion-button (click)="minuss(prod, i)" color="transparent" class="adds1">
+                      <span>
+                        <ion-icon slot="start" name="remove"></ion-icon>
+                      </span>
+                    </ion-button>
+                  </div>
+  
+                  <!-- <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
+                  3 <ion-icon slot="end" name="add-circle-outline"></ion-icon> -->
+                </div>
+  
+              </div>
+            </div>
+  
+            <div class="right">
+              <div class="trash_icon" (click)="removeProd(cp.id)">
+                <ion-icon slot="start" name="trash"></ion-icon>
+              </div>
+  
+  
             </div>
           </div>
 
-          <div class="right">
+          <!-- <div class="right">
             <div class="trash_icon" (click)="removeProd(cp.id)">
               <ion-icon slot="start" name="trash"></ion-icon>
             </div>
-
-
-          </div>
-        </div>
+          </div> -->
 
         <!-- <div class="items" id="noItems" *ngIf="prodCart.length === 0">
           <p>Basket Empty</p>
@@ -339,9 +346,9 @@
             <i>Please Note: You can collect your items at any time
             </i></p>
           <ion-button color="transparent" [disabled]="!delType" (click)="placeOrder()">
-            <!-- <div *ngIf="delType==='Delivery'">  PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div> -->
-            <!-- <div *ngIf="delType==='Collection'">PLACE ORDER ({{notDelivery(getTotal()) | currency:'R'}})</div> -->
-            <div>PLACE ORDER</div>
+            <div *ngIf="delType==='Delivery'"> PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div>
+            <div *ngIf="delType==='Collection'">PLACE ORDER ({{notDelivery(getTotal()) | currency:'R'}})</div>
+            <div *ngIf="!delType">PLACE ORDER</div>
           </ion-button>
         </div>
 
@@ -358,16 +365,16 @@
     </div>
     <div class="wishlist_items">
       <div class="div">
-        <div class="items">
-          <ion-checkbox></ion-checkbox>
+        <div class="items" *ngFor="let w of myWish; let i = index">
+          <ion-checkbox (ionChange)="viewProd(w.id)"></ion-checkbox>
           <div class="left">
             <div class="img">
-              <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
+              <img src="{{w.info.image}}" alt="">
             </div>
 
             <div class="item_details">
-              <p>Name<br>R400 <br> Code: JT656555</p>
-              <p style="color: rgb(77, 1, 1)"><i>Unavailable</i></p>
+              <p>{{w.info.name}}<br>{{w.info.price | currency:'R'}} <br> Code: {{w.info.productCode}}</p>
+              <p style="color: rgb(77, 1, 1)"><i>{{itemAvailable[i] }}</i></p>
             </div>
           </div>
 
