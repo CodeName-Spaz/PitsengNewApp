@@ -1319,6 +1319,12 @@ ion-header {
     display: flex;
     justify-content: baseline;
     margin-top: 10px;
+    text-align: center;
+    color: white;
+    width: 100%;
+    h1{
+      margin-left: 50%;
+    }
     .categories {
       height: 60px;
       color: white;
