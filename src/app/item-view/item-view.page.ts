@@ -47,6 +47,9 @@ export class ItemViewPage implements OnInit {
   imageSide: any;
   imageTop: any;
   similarItems = [];
+  onSale;
+  salePrice;
+  discount;
   // uid=firebase.auth().currentUser.uid;
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
@@ -122,6 +125,9 @@ export class ItemViewPage implements OnInit {
       this.imageSide = doc.data().imageSide;
       this.imageTop = doc.data().imageTop;
       this.productCode = doc.data().productCode;
+      this.onSale = doc.data().onSale;
+      this.salePrice = doc.data().salePrice;
+      this.discount = doc.data().percentage;
       // this.getRatings(doc.data().productCode, id)
     })
   }
@@ -255,17 +261,32 @@ export class ItemViewPage implements OnInit {
           if (this.my_size === "") {
             this.toastController('Missing selection of ' + descr);
           } else {
-            this.dbCart.add({
-              customerUID: firebase.auth().currentUser.uid, timestamp: new Date().getTime(), product: [{
-                product_name: this.prod_name, size: this.my_size,
-                quantity: this.quantity, cost: this.price, picture: this.prod_image, productCode: this.productCode, description : this.desc,
-                prod_id: this.prod_id
-              }]
-            }).then(() => {
-              this.sizeIndex = null;
-              this.quantity = 1;
-              this.toastController('Added to basket')
-            })
+            if (this.onSale===true) {
+              this.dbCart.add({
+                customerUID: firebase.auth().currentUser.uid, timestamp: new Date().getTime(), product: [{
+                  product_name: this.prod_name, size: this.my_size,
+                  quantity: this.quantity, cost: this.salePrice, picture: this.prod_image, productCode: this.productCode, description : this.desc,
+                  prod_id: this.prod_id
+                }]
+              }).then(() => {
+                this.sizeIndex = null;
+                this.quantity = 1;
+                this.toastController('Added to basket')
+              })
+            } else {
+              this.dbCart.add({
+                customerUID: firebase.auth().currentUser.uid, timestamp: new Date().getTime(), product: [{
+                  product_name: this.prod_name, size: this.my_size,
+                  quantity: this.quantity, cost: this.price, picture: this.prod_image, productCode: this.productCode, description : this.desc,
+                  prod_id: this.prod_id
+                }]
+              }).then(() => {
+                this.sizeIndex = null;
+                this.quantity = 1;
+                this.toastController('Added to basket')
+              })
+            }
+            
           }
         } else {
           // this.alertView = this.localSt.retrieve('alertShowed');
