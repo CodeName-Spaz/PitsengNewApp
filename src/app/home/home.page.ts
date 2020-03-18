@@ -73,7 +73,7 @@ export class HomePage implements OnInit {
 
         this.myProduct.push({ data: doc.data(), id: doc.id })
       })
-      console.log("My items ", this.myProduct);
+      // console.log("My items ", this.myProduct);
 
     })
   }
@@ -85,7 +85,7 @@ export class HomePage implements OnInit {
 
         this.myProduct.push({ data: doc.data(), id: doc.id })
       })
-      console.log("My items ", this.myProduct);
+      // console.log("My items ", this.myProduct);
 
     })
   }
@@ -126,24 +126,6 @@ export class HomePage implements OnInit {
           this.dbWishlist.where('customerUID', '==', res.uid).onSnapshot((res) => {
             this.myWish = [];
             res.forEach((doc) => {
-              // if (doc.data().brand === "Specials") {
-              //   this.dbSales.doc(doc.id).onSnapshot((data) => {
-              //     if (data.data().hideItem === true) {
-              //       this.itemAvailable.push("Out of stock");
-              //     } else {
-              //       this.itemAvailable.push("In stock");
-              //     }
-              //   })
-              // } else {
-              //   this.itemAvailable = [];
-              //   this.dbProduct.doc(doc.id).onSnapshot((data) => {
-              //     if (data.data().hideItem === true) {
-              //       this.itemAvailable.push("Out of stock");
-              //     } else {
-              //       this.itemAvailable.push("In stock");
-              //     }
-              //   })
-              // }
               this.itemAvailable = [];
               this.dbProduct.doc(doc.id).onSnapshot((data) => {
                 if (data.data().hideItem === true) {
