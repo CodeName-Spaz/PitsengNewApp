@@ -7,7 +7,9 @@ import { IonicModule } from '@ionic/angular';
 import { ItemViewPageRoutingModule } from './item-view-routing.module';
 
 import { ItemViewPage } from './item-view.page';
-import { IonicRatingModule } from 'ionic-rating';
+// import { StarRatingModule } from 'ionic4-star-rating';
+
+// import { IonicRatingModule } from 'ionic-rating';
 
 
 @NgModule({
@@ -15,8 +17,8 @@ import { IonicRatingModule } from 'ionic-rating';
     CommonModule,
     FormsModule,
     IonicModule,
-    ItemViewPageRoutingModule,
-    IonicRatingModule
+    // StarRatingModule,
+    ItemViewPageRoutingModule
   ],
   declarations: [ItemViewPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

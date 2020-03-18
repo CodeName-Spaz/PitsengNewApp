@@ -31,6 +31,33 @@
 </ion-header>
 
 
+
+<ion-header class="ion-no-border" id="mobile">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+
+      <ion-button>
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+
+      <ion-button class="notification" (click)="visitWish()">
+        <ion-icon slot="icon-only" name="heart"></ion-icon>
+        <span class="badge"></span>
+      </ion-button>
+
+      <ion-button class="notification" (click)="visitCart()">
+        <ion-icon slot="icon-only" name="basket"></ion-icon>
+        <span class="badge"></span>
+      </ion-button>
+      <ion-button color="secondary" (click)="visitProfile()">
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content fullscreen>
 
   <div class='container'>
@@ -58,7 +85,7 @@
 
        
       <div class="stars" *ngFor="let item of reviews">  
-         <ion-rating [rate]="rate"
+         <ionic4-star-rating [rate]="rate"
             activeIcon = "ios-star"
             defaultIcon = "ios-star-outline"
             activeColor = "#ff0000"
@@ -67,7 +94,7 @@
             fontSize = "18px"
         readonly="true"
         (rateChange)="logRatingChange()">
-</ion-rating>        
+    </ionic4-star-rating>        
     </div>
 
       <!-- <ion-icon name="star"></ion-icon>&nbsp;
