@@ -70,15 +70,17 @@ export class HomePage implements OnInit {
     this.ratingProducts();
   }
 
-  getProducts(){
+  getProductsbyCategory(name: string) {
+    this.val = name.toLowerCase();
+    this.dbProduct.where('category', '==', name).onSnapshot((res) => {
+      this.myProduct = [];
+      res.forEach((doc) => {
 
-    firebase.firestore().collection("Products").onSnapshot(snapshot => {
-      this.myProduct=[]
-      snapshot.forEach(item =>{
-        this.myProduct.push(item.data());
+        this.myProduct.push({ data: doc.data(), id: doc.id })
       })
-    })
+      console.log("My items ", this.myProduct);
 
+    })
   }
   ratingProducts(){
     firebase.firestore().collection("Products").onSnapshot(snapshot => {
@@ -90,9 +92,10 @@ export class HomePage implements OnInit {
       
     })
   }
-  getProductsbyCategory(name: string) {
-    this.val = name.toLowerCase();
-    this.dbProduct.where('category', '==', name).onSnapshot((res) => {
+  
+  getProductonSale() {
+    // this.val = name.toLowerCase();
+    this.dbProduct.where('onSale', '==', true).onSnapshot((res) => {
       this.myProduct = [];
       res.forEach((doc) => {
 
@@ -582,4 +585,6 @@ export class HomePage implements OnInit {
 openAboutUS(){
   this.router.navigateByUrl('/about-us')
 }
+
+
 }

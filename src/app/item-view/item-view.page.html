@@ -2,13 +2,6 @@
   <ion-toolbar>
     <img src="../../assets/Group 235.png" alt="">
 
-
-    <ion-buttons slot="end">
-
-      <ion-button (click)="search()">
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-    </ion-buttons>
     <ion-buttons slot="end">
 
       <ion-button class="notification" (click)="reviewed()">
@@ -128,7 +121,10 @@
       </div>
 
       <div class="price">
-        <p>{{price | currency:"R"}}</p>
+        <p *ngIf="onSale===false">{{price | currency:"R"}}</p>
+        <p *ngIf="onSale===true">{{price | currency:"R"}}<br>
+          {{salePrice | currency:"R"}}<br>
+        {{discount}}% OFF</p>
         <p class="addz">
           <ion-icon slot="start" (click)="plus()" name="add"></ion-icon> &nbsp; {{quantity}} &nbsp;<ion-icon slot="start" (click)="minus()" name="remove"></ion-icon>
         </p>
