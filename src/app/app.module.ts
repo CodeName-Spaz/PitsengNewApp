@@ -18,6 +18,7 @@ import { SignUpPageModule } from '../app/sign-up/sign-up.module';
 import { ProfilePageModule } from './profile/profile.module';
 import { PaymentPageModule } from './payment/payment.module';
 import { FaqsPageModule } from './faqs/faqs.module';
+import { AboutUsPageModule } from './about-us/about-us.module';
 // import { StarRatingModule } from 'ionic4-star-rating';
 
 
@@ -48,7 +49,8 @@ firebase.analytics();
     SignUpPageModule,
     ProfilePageModule,
     PaymentPageModule,
-    FaqsPageModule
+    FaqsPageModule,
+    AboutUsPageModule
   ],
   providers: [
     StatusBar,
