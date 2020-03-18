@@ -130,6 +130,10 @@ export class CartPage implements OnInit {
     }
     return total;
   }
+
+  backToMain(){
+    this.navCtrl.navigateForward('home');
+  }
   closeWish() {
     this.navCtrl.pop();
   }
