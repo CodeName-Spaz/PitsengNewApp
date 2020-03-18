@@ -42,7 +42,7 @@ firebase.analytics();
     AppRoutingModule,
     FormsModule, 
     IonicSelectableModule,
-    // StarRatingModule,
+    //  StarRatingModule,
     ReactiveFormsModule,
     LoginPageModule,
     SignUpPageModule,

@@ -41,7 +41,7 @@
       <div class="cards">
         <div class="list" *ngFor="let s of mySearch" (click)="viewitem(s.id, s.info)">
           <div class="image">
-            <img src="{{s.info.pictureLink}}" alt="">
+            <img src="{{s.info.image}}" alt="">
           </div>
           <div class="itemname">
             <p>{{s.info.name}}</p>
