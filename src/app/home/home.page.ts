@@ -52,7 +52,12 @@ export class HomePage implements OnInit {
   History = [];
   Allorders = [];
   itemAvailable = [];
-  constructor(public navCtrl: NavController,private router: Router, public alertCtrl: AlertController, public modalController: ModalController,
+  myReviews=[];
+  reviews={
+    Rating:0
+  }
+  router: any;
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public modalController: ModalController,
     public toastCtrl: ToastController) { }
 
   ngOnInit() {
@@ -62,7 +67,9 @@ export class HomePage implements OnInit {
     this.checkUser();
     this.getProductsbyCategory('Deco')
 
-    // this.getProducts();
+    this.ratingProducts();
+
+    
   }
 
   getProductsbyCategory(name: string) {
@@ -77,6 +84,17 @@ export class HomePage implements OnInit {
 
     })
   }
+  ratingProducts(){
+    firebase.firestore().collection("Products").onSnapshot(snapshot => {
+      this.myReviews=[]
+      snapshot.forEach(item =>{
+        this.myReviews.push(item.data())
+      })
+      console.log("Current rate for the product ", this.myReviews);
+      
+    })
+  }
+  
   getProductonSale() {
     // this.val = name.toLowerCase();
     this.dbProduct.where('onSale', '==', true).onSnapshot((res) => {
@@ -551,4 +569,6 @@ export class HomePage implements OnInit {
 openAboutUS(){
   this.router.navigateByUrl('/about-us')
 }
+
+
 }

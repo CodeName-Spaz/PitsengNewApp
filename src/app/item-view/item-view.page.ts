@@ -99,7 +99,7 @@ export class ItemViewPage implements OnInit {
   }
   star(num, uid, code) {
     console.log('hh', num, code)
-    // console.log(code);
+    console.log(code);
 
     firebase.firestore().collection('Reviews').where('uid', '==', uid).where('productCode', '==', code).onSnapshot(snapshot => {
       if (snapshot.size > 0) {
@@ -162,7 +162,7 @@ export class ItemViewPage implements OnInit {
       this.avgRating = this.ratingTotal / this.reviews.length;
       console.log("Product Star Ratings ", this.avgRating);
       return firebase.firestore().collection('Products').doc(id).update({
-        Rating: this.avgRating
+        avgRating: this.avgRating
       })
     })
 
@@ -332,7 +332,38 @@ export class ItemViewPage implements OnInit {
     return toast.present();
   }
 
+  
   addToCart() {
+
+
+    // let addCart = firebase.firestore().collection('Cart')
+    // let increment: number = 0
+    // addCart.where('productCode', '==', productCode).get().then((snapshot => {
+    // if(snapshot.size > 0){
+    //   console.log("am existing", productCode);
+    //   snapshot.forEach(data => {
+    //     console.log("am existing");
+    //     increment = data.data().quantity +   this.quantity 
+    //     addCart.doc(data.id).set({quantity: increment }, {merge: true});
+    //     console.log('items increment by one');
+      
+    //   })
+    // }else{
+    //   this.dbCart.add({
+    //     customerUID: firebase.auth().currentUser.uid, timestamp: new Date().getTime(), product: [{
+    //       product_name: this.prod_name, size: this.my_size,
+    //       quantity: this.quantity, cost: this.price, picture: this.prod_image, productCode: this.productCode, description : this.desc,
+    //       prod_id: this.prod_id
+    //     }]
+    //   }).then(() => {
+    //     this.sizeIndex = null;
+    //     this.quantity = 1;
+    //     this.toastController('Added to basket')
+    //   })
+    // }
+    // })) 
+      
+
     setTimeout(() => {
       firebase.auth().onAuthStateChanged((res) => {
         if (res) {
@@ -378,6 +409,7 @@ export class ItemViewPage implements OnInit {
     }, 0);
   }
 
+
   async presentAlertConfirm1() {
     const alert = await this.alertCtrl.create({
       header: 'Message',
@@ -404,7 +436,9 @@ export class ItemViewPage implements OnInit {
 
     await alert.present();
   }
+
   wishListAdd() {
+
     setTimeout(() => {
       firebase.auth().onAuthStateChanged((res1) => {
         if (res1) {
@@ -438,6 +472,7 @@ export class ItemViewPage implements OnInit {
       })
     }, 0);
   }
+
 
   popBack() {
     this.navCtrl.pop();
