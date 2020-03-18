@@ -212,11 +212,19 @@ ion-toolbar {
   #wish{
     display: none;
   }
+
+  .wishes{
+    display: none;
+  }
 }
 
 
 @media screen and (min-width: 769px) {
   #mobile {
+    display: none;
+  }
+
+  .add{
     display: none;
   }
 
@@ -271,6 +279,7 @@ ion-toolbar {
   .items_info{
     display: flex;
     flex-flow: row;
+    padding-bottom: 10px ;
 
     .image{
       height: 450px !important;
@@ -296,6 +305,7 @@ ion-toolbar {
     .item_info{
       margin: 10px;
       width: 50%;
+      margin-top: -20px;
     }
 
   }

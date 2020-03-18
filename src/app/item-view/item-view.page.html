@@ -140,8 +140,12 @@
           1862
         </p>
 
-        <ion-button (click)="wishListAdd()">
+        <ion-button (click)="wishListAdd()" class="wishes">
           Add to wishlist
+        </ion-button>
+
+        <ion-button (click)="addToCart()" class="wishes">
+          Add to Bag {{getTotal() | currency:"R"}}
         </ion-button>
       </div>
     </div>
