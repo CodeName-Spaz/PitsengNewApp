@@ -133,10 +133,15 @@ ion-toolbar {
           }
         }
 
-        .starz {
-          ion-rating {
-            color: rgb(206, 169, 7) !important;
-          }
+        // .starz {
+        //   ion-rating {
+        //     color: rgb(206, 169, 7) !important;
+        //   }
+        // }
+
+        .stars {
+          text-align: center;
+          font-size: 1.5rem;
         }
       }
     }

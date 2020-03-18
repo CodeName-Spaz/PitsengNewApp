@@ -18,7 +18,6 @@ import { SignUpPageModule } from '../app/sign-up/sign-up.module';
 import { ProfilePageModule } from './profile/profile.module';
 import { PaymentPageModule } from './payment/payment.module';
 import { FaqsPageModule } from './faqs/faqs.module';
-import { StarRatingModule } from 'ionic4-star-rating';
 
 
 var firebaseConfig = {
@@ -42,7 +41,6 @@ firebase.analytics();
     AppRoutingModule,
     FormsModule, 
     IonicSelectableModule,
-     StarRatingModule,
     ReactiveFormsModule,
     LoginPageModule,
     SignUpPageModule,

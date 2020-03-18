@@ -50,6 +50,10 @@ export class HomePage implements OnInit {
   History = [];
   Allorders = [];
   itemAvailable = [];
+  myReviews=[];
+  reviews={
+    Rating:0
+  }
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public modalController: ModalController,
     public toastCtrl: ToastController) { }
 
@@ -60,7 +64,7 @@ export class HomePage implements OnInit {
     this.checkUser();
     this.getProductsbyCategory('Deco')
 
-    // this.getProducts();
+    this.ratingProducts();
   }
 
   getProducts(){
@@ -72,6 +76,16 @@ export class HomePage implements OnInit {
       })
     })
 
+  }
+  ratingProducts(){
+    firebase.firestore().collection("Products").onSnapshot(snapshot => {
+      this.myReviews=[]
+      snapshot.forEach(item =>{
+        this.myReviews.push(item.data())
+      })
+      console.log("Current rate for the product ", this.myReviews);
+      
+    })
   }
   getProductsbyCategory(name: string) {
     this.val = name.toLowerCase();

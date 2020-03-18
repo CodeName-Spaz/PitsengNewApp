@@ -122,7 +122,7 @@ export class ItemViewPage implements OnInit {
       this.imageSide = doc.data().imageSide;
       this.imageTop = doc.data().imageTop;
       this.productCode = doc.data().productCode;
-      // this.getRatings(doc.data().productCode, id)
+      this.getRatings(doc.data().productCode, id)
     })
   }
 
@@ -141,7 +141,7 @@ export class ItemViewPage implements OnInit {
       this.avgRating = this.ratingTotal / this.reviews.length;
       console.log("Product Star Ratings ",  this.avgRating);
       return firebase.firestore().collection('Products').doc(id).update({
-        Rating: this.avgRating
+        avgRating: this.avgRating
       })
   })
   
@@ -403,7 +403,7 @@ export class ItemViewPage implements OnInit {
     }, 0);
   }
 
-  
+
   popBack() {
     this.navCtrl.pop();
   }
