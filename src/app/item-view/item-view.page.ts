@@ -438,4 +438,25 @@ export class ItemViewPage implements OnInit {
     }
   }
 
+  menuOpen: boolean = false;
+menuBtn = "menu"
+showMenu() {
+  let myMenu = document.getElementById("options");
+  var menu_items = document.getElementsByClassName("menu-item") as HTMLCollectionOf<HTMLElement>;
+  if (this.menuOpen == false) {
+    this.menuOpen = true;
+    myMenu.style.top = "50px";
+    this.menuBtn = "close"
+  }
+  else {
+    menu_items[0].style.animation = "sliderOut 300ms"
+    setTimeout(() => {
+      myMenu.style.top = "-100vh"
+      this.menuOpen = false;
+      menu_items[0].style.animation = "sliderIn 300ms";
+      this.menuBtn = "menu"
+    }, 299);
+  }
+}
+
 }

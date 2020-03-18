@@ -1,4 +1,59 @@
-<ion-header class="ion-no-border" id="web">
+<ion-header id="web">
+  <ion-toolbar>
+    <div class="navigation-bar-upper-section">
+      <div class="logo" (click)='goHome()'>
+        <img src="../../../assets/Group 235.png" alt="">
+      </div>
+    </div>
+    <ion-buttons slot="end">
+
+      <ion-button (click)="search()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+
+      <ion-button class="notification" (click)="reviewed()">
+        <ion-icon slot="icon-only" name="heart"></ion-icon>
+        <span class="badge"></span>
+      </ion-button>
+
+      <ion-button class="notification" (click)="getCart()">
+        <ion-icon slot="icon-only" name="basket"></ion-icon>
+        <span class="badge"></span>
+      </ion-button>
+      <ion-button color="secondary" (click)="gotoProfile()">
+        <ion-icon slot="icon-only" name="person"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <div class="toolbar" color="primary">
+    <h1>{{prod_name}}</h1>
+  </div>
+</ion-header>
+
+  <div class="top-nav">
+    <div class="nav-grid">
+      <div (click)="goHome()">
+        <ion-icon name="home"></ion-icon>
+      </div>
+      <div>{{productName}}</div>
+      <div (click)="showMenu()">
+        <ion-icon name="{{menuBtn}}"></ion-icon>
+      </div>
+    </div>
+    <div id="options">
+      <div class="menu-item" *ngIf="menuOpen == true">
+        
+      <div>HOME</div>
+      <div>QUERIES</div>
+      <div>FAQS</div>
+      <div>ABOUT</div>
+      </div>
+    </div>
+  </div>
+
+<!-- <ion-header class="ion-no-border" id="web">
   <ion-toolbar>
     <img src="../../assets/Group 235.png" alt="">
     <ion-buttons slot="end">
@@ -12,16 +67,14 @@
         <ion-icon slot="icon-only" name="basket"></ion-icon>
         <span class="badge"></span>
       </ion-button>
-      <!-- <ion-button color="secondary" (click)="gotoProfile()">
-        <ion-icon slot="icon-only" name="person"></ion-icon>
-      </ion-button> -->
+ 
     </ion-buttons>
   </ion-toolbar>
 
   <ion-toolbar class="ribbon" color="transparent">
     <ion-title>ABOUT US</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 
 <ion-content>
