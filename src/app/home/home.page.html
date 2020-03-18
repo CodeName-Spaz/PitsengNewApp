@@ -144,12 +144,12 @@
         <div class="text">
           <p> {{p.data.name}} <br>
             <span>{{p.data.price | currency:"R"}}</span></p>
-          <p class="stars">
+          <p class="starz">
 
             
-            <ion-rating >
-        
-</ion-rating>
+            <ion-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
+            defaultColor="#D3D3D3" readonly="true" rating="{{avgRating}}" fontSize="18px"
+            (ratingChanged)="getRatings()"></ion-rating>
 
              <!-- <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
         defaultColor="#D3D3D3" readonly="true" rating="{{avgRating}}" fontSize="18px"
