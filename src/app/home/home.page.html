@@ -46,7 +46,7 @@
       </ion-button>
 
       
-      <ion-button (click)="getProductsbyCategory('Lamps')">
+      <ion-button (click)="getProductonSale()">
         <ion-icon slot="start" src="../../assets/lamp.svg"></ion-icon> Sales
       </ion-button>
       
@@ -149,8 +149,12 @@
           <img src="{{p.data.image}}" alt="">
         </div>
         <div class="text">
-          <p> {{p.data.name}} <br>
-            <span>{{p.data.price | currency:"R"}}</span></p>
+          <p *ngIf="p.data.onSale===true"> {{p.data.name}} <br>
+            <span>normal price: {{ p.data.price | currency:"R"}}</span><br>
+            <span>sale price: {{ p.data.salePrice | currency:"R"}}</span></p>
+
+            <p *ngIf="p.data.onSale===false"> {{p.data.name}} <br>
+              <span>{{p.data.price | currency:"R"}}</span></p>
           <p class="starz">
             <ion-rating [rate]="rate" activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#ff0000"
               defaultColor="#aaaaaa" rating="{{p.data.rating}}" fontSize="1em" readonly="true"
@@ -300,17 +304,15 @@
 
     <div class="profile_details">
       <div class="profile_image">
-        <img src="{{profile.image}}">
-        <!-- <img src="{{profile.image}}" alt=""> -->
+        <!-- <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg"> -->
+        <img src="{{profile.image}}" alt="">
       </div>
 
       <div class="user_details">
+
         <h1>{{profile.name}}</h1>
-        <!-- <h1>{{profile.name}}</h1> -->
-        <p>{{profile.email}}<br>
-          {{profile.address}} <br>
-          {{profile.number}}</p>
-        <!-- <p>{{profile.email}} <br>
+
+        <p>{{profile.email}} <br>
           {{profile.address}} <br>
           {{profile.number}}</p>-->
       </div>

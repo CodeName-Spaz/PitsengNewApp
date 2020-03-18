@@ -65,21 +65,21 @@ export class HomePage implements OnInit {
     // this.getProducts();
   }
 
-  
-
-  getProducts(){
-
-    firebase.firestore().collection("Products").onSnapshot(snapshot => {
-      this.myProduct=[]
-      snapshot.forEach(item =>{
-        this.myProduct.push(item.data());
-      })
-    })
-
-  }
   getProductsbyCategory(name: string) {
     this.val = name.toLowerCase();
     this.dbProduct.where('category', '==', name).onSnapshot((res) => {
+      this.myProduct = [];
+      res.forEach((doc) => {
+
+        this.myProduct.push({ data: doc.data(), id: doc.id })
+      })
+      console.log("My items ", this.myProduct);
+
+    })
+  }
+  getProductonSale() {
+    // this.val = name.toLowerCase();
+    this.dbProduct.where('onSale', '==', true).onSnapshot((res) => {
       this.myProduct = [];
       res.forEach((doc) => {
 
