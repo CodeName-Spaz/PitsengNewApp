@@ -116,6 +116,11 @@ ion-toolbar {
       margin: 3px;
        //height: fit-content;
 
+       ion-thumbnail{
+         width: 100%;
+         height: fit-content;
+       }
+
       img {
         border-radius: 10px;
         //height: max-content;
@@ -460,6 +465,7 @@ ion-toolbar {
   }
   .container {
     width: 75%;
+    //height: 100%;
     margin: auto;
 
     .title {
@@ -497,6 +503,7 @@ ion-toolbar {
       }
     }
     .cards {
+      height: 100%;
       #card {
         width: 30%;
         .text {
@@ -1435,3 +1442,171 @@ ion-footer {
 
   
 }
+
+ion-header {
+  .toolbar {
+    height: 56px;
+    background-color: #912322;
+    margin: 0 auto;
+    display: flex;
+    justify-content: baseline;
+    margin-top: 10px;
+    .categories {
+      height: 60px;
+      color: white;
+      text-transform: capitalize;
+      width: 10vw;
+      text-align: center;
+      background-color: #9f190c;
+      position: relative;
+      top: -5px;
+      z-index: 99999999999999999;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      width: 50vw;
+      margin: 0 auto;
+      ion-buttons {
+        color: white;
+      }
+    }
+  }
+  ion-toolbar {
+    .navigation-bar-upper-section {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 75vw;
+      margin: 0 auto;
+      justify-content: baseline;
+      justify-self: center;
+      .logo {
+        width: 15vw;
+        img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .nav-section {
+        display: flex;
+        font-size: 18px;
+        text-align: center;
+        align-items: center;
+        margin: 0 auto;
+        left: 0;
+        flex-direction: row;
+        justify-content: space-between;
+        justify-content: flex-end;
+        width: 59.5vw;
+        position: relative;
+        margin: 0 auto;
+        .search-section {
+          width: 35vw;
+          margin: 0 auto;
+          text-align: start;
+        }
+        .buttons {
+          float: left;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+}
+.top-nav {
+width: 100%;
+height: 50px;
+background-color: red;
+display: none;
+position: relative;
+
+.nav-grid{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  background: #9f190c;
+}
+.nav-grid > div {
+  height: 100%;
+  min-width: 50px;
+  color: white;
+}
+.nav-grid > div:nth-child(odd){
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  cursor: pointer;
+}
+.nav-grid > div:nth-child(2){
+  width: calc(100% - 100px);
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 50px;
+}
+
+#options{
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  z-index: 100;
+  top: -100vh;
+  background: rgba(0, 0, 0, 0.397)
+}
+#options > div > div {
+  height: 40px;
+  // border: 1px solid black;
+  line-height: 40px;
+  padding-left: 10px;
+  background: #b62013;
+  transition: 300ms;
+  color: white;
+  cursor: pointer;
+}
+.menu-item{
+  animation: sliderIn 300ms
+}
+#options > div > div:active{
+    background: #d62d1d
+  }
+  @keyframes sliderIn {
+    0%{
+      opacity: 0;
+    }
+    100%{
+      opacity: 1;
+    }
+  }
+  @keyframes sliderOut {
+    0%{
+      opacity: 1;
+    }
+    100%{
+      opacity: 0;
+    }
+  }
+
+}
+
+@media screen and (max-width: 780px){
+  // this affects only the navBar
+  ion-header{
+    height: 0;
+    overflow: hidden;
+  }
+  .top-nav{
+    display: block
+  }
+  #breadcrumbs{
+    display: none
+  }
+}
+
