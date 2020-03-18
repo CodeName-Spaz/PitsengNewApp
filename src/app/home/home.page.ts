@@ -68,6 +68,8 @@ export class HomePage implements OnInit {
     this.getProductsbyCategory('Deco')
 
     this.ratingProducts();
+
+    
   }
 
   getProductsbyCategory(name: string) {
