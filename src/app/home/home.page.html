@@ -118,14 +118,14 @@
         </ion-button>
 
       </div>
-      
+
 
       <div class="icon">
         <ion-button (click)="getProductsbyCategory('Pottery')" color="transparent">
-         <img src="../../assets/pot.svg" alt="">
+          <img src="../../assets/pot.svg" alt="">
         </ion-button>
       </div>
- 
+
     </div>
 
     <div class="info">
@@ -145,19 +145,13 @@
           <p> {{p.data.name}} <br>
             <span>{{p.data.price | currency:"R"}}</span></p>
           <p class="starz">
-
             <ion-rating [rate]="rate" activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#ff0000"
               defaultColor="#aaaaaa" rating="{{p.data.rating}}" fontSize="1em" readonly="true"
               (rateChange)="getProductsbyCategory(p.data.name)">
             </ion-rating>
-
-
           </p>
         </div>
       </div>
-
-
-
     </div>
 
   </div>
@@ -299,19 +293,17 @@
 
     <div class="profile_details">
       <div class="profile_image">
-        <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg">
-        <!-- <img src="{{profile.image}}" alt=""> -->
+        <!-- <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg"> -->
+        <img src="{{profile.image}}" alt="">
       </div>
 
       <div class="user_details">
-        <h1>Zanele Nkosi</h1>
-        <!-- <h1>{{profile.name}}</h1> -->
-        <p>zan@gmail.com <br>
-          123 Letsatsi street <br>
-          0813265949</p>
-        <!-- <p>{{profile.email}} <br>
+
+        <h1>{{profile.name}}</h1>
+
+        <p>{{profile.email}} <br>
           {{profile.address}} <br>
-          {{profile.number}}</p> -->
+          {{profile.number}}</p>
       </div>
       <div class="edit_icon" (click)="editInputs()">
         <ion-icon name="create"></ion-icon>
@@ -339,6 +331,8 @@
     <div class="line"></div>
 
     <div class="pending_orders">
+
+
       <div class="pending_button" (click)="pending()">
         <span>Pending Orders <ion-icon name="chevron-down-outline"></ion-icon></span>
       </div>
@@ -353,10 +347,9 @@
             <p class="code">
               <ion-icon slot="start" name="clipboard"></ion-icon> {{ord.ref}}
             </p>
-            <p><span>Date of Purchase:</span> {{ord.info.timestamp | date:"mediumDate"}}
+            <p><span>Date of Purchase:</span> {{ord.info.timestamp | date:"mediumDate"}} <br>
+              <span>Delivery Date:</span> 13/08/20
             </p>
-            <p><span>Delivery Date:</span> 13/08/20</p>
-
             <ion-button (click)="presentModal(ord.ref, pending)">
               Track
             </ion-button>

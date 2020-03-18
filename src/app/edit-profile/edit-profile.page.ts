@@ -105,6 +105,7 @@ export class EditProfilePage implements OnInit {
       upload.snapshot.ref.getDownloadURL().then(dwnURL => {
         console.log('File avail at: ', dwnURL);
         this.profile.image = dwnURL;
+        this.db.collection('UserProfile').doc(firebase.auth().currentUser.uid).update({image : this.profile.image})
       });
     });
   }
