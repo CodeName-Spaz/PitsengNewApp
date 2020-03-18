@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
- import { StarRatingModule } from 'ionic4-star-rating';
+//  import { StarRatingModule } from 'ionic4-star-rating';
 import { HomePage } from './home.page';
 
 @NgModule({
@@ -11,7 +11,7 @@ import { HomePage } from './home.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    StarRatingModule,
+    // StarRatingModule,
     RouterModule.forChild([
       {
         path: '',
