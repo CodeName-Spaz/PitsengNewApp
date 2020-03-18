@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { NavController, ToastController, AlertController } from '@ionic/angular';
 import * as firebase from 'firebase';
 // import { StarRatingModule } from 'ionic4-star-rating';
@@ -24,9 +24,9 @@ export class ItemViewPage implements OnInit {
   orderHistory = false;
   showInputs = false
   viewProfile = false;
-  ratingTotal= 0
+  ratingTotal = 0
   ratingTotalTotal
-  stars=0
+  stars = 0
   value
   yudsegment: string;
   prod_id: string;
@@ -47,6 +47,15 @@ export class ItemViewPage implements OnInit {
   imageSide: any;
   imageTop: any;
   similarItems = [];
+  onSale;
+  salePrice;
+  discount;
+  myWish = [];
+  itemAvailable = [];
+  prodCart = [];
+  myOrder = [];
+  delCost: number;
+  delType: string;
   // uid=firebase.auth().currentUser.uid;
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
@@ -66,46 +75,55 @@ export class ItemViewPage implements OnInit {
     // this.cartItemCount = this.cartService.getCartItemCount();
   }
   mostViewed() {
-    this.dbProduct.orderBy('viewed','desc').limit(4).onSnapshot((res)=>{
+    this.dbProduct.orderBy('viewed', 'desc').limit(4).onSnapshot((res) => {
       this.similarItems = [];
-      res.forEach((doc)=>{
+      res.forEach((doc) => {
         if (doc.data().viewed) {
-           this.similarItems.push({info:doc.data() , id : doc.id});
+          this.similarItems.push({ info: doc.data(), id: doc.id });
         } else {
           console.log("No viewed");
-          
+
         }
       })
     })
   }
-
+  viewProd(id) {
+    // if (this.itemChecked === true) {
+    this.getProduct(id);
+    this.reviewed();
+    // } 
+  }
+  delete(id) {
+    this.dbWishlist.doc(id).delete().then((res) => {
+    })
+  }
   star(num, uid, code) {
     console.log('hh', num, code)
-    // console.log(code);
+    console.log(code);
 
     firebase.firestore().collection('Reviews').where('uid', '==', uid).where('productCode', '==', code).onSnapshot(snapshot => {
-      if(snapshot.size > 0) {
-         console.log('update');
-         
-      }else {
-         firebase.firestore().collection('Reviews').doc().set({
-      productCode: code,
-      Rating: num,
-      uid: uid,
-      prod_id: this.prod_id
-    }, {merge : true})
-    this.getRatings(code, this.prod_id)
+      if (snapshot.size > 0) {
+        console.log('update');
+
+      } else {
+        firebase.firestore().collection('Reviews').doc().set({
+          productCode: code,
+          Rating: num,
+          uid: uid,
+          prod_id: this.prod_id
+        }, { merge: true })
+        this.getRatings(code, this.prod_id)
       }
     });
-   
+
   }
-  logRatingChange(){
+  logRatingChange() {
     firebase.firestore().collection('Products').onSnapshot(snapshot => {
       this.reviews = []
       snapshot.forEach(item => {
         this.reviews.push(item.data());
         console.log("Rates ", item.data());
-        
+
       })
     })
   }
@@ -122,30 +140,33 @@ export class ItemViewPage implements OnInit {
       this.imageSide = doc.data().imageSide;
       this.imageTop = doc.data().imageTop;
       this.productCode = doc.data().productCode;
+      this.onSale = doc.data().onSale;
+      this.salePrice = doc.data().salePrice;
+      this.discount = doc.data().percentage;
       // this.getRatings(doc.data().productCode, id)
     })
   }
 
   getRatings(code, id) {
     console.log('i am running');
-    
+
     firebase.firestore().collection('Reviews').where('productCode', '==', code).get().then(snapshot => {
       this.reviews = [];
-      snapshot.forEach(doc =>{
+      snapshot.forEach(doc => {
         console.log(doc.data());
-       
+
         this.ratingTotal += parseFloat(doc.data().Rating);
-       this.reviews.push(doc.data());
+        this.reviews.push(doc.data());
       })
-      
+
       this.avgRating = this.ratingTotal / this.reviews.length;
-      console.log("Product Star Ratings ",  this.avgRating);
+      console.log("Product Star Ratings ", this.avgRating);
       return firebase.firestore().collection('Products').doc(id).update({
-        Rating: this.avgRating
+        avgRating: this.avgRating
       })
-  })
-  
-}
+    })
+
+  }
   getWishItems() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -161,7 +182,32 @@ export class ItemViewPage implements OnInit {
 
           }
         })
-      } 
+        this.dbWishlist.where('customerUID', '==', user.uid).onSnapshot((res) => {
+          this.myWish = [];
+          res.forEach((doc) => {
+            this.itemAvailable = [];
+            this.dbProduct.doc(doc.id).onSnapshot((data) => {
+              if (data.data().hideItem === true) {
+                this.itemAvailable.push("Out of stock");
+              } else {
+                this.itemAvailable.push("In stock");
+              }
+            })
+            this.myWish.push({ info: doc.data(), id: doc.id });
+          })
+        })
+        this.dbCart.where('customerUID', '==', user.uid).onSnapshot((info) => {
+          // this.cartCount = info.size;
+          this.prodCart = [];
+          // this.totalCost = 0;
+          info.forEach((doc) => {
+            doc.data().product.forEach((z) => {
+              this.myOrder.push(z)
+            })
+            this.prodCart.push({ data: doc.data(), id: doc.id });
+          })
+        })
+      }
     })
 
   }
@@ -173,21 +219,20 @@ export class ItemViewPage implements OnInit {
         this.presentAlertConfirm1();
       }
     })
-    
+
   }
   segmentChanged(ev: any) {
     console.log('Segment changed', ev)
   }
   getTotal() {
     let total = 0;
-    // for (let i = 0; i < this.prodCart.length; i++) {
-    // let product = this.prodCart[i].data.product;
-    // console.log(product);
-    // product.forEach((item) => {
-    total += this.price * this.quantity
-    // })
-    //
-    // }
+    for (let i = 0; i < this.prodCart.length; i++) {
+      let product = this.prodCart[i].data.product;
+      product.forEach((item) => {
+        total += item.cost * item.quantity
+      })
+
+    }
     //console.log('My tot ', total);
 
     return total;
@@ -201,7 +246,7 @@ export class ItemViewPage implements OnInit {
       }
 
     })
-    
+
   }
   visitCart() {
     firebase.auth().onAuthStateChanged((user) => {
@@ -212,7 +257,7 @@ export class ItemViewPage implements OnInit {
       }
 
     })
-    
+
   }
   sizeChosen(data, index) {
     // console.log("event ", ev);
@@ -239,12 +284,86 @@ export class ItemViewPage implements OnInit {
       this.quantity -= 1
     }
   }
+  pluss(prod, index) {
+    let num = index.data.product[0].quantity++
+    index.data.product[0].cost = index.data.product[0].cost
+    let id = index.id
+    let product = [prod]
+    this.dbCart.doc(id).update({ product: product }).then(res => {
+
+    })
+  }
+  minuss(prod, index) {
+    if (index.data.product[0].quantity === 1) {
+      this.presentAlertConfirm(index.id);
+    } else {
+      let num = index.data.product[0].quantity--
+      index.data.product[0].cost = index.data.product[0].cost
+      let id = index.id
+      let product = [prod]
+      this.dbCart.doc(id).update({ product: product }).then(res => {
+
+      })
+    }
+  }
+  async presentAlertConfirm(id) {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm!',
+      message: 'Do you want to remove this product?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        }, {
+          text: 'Okay',
+          handler: () => {
+            //console.log('Id is ', id);
+            this.dbCart.doc(id).delete().then((res) => {
+            })
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
   async toastController(message) {
     let toast = await this.toastCtrl.create({ message: message, duration: 2000 });
     return toast.present();
   }
 
+  
   addToCart() {
+
+
+    // let addCart = firebase.firestore().collection('Cart')
+    // let increment: number = 0
+    // addCart.where('productCode', '==', productCode).get().then((snapshot => {
+    // if(snapshot.size > 0){
+    //   console.log("am existing", productCode);
+    //   snapshot.forEach(data => {
+    //     console.log("am existing");
+    //     increment = data.data().quantity +   this.quantity 
+    //     addCart.doc(data.id).set({quantity: increment }, {merge: true});
+    //     console.log('items increment by one');
+      
+    //   })
+    // }else{
+    //   this.dbCart.add({
+    //     customerUID: firebase.auth().currentUser.uid, timestamp: new Date().getTime(), product: [{
+    //       product_name: this.prod_name, size: this.my_size,
+    //       quantity: this.quantity, cost: this.price, picture: this.prod_image, productCode: this.productCode, description : this.desc,
+    //       prod_id: this.prod_id
+    //     }]
+    //   }).then(() => {
+    //     this.sizeIndex = null;
+    //     this.quantity = 1;
+    //     this.toastController('Added to basket')
+    //   })
+    // }
+    // })) 
+      
+
     setTimeout(() => {
       firebase.auth().onAuthStateChanged((res) => {
         if (res) {
@@ -255,17 +374,32 @@ export class ItemViewPage implements OnInit {
           if (this.my_size === "") {
             this.toastController('Missing selection of ' + descr);
           } else {
-            this.dbCart.add({
-              customerUID: firebase.auth().currentUser.uid, timestamp: new Date().getTime(), product: [{
-                product_name: this.prod_name, size: this.my_size,
-                quantity: this.quantity, cost: this.price, picture: this.prod_image, productCode: this.productCode, description : this.desc,
-                prod_id: this.prod_id
-              }]
-            }).then(() => {
-              this.sizeIndex = null;
-              this.quantity = 1;
-              this.toastController('Added to basket')
-            })
+            if (this.onSale === true) {
+              this.dbCart.add({
+                customerUID: firebase.auth().currentUser.uid, timestamp: new Date().getTime(), product: [{
+                  product_name: this.prod_name, size: this.my_size,
+                  quantity: this.quantity, cost: this.salePrice, picture: this.prod_image, productCode: this.productCode, description: this.desc,
+                  prod_id: this.prod_id
+                }]
+              }).then(() => {
+                this.sizeIndex = null;
+                this.quantity = 1;
+                this.toastController('Added to basket')
+              })
+            } else {
+              this.dbCart.add({
+                customerUID: firebase.auth().currentUser.uid, timestamp: new Date().getTime(), product: [{
+                  product_name: this.prod_name, size: this.my_size,
+                  quantity: this.quantity, cost: this.price, picture: this.prod_image, productCode: this.productCode, description: this.desc,
+                  prod_id: this.prod_id
+                }]
+              }).then(() => {
+                this.sizeIndex = null;
+                this.quantity = 1;
+                this.toastController('Added to basket')
+              })
+            }
+
           }
         } else {
           // this.alertView = this.localSt.retrieve('alertShowed');
@@ -274,6 +408,7 @@ export class ItemViewPage implements OnInit {
       })
     }, 0);
   }
+
 
   async presentAlertConfirm1() {
     const alert = await this.alertCtrl.create({
@@ -301,7 +436,9 @@ export class ItemViewPage implements OnInit {
 
     await alert.present();
   }
+
   wishListAdd() {
+
     setTimeout(() => {
       firebase.auth().onAuthStateChanged((res1) => {
         if (res1) {
@@ -320,8 +457,8 @@ export class ItemViewPage implements OnInit {
             } else {
               this.dbWishlist.doc(this.prod_id).set({
                 customerUID: firebase.auth().currentUser.uid, price: this.price,
-                image: this.prod_image, name: this.prod_name, id: this.prod_id, category: this.category, productCode : this.productCode,
-                description : this.desc
+                image: this.prod_image, name: this.prod_name, id: this.prod_id, category: this.category, productCode: this.productCode,
+                description: this.desc
               }).then(() => {
                 // this.myProduct[index].wish = 'heart';
                 this.toastController('Added to wishlist..');
@@ -335,6 +472,7 @@ export class ItemViewPage implements OnInit {
       })
     }, 0);
   }
+
 
   popBack() {
     this.navCtrl.pop();
@@ -370,14 +508,39 @@ export class ItemViewPage implements OnInit {
   editInputs() {
     this.showInputs = !this.showInputs
   }
-
+  Delivery(tot) {
+    let total = 0;
+    this.delCost = 100;
+    this.delType = "Delivery";
+    for (let i = 0; i < this.prodCart.length; i++) {
+      let product = this.prodCart[i].data.product;
+      product.forEach((item) => {
+        total = tot + 100
+      })
+    }
+    return total;
+  }
+  notDelivery(tot) {
+    let total = 0;
+    this.delCost = 0;
+    this.delType = "Collection";
+    for (let i = 0; i < this.prodCart.length; i++) {
+      let product = this.prodCart[i].data.product;
+      product.forEach((item) => {
+        total = tot
+      })
+    }
+    return total;
+  }
   switchView(state) {
     switch (state) {
       case 'd':
         this.buttonActive = true;
+        this.Delivery(this.getTotal());
         break;
       case 'c':
         this.buttonActive = false;
+        this.notDelivery(this.getTotal());
         break;
     }
   }

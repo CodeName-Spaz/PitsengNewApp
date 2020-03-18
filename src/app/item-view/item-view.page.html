@@ -2,13 +2,6 @@
   <ion-toolbar>
     <img src="../../assets/Group 235.png" alt="">
 
-
-    <ion-buttons slot="end">
-
-      <ion-button (click)="search()">
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-    </ion-buttons>
     <ion-buttons slot="end">
 
       <ion-button class="notification" (click)="reviewed()">
@@ -30,108 +23,132 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-header class="ion-no-border" id="mobile">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+
+      <ion-button>
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+
+      <ion-button class="notification" (click)="visitWish()">
+        <ion-icon slot="icon-only" name="heart"></ion-icon>
+        <span class="badge"></span>
+      </ion-button>
+
+      <ion-button class="notification" (click)="visitCart()">
+        <ion-icon slot="icon-only" name="basket"></ion-icon>
+        <span class="badge"></span>
+      </ion-button>
+      <ion-button color="secondary" (click)="visitProfile()">
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content fullscreen>
 
   <div class='container'>
-    <div class="image" >
-      <!-- <img src="{{prod_image}}" alt=""> -->
-      <ion-slides style="height: 45vh; z-index: 1;">
+    <div class="items_info">
+      <div class="image">
+        <!-- <img src="{{prod_image}}" alt=""> -->
+        <ion-slides style=" z-index: 1;" pager="true">
 
-        <ion-slide>
-          <img src="{{prod_image}}"/>
-        </ion-slide>
+          <ion-slide>
+            <img src="{{prod_image}}" />
+          </ion-slide>
 
-        <ion-slide>
-          <img src="{{imageTop}}"/>
-        </ion-slide>
+          <ion-slide>
+            <img src="{{imageTop}}" />
+          </ion-slide>
 
-        <ion-slide>
-          <img src="{{imageSide}}"/>
-        </ion-slide>
+          <ion-slide>
+            <img src="{{imageSide}}" />
+          </ion-slide>
 
-        <ion-slide>
-          <img src="{{imageTop}}"/>
-        </ion-slide>
-      </ion-slides>
-      <p class="starz"></p>
+          <ion-slide>
+            <img src="{{imageTop}}" />
+          </ion-slide>
+        </ion-slides>
 
-       
-      <div class="stars" *ngFor="let item of reviews">  
-         <ionic4-star-rating [rate]="rate"
-            activeIcon = "ios-star"
-            defaultIcon = "ios-star-outline"
-            activeColor = "#ff0000"
-            defaultColor = "#aaaaaa"
-            rating = "{{item.Rating}}"
-            fontSize = "18px"
-        readonly="true"
-        (rateChange)="logRatingChange()">
-    </ionic4-star-rating>        
-    </div>
-
-      <!-- <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star"></ion-icon>&nbsp;
-        <ion-icon name="star-half-outline"></ion-icon>   -->
-    
-     
-  
-      <div class="wishlist">
-        <ion-fab-button color="transparent" (click)="wishListAdd()">
-          <ion-icon name="{{onWish}}"></ion-icon>
-       
-        </ion-fab-button>
-      </div>
-    </div>
-    <div class="item_info">
-     
-
-      <div class="sizes">
-        <div class="text">
-          <p>sizes</p>
+        <p class="starz"></p>
+        <div class="stars" *ngFor="let item of reviews">
+          <ionic4-star-rating [rate]="rate" activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#ff0000"
+            defaultColor="#aaaaaa" rating="{{item.Rating}}" fontSize="18px" readonly="true"
+            (rateChange)="logRatingChange()">
+          </ionic4-star-rating>
         </div>
 
-        <div class="btnz">
-          <ion-button color="transparent" *ngFor="let s of sizes; let i = index" (click)="sizeChosen(s, i)" [ngClass]="{'sizeStyle':sizeIndex==i}">
-            {{s}}
-          </ion-button>
+        <div class="wishlist">
+          <ion-fab-button color="transparent" (click)="wishListAdd()">
+            <ion-icon name="{{onWish}}"></ion-icon>
 
-          <!-- <ion-button color="transparent">
+          </ion-fab-button>
+        </div>
+      </div>
+      <div class="item_info">
+
+
+        <div class="sizes">
+          <div class="text">
+            <p>sizes</p>
+          </div>
+
+          <div class="btnz">
+            <ion-button color="transparent" *ngFor="let s of sizes; let i = index" (click)="sizeChosen(s, i)"
+              [ngClass]="{'sizeStyle':sizeIndex==i}">
+              {{s}}
+            </ion-button>
+
+            <!-- <ion-button color="transparent">
             M
           </ion-button>
 
           <ion-button color="transparent">
             L
           </ion-button> -->
+          </div>
+
         </div>
 
-      </div>
+        <div class="price">
+          <p *ngIf="onSale===false">{{price | currency:"R"}}</p>
+          <p *ngIf="onSale===true">{{price | currency:"R"}}<br>
+            {{salePrice | currency:"R"}}<br>
+            {{discount}}% OFF</p>
+          <p class="addz">
+            <ion-icon slot="start" (click)="plus()" name="add"></ion-icon> &nbsp; {{quantity}} &nbsp;<ion-icon
+              slot="start" (click)="minus()" name="remove"></ion-icon>
+          </p>
+        </div>
 
-      <div class="price">
-        <p>{{price | currency:"R"}}</p>
-        <p>
-          <ion-icon slot="start" (click)="plus()" name="add"></ion-icon> {{quantity}} <ion-icon slot="start" (click)="minus()" name="remove"></ion-icon>
+        <p>{{desc}}</p>
+
+        <p><span>Shipping Information</span><br>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem eum sit maxime temporibus
+          in nobis voluptatibus nihil alias quaerat. Velit tenetur doloribus assumenda autem error
+          porro, rerum voluptas quisquam minus!</p>
+
+        <p><span>Delivery Infomation</span> <br>
+          items avilable at the following address: <br>
+          <br>
+          123 Chris Hani Rd<br>
+          Diepkloof <br>
+          1862
         </p>
+
+        <ion-button (click)="wishListAdd()" class="wishes">
+          Add to wishlist
+        </ion-button>
+
+        <ion-button (click)="addToCart()" class="wishes">
+          Add to Bag {{getTotal() | currency:"R"}}
+        </ion-button>
       </div>
-
-      <p>{{desc}}</p>
-
-      <p><span>Shipping Information</span><br>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem eum sit maxime temporibus
-        in nobis voluptatibus nihil alias quaerat. Velit tenetur doloribus assumenda autem error
-        porro, rerum voluptas quisquam minus!</p>
-
-      <p><span>Delivery Infomation</span> <br>
-        items avilable at the following address: <br>
-        <br>
-        123 Chris Hani Rd<br>
-        Diepkloof <br>
-        1862
-      </p>
     </div>
-
     <div class="also_like">
 
       <ion-segment [(ngModel)]="yudsegment" color="transparent">
@@ -144,37 +161,37 @@
       </ion-segment>
 
     </div>
-    
-    <div class="segment_slides" [ngSwitch] ="yudsegment">
-    <div class="pictures" *ngSwitchCase = "'like'">
-      <div class="image1" *ngFor="let items of similarItems">
-        <img src="{{items.info.image}}" alt="" >
+
+    <div class="segment_slides" [ngSwitch]="yudsegment">
+      <div class="pictures" *ngSwitchCase="'like'">
+        <div class="image1" *ngFor="let items of similarItems">
+          <img src="{{items.info.image}}" alt="">
+        </div>
+
       </div>
 
+      <div class="reviewz" *ngSwitchCase="'review'">
+        <p class="starz1">
+          Rate this product <br>
+
+          <ion-icon name="star-outline" (click)="star(1, uid, productCode)"></ion-icon>&nbsp;
+          <ion-icon name="star-outline" (click)="star(2, uid, productCode)"></ion-icon>&nbsp;
+          <ion-icon name="star-outline" (click)="star(3, uid, productCode)"></ion-icon>&nbsp;
+          <ion-icon name="star-outline" (click)="star(4, uid, productCode)"></ion-icon>&nbsp;
+          <ion-icon name="star-outline" (click)="star(5, uid, productCode)"></ion-icon> <br>
+
+
+
+          <ion-button color="transparent">
+            RATE
+          </ion-button>
+        </p>
+
+      </div>
     </div>
 
-    <div class="reviewz" *ngSwitchCase = "'review'">
-      <p class="starz1">
-        Rate this product <br>
 
-        <ion-icon name="star-outline"  (click)="star(1, uid, productCode)"></ion-icon>&nbsp;
-        <ion-icon name="star-outline" (click)="star(2, uid, productCode)"></ion-icon>&nbsp;
-        <ion-icon name="star-outline" (click)="star(3, uid, productCode)"></ion-icon>&nbsp;
-        <ion-icon name="star-outline" (click)="star(4, uid, productCode)"></ion-icon>&nbsp;
-        <ion-icon name="star-outline" (click)="star(5, uid, productCode)"></ion-icon> <br>
-
-    
-
-      <ion-button color="transparent">
-        RATE
-      </ion-button>
-      </p>
-
-    </div>
-  </div>
-
-
-    <div class="add" >
+    <div class="add">
       <ion-button color="transparent" (click)="addToCart()">
         ADD TO BAG {{getTotal() | currency:"R"}}
       </ion-button>
@@ -196,47 +213,54 @@
       <div class="div">
 
 
-        <div class="items" >
-          <div class="left" >
-            <div class="img">
-              <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
-            </div>
-
-            <div class="item_details">
-              <p> <b>Name <br> R400.00</b><br>
-                <span>size: S</span><br>
-              </p>
-
-              <div class="add_buttons">
-                <p>QTY:2</p>
-                <div class="clicks">
-                  <ion-button (click)="plus(prod, i)" color="transparent" class="adds">
-                    <span>
-                      <ion-icon slot="start" name="add"></ion-icon>
-                    </span>
-                  </ion-button>
-                  <ion-button (click)="minus(prod, i)" color="transparent" class="adds1">
-                    <span>
-                      <ion-icon slot="start" name="remove"></ion-icon>
-                    </span>
-                  </ion-button>
-                </div>
-
-                <!-- <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
-                3 <ion-icon slot="end" name="add-circle-outline"></ion-icon> -->
+       
+          <div class="items" *ngFor="let cp of prodCart; let i of index">
+            <div class="left" *ngFor="let prod of cp.data.product">
+              <div class="img">
+                <img src="{{prod.picture}}" alt="">
               </div>
-
+  
+              <div class="item_details">
+                <p> <b>{{prod.product_name}} <br> {{prod.cost | currency:"R"}}</b><br>
+                  <span>size: {{prod.size}}</span><br>
+                </p>
+  
+                <div class="add_buttons">
+                  <p>QTY: {{prod.quantity}}</p>
+                  <div class="clicks">
+                    <ion-button (click)="pluss(prod, i)" color="transparent" class="adds">
+                      <span>
+                        <ion-icon slot="start" name="add"></ion-icon>
+                      </span>
+                    </ion-button>
+                    <ion-button (click)="minuss(prod, i)" color="transparent" class="adds1">
+                      <span>
+                        <ion-icon slot="start" name="remove"></ion-icon>
+                      </span>
+                    </ion-button>
+                  </div>
+  
+                  <!-- <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
+                  3 <ion-icon slot="end" name="add-circle-outline"></ion-icon> -->
+                </div>
+  
+              </div>
+            </div>
+  
+            <div class="right">
+              <div class="trash_icon" (click)="removeProd(cp.id)">
+                <ion-icon slot="start" name="trash"></ion-icon>
+              </div>
+  
+  
             </div>
           </div>
 
-          <div class="right">
+          <!-- <div class="right">
             <div class="trash_icon" (click)="removeProd(cp.id)">
               <ion-icon slot="start" name="trash"></ion-icon>
             </div>
-
-
-          </div>
-        </div>
+          </div> -->
 
         <!-- <div class="items" id="noItems" *ngIf="prodCart.length === 0">
           <p>Basket Empty</p>
@@ -265,9 +289,9 @@
             <i>Please Note: You can collect your items at any time
             </i></p>
           <ion-button color="transparent" [disabled]="!delType" (click)="placeOrder()">
-            <!-- <div *ngIf="delType==='Delivery'">  PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div> -->
-            <!-- <div *ngIf="delType==='Collection'">PLACE ORDER ({{notDelivery(getTotal()) | currency:'R'}})</div> -->
-            <div>PLACE ORDER</div>
+            <div *ngIf="delType==='Delivery'"> PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div>
+            <div *ngIf="delType==='Collection'">PLACE ORDER ({{notDelivery(getTotal()) | currency:'R'}})</div>
+            <div *ngIf="!delType">PLACE ORDER</div>
           </ion-button>
         </div>
 
@@ -284,16 +308,16 @@
     </div>
     <div class="wishlist_items">
       <div class="div">
-        <div class="items" >
-          <ion-checkbox ></ion-checkbox>
+        <div class="items" *ngFor="let w of myWish; let i = index">
+          <ion-checkbox (ionChange)="viewProd(w.id)"></ion-checkbox>
           <div class="left">
             <div class="img">
-              <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
+              <img src="{{w.info.image}}" alt="">
             </div>
 
             <div class="item_details">
-              <p>Name<br>R400 <br> Code: JT656555</p>
-              <p style="color: rgb(77, 1, 1)"><i>Unavailable</i></p>
+              <p>{{w.info.name}}<br>{{w.info.price | currency:'R'}} <br> Code: {{w.info.productCode}}</p>
+              <p style="color: rgb(77, 1, 1)"><i>{{itemAvailable[i] }}</i></p>
             </div>
           </div>
 
@@ -313,6 +337,73 @@
       </ion-button>
     </div> -->
   </div>
+
+  <ion-footer id="webview">
+    <div class="footer">
+      <div class="heading">
+        <img src="../../assets/Group 235.png" alt="">
+      </div>
+
+      <div class="contact_details">
+        <h1>FIND US</h1>
+        <p>
+          <ion-icon slot="start" name="call"></ion-icon> +27 71 567 3284
+        </p>
+        <p>
+          <ion-icon slot="start" name="mail"></ion-icon> pitsengartsandcrafts.co.za
+        </p>
+
+        <p class="address">
+          <ion-icon slot="start" name="location"></ion-icon> Soweto Empowerment Zone <br>
+          Diepkloof, Chris Hani Road <br>
+          SOWETO<br>
+          1862
+        </p>
+
+      </div>
+
+      <div class="info">
+        <h1>QUICK LINKS</h1>
+        <ion-button color="transparent">
+          <span>FAQs</span>
+        </ion-button>
+        <ion-button color="transparent">
+          <span>Terms and Privacy Policy</span>
+        </ion-button>
+        <ion-button color="transparent">
+          <span>Disclaimer</span>
+        </ion-button>
+        <ion-button (click)="openAboutUS()"color="transparent">
+          <span>About Us</span>
+        </ion-button>
+      </div>
+
+      <div class="connect">
+        <h1>CONNECT</h1>
+        <ion-button color="transparent">
+          <ion-icon slot="start" name="logo-facebook"></ion-icon>
+          Facebook
+        </ion-button>
+        <ion-button color="transparent">
+          <ion-icon slot="start" name="logo-instagram"></ion-icon>
+          Instagram
+        </ion-button>
+
+        <ion-button color="transparent">
+          <ion-icon slot="start" name="logo-twitter"></ion-icon>
+          Twitter
+        </ion-button>
+      </div>
+
+      <div class="app_store">
+        <img src="../../assets/android.png" alt="App Store">
+      </div>
+
+    </div>
+    <ion-toolbar color="transparent">
+      <ion-title>&copy; Pitseng Arts & Crafts 2020</ion-title>
+    </ion-toolbar>
+  </ion-footer>
 
 
 </ion-content>

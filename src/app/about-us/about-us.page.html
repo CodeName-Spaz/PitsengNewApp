@@ -1,0 +1,180 @@
+<ion-header class="ion-no-border" id="web">
+  <ion-toolbar>
+    <img src="../../assets/Group 235.png" alt="">
+    <ion-buttons slot="end">
+
+      <ion-button class="notification" (click)="reviewed()">
+        <ion-icon slot="icon-only" name="heart"></ion-icon>
+        <span class="badge"></span>
+      </ion-button>
+
+      <ion-button class="notification" (click)="getCart()">
+        <ion-icon slot="icon-only" name="basket"></ion-icon>
+        <span class="badge"></span>
+      </ion-button>
+      <!-- <ion-button color="secondary" (click)="gotoProfile()">
+        <ion-icon slot="icon-only" name="person"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar class="ribbon" color="transparent">
+    <ion-title>ABOUT US</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="content">
+    <div class="main-cover">
+      <div class="whoWeAre" *ngFor="let a of about">
+        <!-- <ion-title>Contact Us</ion-title> -->
+        <div class="image-section">
+          <img src="{{a.image}}" alt="">
+        </div>
+        <div class="description-section">
+          <div>
+            <ion-title>{{a.name}}</ion-title>
+          </div>
+          <div>
+            <ion-label>{{a.subject}}</ion-label>
+          </div>
+          <div>
+            <p>{{a.message}}
+            </p>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="services" *ngFor="let s of service">
+        <!-- <ion-title>Contact Us</ion-title> -->
+        <div class="services-description-section">
+          <div>
+            <ion-title>{{s.service}}</ion-title>
+          </div>
+          <div>
+            <ion-label>{{s.job}}</ion-label>
+          </div>
+          <div>
+            <p>{{s.history}}
+            </p>
+
+          </div>
+
+
+
+
+        </div>
+        <div class="services-image-section">
+          <img src="{{s.image}}" alt="">
+
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+  <div class="leave_message">
+    <ion-label class="heading">Leave Us a Message</ion-label>
+    <div class="messageInputs">
+
+
+      <ion-item color="light">
+        <ion-input type="text" [(ngModel)]="message.fullname" placeholder="Full Names" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="email" [(ngModel)]="message.email" placeholder="Email Address" required>
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" [(ngModel)]="message.subject" placeholder="Enter subject" required>
+        </ion-input>
+      </ion-item>
+      <div>
+        <ion-list>
+          <ion-item>
+            <ion-textarea name="" [(ngModel)]="message.message" id="" placeholder="Message" required></ion-textarea>
+          </ion-item>
+        </ion-list>
+      </div>
+      <div>
+        <ion-button (click)="addMessage()">Submit</ion-button>
+      </div>
+
+    </div>
+    <div>
+
+    </div>
+  </div>
+
+  <ion-footer id="webview">
+    <div class="footer">
+      <div class="heading">
+        <img src="../../assets/Group 235.png" alt="">
+      </div>
+
+      <div class="contact_details">
+        <h1>FIND US</h1>
+        <p>
+          <ion-icon slot="start" name="call"></ion-icon> +27 71 567 3284
+        </p>
+        <p>
+          <ion-icon slot="start" name="mail"></ion-icon> pitsengartsandcrafts.co.za
+        </p>
+
+        <p class="address">
+          <ion-icon slot="start" name="location"></ion-icon> Soweto Empowerment Zone <br>
+          Diepkloof, Chris Hani Road <br>
+          SOWETO<br>
+          1862
+        </p>
+
+      </div>
+
+      <div class="info">
+        <h1>QUICK LINKS</h1>
+        <ion-button color="transparent">
+          <span>FAQs</span>
+        </ion-button>
+        <ion-button color="transparent">
+          <span>Terms and Privacy Policy</span>
+        </ion-button>
+        <ion-button color="transparent">
+          <span>Disclaimer</span>
+        </ion-button>
+        <ion-button (click)="openAboutUS()"color="transparent">
+          <span>About Us</span>
+        </ion-button>
+      </div>
+
+      <div class="connect">
+        <h1>CONNECT</h1>
+        <ion-button color="transparent">
+          <ion-icon slot="start" name="logo-facebook"></ion-icon>
+          Facebook
+        </ion-button>
+        <ion-button color="transparent">
+          <ion-icon slot="start" name="logo-instagram"></ion-icon>
+          Instagram
+        </ion-button>
+
+        <ion-button color="transparent">
+          <ion-icon slot="start" name="logo-twitter"></ion-icon>
+          Twitter
+        </ion-button>
+      </div>
+
+      <div class="app_store">
+        <img src="../../assets/android.png" alt="App Store">
+      </div>
+
+    </div>
+    <ion-toolbar color="transparent">
+      <ion-title>&copy; Pitseng Arts & Crafts 2020</ion-title>
+    </ion-toolbar>
+  </ion-footer>
+
+</ion-content>

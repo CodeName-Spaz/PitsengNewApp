@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as firebase from 'firebase';
 import { NavController, AlertController, ToastController } from '@ionic/angular';
-import { NavigationExtras } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { PaymentPage } from '../payment/payment.page';
 import { FaqsPage } from '../faqs/faqs.page'
 import { ModalController } from '@ionic/angular';
+import { AboutUsPage } from '../about-us/about-us.page';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
   @ViewChild('rating', {static: true}) rating : any;
+  storage = firebase.storage().ref();
   dbProduct = firebase.firestore().collection('Products');
   dbCart = firebase.firestore().collection("Cart");
   dbWishlist = firebase.firestore().collection('Wishlist');
@@ -50,6 +52,11 @@ export class HomePage implements OnInit {
   History = [];
   Allorders = [];
   itemAvailable = [];
+  myReviews=[];
+  reviews={
+    Rating:0
+  }
+  router: any;
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public modalController: ModalController,
     public toastCtrl: ToastController) { }
 
@@ -60,19 +67,11 @@ export class HomePage implements OnInit {
     this.checkUser();
     this.getProductsbyCategory('Deco')
 
-    // this.getProducts();
+    this.ratingProducts();
+
+    
   }
 
-  getProducts(){
-
-    firebase.firestore().collection("Products").onSnapshot(snapshot => {
-      this.myProduct=[]
-      snapshot.forEach(item =>{
-        this.myProduct.push(item.data());
-      })
-    })
-
-  }
   getProductsbyCategory(name: string) {
     this.val = name.toLowerCase();
     this.dbProduct.where('category', '==', name).onSnapshot((res) => {
@@ -81,7 +80,30 @@ export class HomePage implements OnInit {
 
         this.myProduct.push({ data: doc.data(), id: doc.id })
       })
-      console.log("My items ", this.myProduct);
+      // console.log("My items ", this.myProduct);
+
+    })
+  }
+  ratingProducts(){
+    firebase.firestore().collection("Products").onSnapshot(snapshot => {
+      this.myReviews=[]
+      snapshot.forEach(item =>{
+        this.myReviews.push(item.data())
+      })
+      console.log("Current rate for the product ", this.myReviews);
+      
+    })
+  }
+  
+  getProductonSale() {
+    // this.val = name.toLowerCase();
+    this.dbProduct.where('onSale', '==', true).onSnapshot((res) => {
+      this.myProduct = [];
+      res.forEach((doc) => {
+
+        this.myProduct.push({ data: doc.data(), id: doc.id })
+      })
+      // console.log("My items ", this.myProduct);
 
     })
   }
@@ -122,24 +144,6 @@ export class HomePage implements OnInit {
           this.dbWishlist.where('customerUID', '==', res.uid).onSnapshot((res) => {
             this.myWish = [];
             res.forEach((doc) => {
-              // if (doc.data().brand === "Specials") {
-              //   this.dbSales.doc(doc.id).onSnapshot((data) => {
-              //     if (data.data().hideItem === true) {
-              //       this.itemAvailable.push("Out of stock");
-              //     } else {
-              //       this.itemAvailable.push("In stock");
-              //     }
-              //   })
-              // } else {
-              //   this.itemAvailable = [];
-              //   this.dbProduct.doc(doc.id).onSnapshot((data) => {
-              //     if (data.data().hideItem === true) {
-              //       this.itemAvailable.push("Out of stock");
-              //     } else {
-              //       this.itemAvailable.push("In stock");
-              //     }
-              //   })
-              // }
               this.itemAvailable = [];
               this.dbProduct.doc(doc.id).onSnapshot((data) => {
                 if (data.data().hideItem === true) {
@@ -469,7 +473,32 @@ export class HomePage implements OnInit {
     })
 
   }
-
+  createAccount() {
+    this.dbProfile.doc(firebase.auth().currentUser.uid).update({ name: this.profile.name,
+       number: this.profile.number,
+        email: this.profile.email, 
+        address: this.profile.address }).then(res => {
+          this.editInputs()
+    }).catch(error => {
+      console.log('Error', error);
+    });
+  }
+  changeListener(event): void {
+    const i = event.target.files[0];
+    console.log(i);
+    const upload = this.storage.child(i.name).put(i);
+    upload.on('state_changed', snapshot => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('upload is: ', progress, '% done.');
+    }, err => {
+    }, () => {
+      upload.snapshot.ref.getDownloadURL().then(dwnURL => {
+        this.dbProfile.doc(firebase.auth().currentUser.uid).set({image:dwnURL
+      }, { merge: true })
+        this.profile.image = dwnURL;
+      });
+    });
+  }
   gotoProfile() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -524,4 +553,22 @@ export class HomePage implements OnInit {
     });
     return await modal.present();
   }
+  async openAboutUs(){
+
+    
+    //  console.log("My data ",value, "My id");
+    const modal = await this.modalController.create({
+      component: AboutUsPage,
+      cssClass: '',
+      componentProps: {
+       
+      }
+    });
+    return await modal.present();
+}
+openAboutUS(){
+  this.router.navigateByUrl('/about-us')
+}
+
+
 }

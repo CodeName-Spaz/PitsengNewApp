@@ -60,6 +60,7 @@ export class ProfilePage implements OnInit {
   }
   logout() {
     firebase.auth().signOut();
+    this.navCtrl.navigateForward('/login');
   }
   popBack() {
     this.navCtrl.pop();
