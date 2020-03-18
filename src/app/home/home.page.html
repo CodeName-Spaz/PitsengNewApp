@@ -20,7 +20,7 @@
         <ion-icon slot="icon-only" name="basket"></ion-icon>
         <span class="badge"></span>
       </ion-button>
-      <ion-button color="secondary" (click)="visitProfile()">
+      <ion-button color="secondary" (click)="gotoProfile()">
         <ion-icon slot="icon-only" name="person"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -100,28 +100,32 @@
     <div class="nav">
 
       <div class="icon">
-        <ion-button (click)="getProductsbyCategory('Pottery')" color="transparent">
-          <ion-icon name="square"></ion-icon>
+        <ion-button (click)="getProductsbyCategory('Lamps')" color="transparent">
+          <img src="../../assets/lamp.svg" alt="">
         </ion-button>
+
+      </div>
+
+      <div class="icon">
+        <ion-button (click)="getProductsbyCategory('Deco')" color="transparent">
+          <img src="../../assets/frame.svg" alt="">
+        </ion-button>
+
       </div>
       <div class="icon">
         <ion-button (click)="getProductsbyCategory('Vases')" color="transparent">
-          <ion-icon name="square"></ion-icon>
+          <img src="../../assets/pottery.svg" alt="">
         </ion-button>
 
       </div>
+      
+
       <div class="icon">
-        <ion-button (click)="getProductsbyCategory('Deco')" color="transparent">
-          <ion-icon name="square"></ion-icon>
+        <ion-button (click)="getProductsbyCategory('Pottery')" color="transparent">
+         <img src="../../assets/pot.svg" alt="">
         </ion-button>
-
       </div>
-      <div class="icon">
-        <ion-button (click)="getProductsbyCategory('Lamps')" color="transparent">
-          <ion-icon name="square"></ion-icon>
-        </ion-button>
-
-      </div>
+ 
     </div>
 
     <div class="info">
@@ -299,11 +303,6 @@
 
       </div>
     </div>
-    <!-- <div class="add_to_basket">
-      <ion-button color="transparent">
-        ADD TO CART (R500.00)
-      </ion-button>
-    </div> -->
   </div>
 
 
@@ -341,7 +340,7 @@
       <ion-input type="text" [(ngModel)]="profile.email" placeholder="Email"></ion-input>
       <ion-input type="text" [(ngModel)]="profile.number" placeholder="Number"></ion-input>
       <ion-input type="text" [(ngModel)]="profile.address" placeholder="Address"></ion-input>
-      <ion-input type="file" id="file" ></ion-input>
+      <ion-input type="file" id="file"></ion-input>
       <div class="button">
         <ion-button id=done color="transparent">
           DONE
@@ -413,7 +412,7 @@
         </div>
 
 
-        
+
       </div>
     </div>
     <ion-button id="logout" (click)="logout()">
@@ -455,6 +454,9 @@
         </ion-button>
         <ion-button color="transparent">
           <span>Disclaimer</span>
+        </ion-button>
+        <ion-button (click)="openAboutUS()"color="transparent">
+          <span>About Us</span>
         </ion-button>
       </div>
 

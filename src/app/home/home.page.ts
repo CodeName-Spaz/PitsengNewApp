@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as firebase from 'firebase';
 import { NavController, AlertController, ToastController } from '@ionic/angular';
-import { NavigationExtras } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { PaymentPage } from '../payment/payment.page';
 import { FaqsPage } from '../faqs/faqs.page'
 import { ModalController } from '@ionic/angular';
+import { AboutUsPage } from '../about-us/about-us.page';
 
 @Component({
   selector: 'app-home',
@@ -54,6 +55,7 @@ export class HomePage implements OnInit {
   reviews={
     Rating:0
   }
+  router: any;
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public modalController: ModalController,
     public toastCtrl: ToastController) { }
 
@@ -538,4 +540,20 @@ export class HomePage implements OnInit {
     });
     return await modal.present();
   }
+  async openAboutUs(){
+
+    
+    //  console.log("My data ",value, "My id");
+    const modal = await this.modalController.create({
+      component: AboutUsPage,
+      cssClass: '',
+      componentProps: {
+       
+      }
+    });
+    return await modal.present();
+}
+openAboutUS(){
+  this.router.navigateByUrl('/about-us')
+}
 }
