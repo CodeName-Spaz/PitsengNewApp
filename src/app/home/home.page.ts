@@ -65,6 +65,8 @@ export class HomePage implements OnInit {
     // this.getProducts();
   }
 
+  
+
   getProducts(){
 
     firebase.firestore().collection("Products").onSnapshot(snapshot => {
@@ -567,4 +569,6 @@ export class HomePage implements OnInit {
 openAboutUS(){
   this.router.navigateByUrl('/about-us')
 }
+
+
 }
