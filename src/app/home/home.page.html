@@ -142,15 +142,16 @@
             <span>{{p.data.price | currency:"R"}}</span></p>
           <p class="starz">
 
+            
             <ion-rating [rate]="rate"
-            activeIcon = "ios-star"
+            #rating activeIcon="ios-star"
             defaultIcon = "ios-star-outline"
-            activeColor = "#ff0000"
-            defaultColor = "#aaaaaa"
-            rating = "{{p.data.rating}}"
-            fontSize = "18px"
+            activeColor="#FFD700"
+            defaultColor="#D3D3D3"
+            rating = "{{p.rating}}"
+            fontSize = "12px"
         readonly="true"
-        (rateChange)="getProductsbyCategory(p.data.name)">
+        (rateChange)="getProductsbyCategory()">
 </ion-rating>
 
              <!-- <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"

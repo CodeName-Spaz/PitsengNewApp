@@ -244,7 +244,38 @@ export class ItemViewPage implements OnInit {
     return toast.present();
   }
 
+  
   addToCart() {
+
+
+    // let addCart = firebase.firestore().collection('Cart')
+    // let increment: number = 0
+    // addCart.where('productCode', '==', productCode).get().then((snapshot => {
+    // if(snapshot.size > 0){
+    //   console.log("am existing", productCode);
+    //   snapshot.forEach(data => {
+    //     console.log("am existing");
+    //     increment = data.data().quantity +   this.quantity 
+    //     addCart.doc(data.id).set({quantity: increment }, {merge: true});
+    //     console.log('items increment by one');
+      
+    //   })
+    // }else{
+    //   this.dbCart.add({
+    //     customerUID: firebase.auth().currentUser.uid, timestamp: new Date().getTime(), product: [{
+    //       product_name: this.prod_name, size: this.my_size,
+    //       quantity: this.quantity, cost: this.price, picture: this.prod_image, productCode: this.productCode, description : this.desc,
+    //       prod_id: this.prod_id
+    //     }]
+    //   }).then(() => {
+    //     this.sizeIndex = null;
+    //     this.quantity = 1;
+    //     this.toastController('Added to basket')
+    //   })
+    // }
+    // })) 
+      
+
     setTimeout(() => {
       firebase.auth().onAuthStateChanged((res) => {
         if (res) {
@@ -275,6 +306,7 @@ export class ItemViewPage implements OnInit {
     }, 0);
   }
 
+
   async presentAlertConfirm1() {
     const alert = await this.alertCtrl.create({
       header: 'Message',
@@ -301,7 +333,42 @@ export class ItemViewPage implements OnInit {
 
     await alert.present();
   }
-  wishListAdd() {
+
+  wishListAdd(productCode) {
+
+
+//     console.log(productCode);
+  
+//     let wish = firebase.firestore().collection('Wishlist')
+//     let increment: number = 0
+//     wish.where('productCode', '==', productCode).get().then((snapshot => {
+//     if(snapshot.size > 0){
+//      console.log('Do not add to wish list');
+//       snapshot.forEach(data => {
+//         increment = data.data().quantity + this.quantity
+//         wish.doc(data.id).set({quantity: increment }, {merge: true});
+//         console.log('items increment by one');
+        
+//       })
+//     }else{
+//       this.dbWishlist.doc(this.prod_id).set({
+//                     customerUID: firebase.auth().currentUser.uid, price: this.price,
+//                     image: this.prod_image, name: this.prod_name, id: this.prod_id, category: this.category, productCode : this.productCode,
+//                     description : this.desc
+//                   }).then(() => {
+//                     // this.myProduct[index].wish = 'heart';
+//                     this.toastController('Added to wishlist..');
+//                   })
+//     }
+//     })) 
+
+
+// }
+
+
+
+
+
     setTimeout(() => {
       firebase.auth().onAuthStateChanged((res1) => {
         if (res1) {
@@ -336,6 +403,7 @@ export class ItemViewPage implements OnInit {
     }, 0);
   }
 
+  
   popBack() {
     this.navCtrl.pop();
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
 @Component({
   selector: 'app-wish-list',
@@ -11,9 +11,17 @@ export class WishListPage implements OnInit {
   dbWishlist = firebase.firestore().collection('Wishlist');
   myWish = [];
   myArr = [];
+  cart = [];
   itemChecked : boolean;
   prodId;
-  constructor(public alertCtrl : AlertController, public navCtrl : NavController) { }
+  prod_image;
+  prod_name;
+  productCode;
+  price;
+  category;
+  desc
+  quantity: number;
+  constructor(public alertCtrl : AlertController, public navCtrl : NavController, public toastCtrl: ToastController) { }
 
   ngOnInit() {
     this.checkUser();
@@ -44,9 +52,52 @@ export class WishListPage implements OnInit {
     }
     return this.currentNumber;
   }
-  goHome() {
-    this.navCtrl.navigateRoot('home');
+
+  addToCart(productCode) {
+    
+    console.log(productCode);
+  
+    // let wish = firebase.firestore().collection('Wishlist')
+    // let increment: number = 0
+    // wish.where('productCode', '==', productCode).get().then((snapshot => {
+    // if(snapshot.size > 0){
+    //  console.log('Do not add to wish list');
+    //   snapshot.forEach(data => {
+    //     increment = data.data().quantity + this.quantity
+    //     wish.doc(data.id).set({quantity: increment }, {merge: true});
+    //     console.log('items increment by one');
+        
+    //   })
+    // }else{
+    //   firebase.firestore().collection("WishList").onSnapshot(data => {
+    //     this.cart = []
+    //     data.forEach(item => {
+    //       this.cart.push(item.data())
+    //     })
+    //     this.cart.forEach(item => {
+    //       if(item.checked === true){
+    //   this.dbWishlist.doc(this.prodId).set({
+    //                 customerUID: firebase.auth().currentUser.uid, price: this.price,
+    //                 image: this.prod_image, name: this.prod_name, id: this.prodId, category: this.category, productCode : this.productCode,
+    //                 description : this.desc
+    //               }).then(() => {
+    //                 // this.myProduct[index].wish = 'heart';
+    //                 // this.toastCtrl('Added to Cart..');
+    //               })
+    //             }
+    //           })
+    // }
+    //   )}
+    // })) 
+
+
   }
+
+  async CheckBoxes(obj){
+    console.log(obj)
+          
+    }
+    
   checkUser() {
     setTimeout(() => {
       firebase.auth().onAuthStateChanged((res) => {

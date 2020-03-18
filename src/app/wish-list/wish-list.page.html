@@ -12,7 +12,7 @@
       <div class="order-list" *ngFor="let w of myWish; let i = index">
         <div class="checkBox-add-to-cart" >
     
-          <ion-checkbox color="primary"  slot="start" [checked]="w.id.checked" (ionChange)="viewProduct(w.id); w.id.checked = !w.id.checked;"></ion-checkbox>
+          <ion-checkbox color="primary"  slot="start" [checked]="w.id.checked"  (ionChange)= "checkUser(); w.checked = !w.checked;"></ion-checkbox>
         </div>
         <div class="image-container">
           <img src="{{w.info.image}}" alt="">
@@ -127,8 +127,7 @@
         </div> -->
       <!-- </div> -->
       <div class="buttons" >
-        <!-- <ion-button color="primary" (click)="viewProduct(myWish)"> add to bag</ion-button> -->
-        <ion-button color="primary" class="button2" (click)="goHome()"> continue Shopping</ion-button>
+        <ion-button color="primary" class="button2" (click)="addToCart(productCode)"> Add to Bag</ion-button>
       </div>
     </ion-list>
   </div>
