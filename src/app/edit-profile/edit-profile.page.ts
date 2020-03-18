@@ -104,7 +104,7 @@ export class EditProfilePage implements OnInit {
         this.db.doc(firebase.auth().currentUser.uid).set({image:dwnURL
       }, { merge: true })
         this.profile.image = dwnURL;
-        this.db.collection('UserProfile').doc(firebase.auth().currentUser.uid).update({image : this.profile.image})
+        this.db.doc(firebase.auth().currentUser.uid).update({image : this.profile.image})
       });
     });
   }
