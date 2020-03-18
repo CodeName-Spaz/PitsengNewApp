@@ -52,7 +52,7 @@
 
        
       <div class="stars" *ngFor="let item of reviews">  
-         <ion-rating [rate]="rate"
+         <ionic4-star-rating [rate]="rate"
             activeIcon = "ios-star"
             defaultIcon = "ios-star-outline"
             activeColor = "#ff0000"
@@ -61,7 +61,7 @@
             fontSize = "18px"
         readonly="true"
         (rateChange)="logRatingChange()">
-</ion-rating>        
+    </ionic4-star-rating>        
     </div>
 
       <!-- <ion-icon name="star"></ion-icon>&nbsp;
