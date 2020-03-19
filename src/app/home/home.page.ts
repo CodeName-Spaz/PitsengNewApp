@@ -56,8 +56,8 @@ export class HomePage implements OnInit {
   reviews={
     Rating:0
   }
-  router: any;
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public modalController: ModalController,
+  // router: any;
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private router : Router,public modalController: ModalController,
     public toastCtrl: ToastController) { }
 
   ngOnInit() {
