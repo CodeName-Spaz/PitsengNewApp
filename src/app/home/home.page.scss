@@ -1451,17 +1451,7 @@ ion-header {
     display: flex;
     justify-content: baseline;
     margin-top: 10px;
-    .categories {
-      height: 60px;
-      color: white;
-      text-transform: capitalize;
-      width: 10vw;
-      text-align: center;
-      background-color: #9f190c;
-      position: relative;
-      top: -5px;
-      z-index: 99999999999999999;
-    }
+
     .navbar {
       display: flex;
       justify-content: space-between;
@@ -1469,6 +1459,16 @@ ion-header {
       margin: 0 auto;
       ion-buttons {
         color: white;
+      }
+      ion-button{
+        margin: 10px;
+        //border: 2px solid white;
+      }
+
+      ion-button:hover{
+        //margin: 5px;
+        border-bottom: 2px solid white;
+        border-radius: 0 !important;
       }
     }
   }
