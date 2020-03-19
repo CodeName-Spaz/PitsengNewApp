@@ -13,6 +13,7 @@ export class ItemViewPage implements OnInit {
   // cartItemCount:BehaviorSubject<number>;
   // wishItemCount: BehaviorSubject<number>;
   dbProduct = firebase.firestore().collection('Products');
+  dbOrder = firebase.firestore().collection('Order');
   reviews = [];
   avgRating
   viewBackdrop = false;
@@ -56,6 +57,7 @@ export class ItemViewPage implements OnInit {
   myOrder = [];
   delCost: number;
   delType: string;
+  rate = 0;
   // uid=firebase.auth().currentUser.uid;
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
@@ -97,11 +99,11 @@ export class ItemViewPage implements OnInit {
     this.dbWishlist.doc(id).delete().then((res) => {
     })
   }
-  star(num, uid, code) {
+  star(num, code) {
     console.log('hh', num, code)
     console.log(code);
 
-    firebase.firestore().collection('Reviews').where('uid', '==', uid).where('productCode', '==', code).onSnapshot(snapshot => {
+    firebase.firestore().collection('Reviews').where('uid', '==', firebase.auth().currentUser.uid).where('productCode', '==', code).onSnapshot(snapshot => {
       if (snapshot.size > 0) {
         console.log('update');
 
@@ -109,13 +111,38 @@ export class ItemViewPage implements OnInit {
         firebase.firestore().collection('Reviews').doc().set({
           productCode: code,
           Rating: num,
-          uid: uid,
+          uid: firebase.auth().currentUser.uid,
           prod_id: this.prod_id
         }, { merge: true })
         this.getRatings(code, this.prod_id)
       }
     });
 
+  }
+  openAboutUS() {
+    this.navCtrl.navigateForward('/about-us')
+  }
+  placeOrder() {
+    let docname = 'PITSENG' + new Date().getTime();
+    this.dbOrder.doc(docname).set({
+      product: this.myOrder, timestamp: new Date().getTime(), status: 'received', userID: firebase.auth().currentUser.uid, totalPrice: this.getTotal(),
+      deliveryType: this.delType, deliveryCost: this.delCost
+    }).then(() => {
+      this.myOrder = [];
+      this.delType = '';
+      this.delCost = 0;
+      this.prodCart.forEach((i) => {
+        this.dbCart.doc(i.id).delete().then(() => {
+        });
+      })
+    })
+  }
+  search() {
+    this.navCtrl.navigateForward('search');
+  }
+  removeProd(id) {
+    this.dbCart.doc(id).delete().then((res) => {
+    })
   }
   logRatingChange() {
     firebase.firestore().collection('Products').onSnapshot(snapshot => {
@@ -220,6 +247,9 @@ export class ItemViewPage implements OnInit {
       }
     })
 
+  }
+  goHome() {
+    this.navCtrl.navigateRoot('/home')
   }
   segmentChanged(ev: any) {
     console.log('Segment changed', ev)
@@ -332,7 +362,7 @@ export class ItemViewPage implements OnInit {
     return toast.present();
   }
 
-  
+
   addToCart() {
 
 
@@ -346,7 +376,7 @@ export class ItemViewPage implements OnInit {
     //     increment = data.data().quantity +   this.quantity 
     //     addCart.doc(data.id).set({quantity: increment }, {merge: true});
     //     console.log('items increment by one');
-      
+
     //   })
     // }else{
     //   this.dbCart.add({
@@ -362,7 +392,7 @@ export class ItemViewPage implements OnInit {
     //   })
     // }
     // })) 
-      
+
 
     setTimeout(() => {
       firebase.auth().onAuthStateChanged((res) => {
@@ -546,24 +576,24 @@ export class ItemViewPage implements OnInit {
   }
 
   menuOpen: boolean = false;
-menuBtn = "menu"
-showMenu() {
-  let myMenu = document.getElementById("options");
-  var menu_items = document.getElementsByClassName("menu-item") as HTMLCollectionOf<HTMLElement>;
-  if (this.menuOpen == false) {
-    this.menuOpen = true;
-    myMenu.style.top = "50px";
-    this.menuBtn = "close"
+  menuBtn = "menu"
+  showMenu() {
+    let myMenu = document.getElementById("options");
+    var menu_items = document.getElementsByClassName("menu-item") as HTMLCollectionOf<HTMLElement>;
+    if (this.menuOpen == false) {
+      this.menuOpen = true;
+      myMenu.style.top = "50px";
+      this.menuBtn = "close"
+    }
+    else {
+      menu_items[0].style.animation = "sliderOut 300ms"
+      setTimeout(() => {
+        myMenu.style.top = "-100vh"
+        this.menuOpen = false;
+        menu_items[0].style.animation = "sliderIn 300ms";
+        this.menuBtn = "menu"
+      }, 299);
+    }
   }
-  else {
-    menu_items[0].style.animation = "sliderOut 300ms"
-    setTimeout(() => {
-      myMenu.style.top = "-100vh"
-      this.menuOpen = false;
-      menu_items[0].style.animation = "sliderIn 300ms";
-      this.menuBtn = "menu"
-    }, 299);
-  }
-}
 
 }

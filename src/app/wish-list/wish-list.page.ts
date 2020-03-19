@@ -26,7 +26,9 @@ export class WishListPage implements OnInit {
   ngOnInit() {
     this.checkUser();
   }
-
+  goHome() {
+    this.navCtrl.navigateRoot('/home')
+  }
   currentNumber: number = 1;
   increment(p) {
     this.currentNumber = this.currentNumber + 1;

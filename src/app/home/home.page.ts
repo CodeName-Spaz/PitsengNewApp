@@ -72,9 +72,14 @@ export class HomePage implements OnInit {
 
 
   }
+  goHome() {
+    this.navCtrl.navigateRoot('/home')
+  }
+  getRatings() {
 
+  }
   getProductsbyCategory(name: string) {
-    this.val = name.toLowerCase();
+    this.val = 'categories';
     this.dbProduct.where('category', '==', name).onSnapshot((res) => {
       this.myProduct = [];
       res.forEach((doc) => {
