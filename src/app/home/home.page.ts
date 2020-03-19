@@ -13,7 +13,7 @@ import { AboutUsPage } from '../about-us/about-us.page';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  @ViewChild('rating', {static: true}) rating : any;
+  @ViewChild('rating', { static: true }) rating: any;
   storage = firebase.storage().ref();
   dbProduct = firebase.firestore().collection('Products');
   dbCart = firebase.firestore().collection("Cart");
@@ -33,7 +33,7 @@ export class HomePage implements OnInit {
 
   myProduct = [];
   prodCart = [];
-  Products=[]
+  Products = []
   val = '';
   viewBackdrop = false;
   viewCart = false;
@@ -52,11 +52,18 @@ export class HomePage implements OnInit {
   History = [];
   Allorders = [];
   itemAvailable = [];
-  myReviews=[];
-  reviews={
-    Rating:0
+  myReviews = [];
+  reviews = {
+    Rating: 0
   }
   router: any;
+  avgRating = 0;
+  categories = {
+    Deco : '',
+    Vases: '',
+    Lamps:'',
+    Pottery:''
+  }
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public modalController: ModalController,
     public toastCtrl: ToastController) { }
 
@@ -69,11 +76,16 @@ export class HomePage implements OnInit {
 
     this.ratingProducts();
 
-    
-  }
 
+  }
+  goHome() {
+    this.navCtrl.navigateRoot('/home')
+  }
+  getRatings() {
+
+  }
   getProductsbyCategory(name: string) {
-    this.val = name.toLowerCase();
+    this.val = 'categories';
     this.dbProduct.where('category', '==', name).onSnapshot((res) => {
       this.myProduct = [];
       res.forEach((doc) => {
@@ -84,17 +96,17 @@ export class HomePage implements OnInit {
 
     })
   }
-  ratingProducts(){
+  ratingProducts() {
     firebase.firestore().collection("Products").onSnapshot(snapshot => {
-      this.myReviews=[]
-      snapshot.forEach(item =>{
+      this.myReviews = []
+      snapshot.forEach(item => {
         this.myReviews.push(item.data())
       })
       console.log("Current rate for the product ", this.myReviews);
-      
+
     })
   }
-  
+
   getProductonSale() {
     // this.val = name.toLowerCase();
     this.dbProduct.where('onSale', '==', true).onSnapshot((res) => {
@@ -109,7 +121,7 @@ export class HomePage implements OnInit {
   }
 
   displayRating(rates) {
-    
+
   }
 
   checkUser() {
@@ -474,11 +486,13 @@ export class HomePage implements OnInit {
 
   }
   createAccount() {
-    this.dbProfile.doc(firebase.auth().currentUser.uid).update({ name: this.profile.name,
-       number: this.profile.number,
-        email: this.profile.email, 
-        address: this.profile.address }).then(res => {
-          this.editInputs()
+    this.dbProfile.doc(firebase.auth().currentUser.uid).update({
+      name: this.profile.name,
+      number: this.profile.number,
+      email: this.profile.email,
+      address: this.profile.address
+    }).then(res => {
+      this.editInputs()
     }).catch(error => {
       console.log('Error', error);
     });
@@ -493,8 +507,9 @@ export class HomePage implements OnInit {
     }, err => {
     }, () => {
       upload.snapshot.ref.getDownloadURL().then(dwnURL => {
-        this.dbProfile.doc(firebase.auth().currentUser.uid).set({image:dwnURL
-      }, { merge: true })
+        this.dbProfile.doc(firebase.auth().currentUser.uid).set({
+          image: dwnURL
+        }, { merge: true })
         this.profile.image = dwnURL;
       });
     });
@@ -553,44 +568,44 @@ export class HomePage implements OnInit {
     });
     return await modal.present();
   }
-  async openAboutUs(){
+  async openAboutUs() {
 
-    
+
     //  console.log("My data ",value, "My id");
     const modal = await this.modalController.create({
       component: AboutUsPage,
       cssClass: '',
       componentProps: {
-       
+
       }
     });
     return await modal.present();
-}
-openAboutUS(){
-  this.router.navigateByUrl('/about-us')
-}
-
-
-
-menuOpen: boolean = false;
-menuBtn = "menu"
-showMenu() {
-  let myMenu = document.getElementById("options");
-  var menu_items = document.getElementsByClassName("menu-item") as HTMLCollectionOf<HTMLElement>;
-  if (this.menuOpen == false) {
-    this.menuOpen = true;
-    myMenu.style.top = "50px";
-    this.menuBtn = "close"
   }
-  else {
-    menu_items[0].style.animation = "sliderOut 300ms"
-    setTimeout(() => {
-      myMenu.style.top = "-100vh"
-      this.menuOpen = false;
-      menu_items[0].style.animation = "sliderIn 300ms";
-      this.menuBtn = "menu"
-    }, 299);
+  openAboutUS() {
+    this.router.navigateByUrl('/about-us')
   }
-}
+
+
+
+  menuOpen: boolean = false;
+  menuBtn = "menu"
+  showMenu() {
+    let myMenu = document.getElementById("options");
+    var menu_items = document.getElementsByClassName("menu-item") as HTMLCollectionOf<HTMLElement>;
+    if (this.menuOpen == false) {
+      this.menuOpen = true;
+      myMenu.style.top = "50px";
+      this.menuBtn = "close"
+    }
+    else {
+      menu_items[0].style.animation = "sliderOut 300ms"
+      setTimeout(() => {
+        myMenu.style.top = "-100vh"
+        this.menuOpen = false;
+        menu_items[0].style.animation = "sliderIn 300ms";
+        this.menuBtn = "menu"
+      }, 299);
+    }
+  }
 
 }

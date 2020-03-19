@@ -42,7 +42,33 @@ export class AboutUsPage implements OnInit {
     let toast = await this.toastCtrl.create({ message: message, duration: 2000 });
     return toast.present();
 }
+goHome() {
+  this.router.navigateByUrl('/home')
+}
+getCart() {
 
+}
+reviewed() {
+
+}
+openAboutUS() {
+  this.router.navigateByUrl('/about-us')
+}
+search() {
+  this.router.navigateByUrl('search');
+}
+gotoProfile() {
+  // firebase.auth().onAuthStateChanged((user) => {
+  //   if (user) {
+  //     this.viewProfile = !this.viewProfile
+  //     this.viewBackdrop = !this.viewBackdrop
+  //   } else {
+  //     this.presentAlertConfirm1();
+  //   }
+  // })
+
+
+}
 addMessage() {
   if(firebase.auth().currentUser){
    let customerUid = firebase.auth().currentUser.uid;
