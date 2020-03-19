@@ -29,9 +29,7 @@
   </ion-toolbar>
   <div class="toolbar" color="primary">
     <div class="navbar">
-      <div class="categories" (click)="getProductsbyCategory('Deco')">
-        <p>DECO</p>
-      </div>
+      <ion-button fill="clear" color="light" (click)="getProductsbyCategory('Deco')">Deco</ion-button>
       <ion-button fill="clear" color="light" (click)="getProductsbyCategory('Pottery')">Pottery</ion-button>
       <ion-button fill="clear" color="light" (click)="getProductsbyCategory('Vases')">Vases</ion-button>
       <ion-button fill="clear" color="light" (click)="getProductsbyCategory('Lamps')">Lamps</ion-button>
@@ -200,7 +198,7 @@
 
     <div class="info">
       <p>{{myProduct.length}} Products</p>
-      <p class="best_selling">Best Selling <ion-icon name="chevron-down-outline"></ion-icon>
+      <p class="best_selling" (click)="createFaqs()">Best Selling <ion-icon name="chevron-down-outline"></ion-icon>
       </p>
     </div>
     <!-- Skeleton Text -->

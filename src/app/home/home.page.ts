@@ -6,6 +6,7 @@ import { PaymentPage } from '../payment/payment.page';
 import { FaqsPage } from '../faqs/faqs.page'
 import { ModalController } from '@ionic/angular';
 import { AboutUsPage } from '../about-us/about-us.page';
+import { InfoPage } from '../info/info.page';
 
 @Component({
   selector: 'app-home',
@@ -56,15 +57,8 @@ export class HomePage implements OnInit {
   reviews = {
     Rating: 0
   }
-  router: any;
-  avgRating = 0;
-  categories = {
-    Deco : '',
-    Vases: '',
-    Lamps:'',
-    Pottery:''
-  }
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public modalController: ModalController,
+  // router: any;
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private router : Router,public modalController: ModalController,
     public toastCtrl: ToastController) { }
 
   ngOnInit() {
@@ -606,6 +600,37 @@ export class HomePage implements OnInit {
         this.menuBtn = "menu"
       }, 299);
     }
+  }
+
+
+  switchButtons(state) {
+    switch (state) {
+      case 'Deco':
+        this.buttonActive = true;
+        break;
+      case 'Pottery':
+        this.buttonActive = false;
+        break;
+      case 'Vases':
+        this.buttonActive = false;
+        break;
+      case 'Lamps':
+        this.buttonActive = false;
+        break;
+      case 's':
+        this.buttonActive = false;
+        break;
+    }
+  }
+
+  async createFaqs() {
+    const modal = await this.modalController.create({
+      component:InfoPage,
+      cssClass: 'my-add-to-cart',
+      
+    
+    });
+    return await modal.present();
   }
 
 }
