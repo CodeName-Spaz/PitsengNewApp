@@ -326,10 +326,15 @@
             <span>{{p.data.price | currency:"R"}}</span></p>
           <p class="starz">
 
-
-            <ion-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
+            <!-- isMember>4 ? 'fs' : 'ds' -->
+            <ion-icon [name]="p.data.avgRating>1 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="p.data.avgRating>2 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="p.data.avgRating>3 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="p.data.avgRating>4 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="p.data.avgRating>5 ? 'star' : 'star-outline'"></ion-icon>
+            <!-- <ion-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
               defaultColor="#D3D3D3" readonly="true" rating="{{avgRating}}" fontSize="18px"
-              (ratingChanged)="getRatings()"></ion-rating>
+              (ratingChanged)="getRatings()"></ion-rating> -->
           </p>
         </div>
       </div>
