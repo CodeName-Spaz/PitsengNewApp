@@ -134,9 +134,10 @@
 
         <div class="price">
           <p *ngIf="onSale===false">{{price | currency:"R"}}</p>
-          <p *ngIf="onSale===true">{{price | currency:"R"}}<br>
-            {{salePrice | currency:"R"}}<br>
-            {{discount}}% OFF</p>
+          <p class="sale" *ngIf="onSale===true"><span style="text-decoration: line-through; color: red">{{price | currency:"R"}}</span> <br>
+            {{salePrice | currency:"R"}}  &nbsp; &nbsp; &nbsp;{{discount}}% OFF
+            <br>
+            </p>
           <p class="addz">
             <ion-icon slot="start" (click)="plus()" name="add"></ion-icon> &nbsp; {{quantity}} &nbsp;<ion-icon
               slot="start" (click)="minus()" name="remove"></ion-icon>

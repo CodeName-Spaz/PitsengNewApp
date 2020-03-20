@@ -115,7 +115,7 @@ ion-toolbar {
       // height: fit-content;
       .image {
         width: 100%;
-        height: 400px;
+        height: 30vh;
         img{
           height: 100%;
           width: 100%;
@@ -522,6 +522,13 @@ ion-toolbar {
         width: 30%;
         .image {
           width: 100%;
+          height: 40vh;
+          img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+      
         }
         ion-thumbnail {
           width: 100% !important;
@@ -540,6 +547,7 @@ ion-toolbar {
               font-size: 20px;
             }
           }
+
         }
       }
     }
@@ -1560,7 +1568,7 @@ ion-header {
     background: #ffffff;
 
     ion-button {
-      color: rgb(0, 0, 0);
+      color: rgb(151, 63, 3);
       font-size: 11px;
       margin-top: 10px;
     }
@@ -1568,7 +1576,7 @@ ion-header {
   .nav-grid > div {
     height: 100%;
     min-width: 50px;
-    color: rgb(0, 0, 0);
+    color: rgb(151, 63, 3);
   }
   .nav-grid > div:nth-child(odd) {
     display: flex;
