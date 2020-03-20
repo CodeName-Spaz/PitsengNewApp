@@ -80,6 +80,18 @@ export class FaqsPage implements OnInit {
   download(pdf) {
     //FileSaver.saveAs(pdf);
   }
+  cancelOrder() {
+
+  }
+  approveOrder() {
+
+  }
+  prepareOrder() {
+
+  }
+  concludeOrder() {
+    
+  }
   getTotal() {
     let total = 0;
     for (let i = 0; i < this.myOrder.length; i++) {

@@ -1,0 +1,160 @@
+<div class="heading">
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-icon color="light" (click)="dismiss()" name="close"></ion-icon>
+  </ion-fab>
+</div>
+
+<ion-content>
+  <div class="content">
+    <div class="main-cover">
+      <!-- <div class="faq-heading">
+        <ion-title>FAQ's</ion-title>
+     </div> -->
+      <div class="search-section">
+        <h1>FAQs</h1>
+        <div class="search">
+
+          <ion-searchbar showCancelButton="focus" placeholder="ask a question" (ionChange)="searchresult($event)"
+            cancelButtonText="Custom Cancel"></ion-searchbar>
+          <div id="QAAnswer" [hidden]="val == ''" *ngFor="let items of searchArray; let i = index">
+            <div id="QAAnswers-answered" *ngFor="let items of searchArray; let i = index">
+              <div>
+                <ion-item>Questios</ion-item>
+                <i id="answer-description">Answer </i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="orders">
+        <div class="row">
+          <div class="col">
+            <div class="tabs">
+              <div class="tab">
+                <input type="checkbox" id="chck1">
+                <label class="tab-label" for="chck1">Orders and Shipments</label>
+                <div class="tab-content">
+
+                  <div class="tab">
+                    <input type="checkbox" id="chck6">
+                    <label class="question tab-label" for="chck6">Question Here</label>
+                    <div class="tab-content section">
+                      <ion-label>Answers</ion-label>
+                      <div class="answer-section">
+                        <div class="answer-question">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora,
+                          modi debitis perferendis vitae dignissimos, consequuntur ipsum voluptas, omnis ratione fugiat
+                          ex veniam earum nam non id. Quas sint aliquam maiores!
+                        </div>
+                        <div class="line">
+                          <div class="small-line"></div>
+
+                        </div>
+                        <div class="icon">
+                          <img src="../../assets/pitseng Logo.png" alt="">
+
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class=" tab">
+                <input type="checkbox" id="chck2">
+                <label class="tab-label" for="chck2">Returns</label>
+                <div class="tab-content">
+
+                  <div class="tab">
+                    <input type="checkbox" id="chck9">
+                    <label class="question tab-label" for="chck9">Question Here</label>
+                    <div class="tab-content section">
+                      <ion-label>Answers</ion-label>
+                      <div class="answer-section">
+                        <div class="answer-question">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem
+                          labore quasi totam autem, eaque ducimus error. Accusamus culpa odio exercitationem ea hic
+                          doloribus ipsam aspernatur nihil, mollitia aliquid eveniet eius.
+                        </div>
+                        <div class="line">
+                          <div class="small-line"></div>
+
+                        </div>
+                        <div class="icon">
+                          <img src="../../assets/pitseng Logo.png" alt="">
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="tab">
+                <input type="checkbox" id="chck3">
+                <label class="tab-label" for="chck3">Refunds</label>
+                <div class="tab-content">
+
+                  <div class="tab">
+                    <input type="checkbox" id="chck11">
+                    <label class="question tab-label" for="chck11">Question Here</label>
+                    <div class="tab-content section">
+                      <ion-label>Answers</ion-label>
+                      <div class="answer-section">
+                        <div class="answer-question">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
+                          dolorem, optio quas facilis quidem ipsa perferendis, facere ducimus tempore excepturi
+                          explicabo sunt accusamus cupiditate saepe harum voluptas a expedita! Voluptates.
+                        </div>
+                        <div class="line">
+                          <div class="small-line"></div>
+
+                        </div>
+                        <div class="icon">
+                          <img src="../../assets/pitseng Logo.png" alt="">
+
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="tab">
+                <input type="checkbox" id="chck4">
+                <label class="tab-label" for="chck4">Technical</label>
+                <div class="tab-content">
+
+                  <div class="tab">
+                    <input type="checkbox" id="chck13">
+                    <label class="question tab-label" for="chck13">Question Here</label>
+                    <div class="tab-content section">
+                      <ion-label>Answers</ion-label>
+                      <div class="answer-section">
+                        <div class="answer-question">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+                          modi animi, debitis veritatis cupiditate fugiat optio? Vitae modi perferendis mollitia
+                          explicabo. Ea velit cum optio, numquam veritatis ex placeat doloremque!
+                        </div>
+                        <div class="line">
+                          <div class="small-line"></div>
+
+                        </div>
+                        <div class="icon">
+                          <img src="../../assets/pitseng Logo.png" alt="">
+
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</ion-content>
