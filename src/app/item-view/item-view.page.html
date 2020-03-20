@@ -27,68 +27,28 @@
   </ion-toolbar>
   <div class="toolbar" color="primary">
     <div class="navbar">
-      <ion-button fill="clear" color="light" (click)="getProductsbyCategory('Deco')">Deco</ion-button>
-      <ion-button fill="clear" color="light" (click)="getProductsbyCategory('Pottery')">Pottery</ion-button>
-      <ion-button fill="clear" color="light" (click)="getProductsbyCategory('Vases')">Vases</ion-button>
-      <ion-button fill="clear" color="light" (click)="getProductsbyCategory('Lamps')">Lamps</ion-button>
-      <ion-button fill="clear" color="light" (click)="getProductonSale()">Sales & Promos</ion-button>
+      <h1>{{prod_name}}</h1>
     </div>
   </div>
 </ion-header>
 
 
+<div [ngClass]="{'loader': loaderAnimate, 'loader-hide': !loaderAnimate}">
+
+  <div class="loader">
+    <img src="../../assets/pottery-clipart-clay-13.gif" alt="">
+    <svg width="200" height="200" viewBox="0 0 100 100">
+      <polyline class="line-cornered stroke-still" points="0,0 100,0 100,100" stroke-width="10" fill="none"></polyline>
+      <polyline class="line-cornered stroke-still" points="0,0 0,100 100,100" stroke-width="10" fill="none"></polyline>
+      <polyline class="line-cornered stroke-animation" points="0,0 100,0 100,100" stroke-width="10" fill="none">
+      </polyline>
+      <polyline class="line-cornered stroke-animation" points="0,0 0,100 100,100" stroke-width="10" fill="none">
+      </polyline>
+    </svg>
+  </div>
+</div>
 
 
-<!-- <ion-header class="ion-no-border" id="web">
-  <ion-toolbar>
-    <img src="../../assets/Group 235.png" alt="">
-
-    <ion-buttons slot="end">
-
-      <ion-button class="notification" (click)="reviewed()">
-        <ion-icon slot="icon-only" name="heart"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-
-      <ion-button class="notification" (click)="getCart()">
-        <ion-icon slot="icon-only" name="basket"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-
-    </ion-buttons>
-  </ion-toolbar>
-
-  <ion-toolbar class="ribbon" color="transparent">
-
-    <h1>{{prod_name}}</h1>
-  </ion-toolbar>
-</ion-header>
-
-<ion-header class="ion-no-border" id="mobile">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-
-      <ion-button>
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-
-      <ion-button class="notification" (click)="visitWish()">
-        <ion-icon slot="icon-only" name="heart"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-
-      <ion-button class="notification" (click)="visitCart()">
-        <ion-icon slot="icon-only" name="basket"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-      <ion-button color="secondary" (click)="visitProfile()">
-        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header> -->
 
 <ion-content [fullscreen]="true">
   <div class="top-nav">

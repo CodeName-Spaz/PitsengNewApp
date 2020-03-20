@@ -206,6 +206,257 @@ ion-toolbar {
     }
   }
 }
+
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  background: rgb(0, 0, 0);
+  background-repeat: repeat-x;
+  transform: scale(1);
+  overflow: hidden;
+  transition: 0.4s;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  animation: backgroundmover 30s linear infinite;
+  body {
+    background: #282828;
+  }
+
+  img {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    top: 60px;
+    // transform: rotate(-20deg);
+    z-index: 10;
+  }
+
+  svg {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%) rotate(45deg) scale(1);
+    transform: translate(-50%, -50%) rotate(45deg) scale(1);
+  }
+
+  .stroke-still {
+    stroke: #ffffff;
+  }
+
+  .stroke-animation {
+    -webkit-animation: stroke-spacing 1.2s ease-in, stroke-color 4.8s linear;
+    animation: stroke-spacing 1.2s ease-in, stroke-color 4.8s linear;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-delay: 0;
+    animation-delay: 0;
+    -webkit-animation-direction: normal;
+    animation-direction: normal;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-play-state: running;
+    animation-play-state: running;
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+  }
+
+  @-webkit-keyframes stroke-spacing {
+    0% {
+      stroke-dasharray: 0 200;
+    }
+    45% {
+      stroke-dashoffset: 0;
+      stroke-dasharray: 200 200;
+    }
+    90% {
+      stroke-dashoffset: -200;
+      stroke-dasharray: 200 200;
+    }
+    100% {
+      stroke-dashoffset: -200;
+      stroke-dasharray: 200 200;
+    }
+  }
+
+  @keyframes stroke-spacing {
+    0% {
+      stroke-dasharray: 0 200;
+    }
+    45% {
+      stroke-dashoffset: 0;
+      stroke-dasharray: 200 200;
+    }
+    90% {
+      stroke-dashoffset: -200;
+      stroke-dasharray: 200 200;
+    }
+    100% {
+      stroke-dashoffset: -200;
+      stroke-dasharray: 200 200;
+    }
+  }
+
+  @-webkit-keyframes stroke-color {
+    0% {
+      stroke: rgb(173, 79, 3);
+    }
+    24% {
+      stroke: rgb(173, 79, 3);
+    }
+    25% {
+      stroke: rgb(173, 79, 3);
+    }
+    49% {
+      stroke: rgb(173, 79, 3);
+    }
+    50% {
+      stroke: rgb(173, 79, 3);
+    }
+    74% {
+      stroke: rgb(173, 79, 3);
+    }
+    75% {
+      stroke: rgb(173, 79, 3);
+    }
+    99% {
+      stroke: rgb(173, 79, 3);
+    }
+  }
+
+  @keyframes stroke-color {
+    0% {
+      stroke: rgb(173, 79, 3);
+    }
+    24% {
+      stroke: rgb(173, 79, 3);
+    }
+    25% {
+      stroke: rgb(173, 79, 3);
+    }
+    49% {
+      stroke: rgb(173, 79, 3);
+    }
+    50% {
+      stroke: rgb(173, 79, 3);
+    }
+    74% {
+      stroke: rgb(173, 79, 3);
+    }
+    75% {
+      stroke: rgb(173, 79, 3);
+    }
+    99% {
+      stroke: rgb(173, 79, 3);
+    }
+  }
+}
+.loading-text {
+  // color: yellow;
+  position: absolute;
+  bottom: 50vh;
+  left: 0px;
+  width: 100vw;
+  text-align: center;
+  // background: red;
+  height: 50vh;
+  //z-index: 90;
+  margin: auto;
+}
+.loader-hide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 20;
+  background: rgb(255, 255, 255);
+  transform: scale(0);
+  overflow: hidden;
+  transition: 0.4s;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  .maploader {
+    .lds-ellipsis {
+      display: inline-block;
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+    .lds-ellipsis div {
+      position: absolute;
+      top: 33px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #fff;
+      animation-timing-function: cubic-bezier(0, 1, 1, 0);
+    }
+    .lds-ellipsis div:nth-child(1) {
+      left: 8px;
+      animation: lds-ellipsis1 0.6s infinite;
+    }
+    .lds-ellipsis div:nth-child(2) {
+      left: 8px;
+      animation: lds-ellipsis2 0.6s infinite;
+    }
+    .lds-ellipsis div:nth-child(3) {
+      left: 32px;
+      animation: lds-ellipsis2 0.6s infinite;
+    }
+    .lds-ellipsis div:nth-child(4) {
+      left: 56px;
+      animation: lds-ellipsis3 0.6s infinite;
+    }
+    @keyframes lds-ellipsis1 {
+      0% {
+        transform: scale(0);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    @keyframes lds-ellipsis3 {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(0);
+      }
+    }
+    @keyframes lds-ellipsis2 {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(24px, 0);
+      }
+    }
+  }
+}
+@keyframes maploader {
+  0% {
+    // transform: rotate(0deg);
+    border-color: rgb(182, 70, 95);
+    // background: rgb(255, 192, 192);
+  }
+  50% {
+    // background: rgb(206, 206, 255);
+    // transform: rotate(360deg);
+    border-color: rgb(42, 50, 75);
+  }
+  100% {
+    border-color: rgb(250, 182, 43);
+    // background: rgb(255, 167, 167);
+    // transform: rotate(360deg);
+  }
+}
+
 @media screen and (max-width: 768px) {
   ion-toolbar {
     position: absolute !important;
@@ -1256,22 +1507,17 @@ ion-header {
       justify-content: space-between;
       width: 50vw;
       margin: 0 auto;
-      ion-buttons {
+      text-align: center;
+      h1{
+        width: 100%;
         color: white;
-      }
-      ion-button {
-        margin: 10px;
-        //border: 2px solid white;
-      }
-
-      ion-button:hover {
-        //margin: 5px;
-        border-bottom: 2px solid white;
-        border-radius: 0 !important;
+        margin: 5px;
+        text-transform: capitalize !important;
       }
     }
   }
   ion-toolbar {
+
     .navigation-bar-upper-section {
       display: flex;
       flex-direction: row;
