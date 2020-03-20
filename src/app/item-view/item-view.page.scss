@@ -102,7 +102,7 @@ ion-toolbar {
     .sizes {
       display: flex;
       flex-flow: row;
-      z-index: 999999999999999;
+      z-index: 100;
       margin-top: 30px;
 
       .btnz {
@@ -213,7 +213,7 @@ ion-toolbar {
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1500;
   display: flex;
   align-items: center;
   justify-content: center;
