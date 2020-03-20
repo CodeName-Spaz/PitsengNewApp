@@ -1,13 +1,19 @@
-<div [ngClass]="{'loader': loaderAnimate, 'loader-hide': !loaderAnimate}">
-  <!-- <div class="maploader">
-    <div class="lds-ellipsis">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+<ion-header id="web">
+  <ion-toolbar>
+    <div class="navigation-bar-upper-section">
+      <div class="logo" (click)='goHome()'>
+        <img src="../../../assets/Group 235.png" alt="">
+      </div>
     </div>
-    <p style="color:white; text-align: center;">{{loaderMessages}}</p>
-  </div> -->
+
+  </ion-toolbar>
+  <div class="toolbar" color="primary">
+
+  </div>
+</ion-header>
+
+
+
   <div [ngClass]="{'loader': loaderAnimate, 'loader-hide': !loaderAnimate}">
 
     <div class="loader">
@@ -23,7 +29,7 @@
     </div>
   </div>
   
-</div>
+
 
 <ion-content>
 
@@ -35,7 +41,7 @@
         </div>
         <div class="bar">
           <ion-item>
-            <ion-label>Category</ion-label>
+            <ion-label>PICK A CATEGORY</ion-label>
             <ionic-selectable [(ngModel)]="port" [items]="ports" itemValueField="id" itemTextField="name"
               [canSearch]="true" (onChange)="portChange($event)">
             </ionic-selectable>

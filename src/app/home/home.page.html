@@ -245,20 +245,20 @@
         </div>
         <div class="text">
           <p *ngIf="p.data.onSale===true"> {{p.data.name}} <br>
-            <span style="text-decoration: line-through;color: red "> {{ p.data.price | currency:"R"}}</span><br>
+            <span style="text-decoration: line-through;color: red "> {{ p.data.price | currency:"R"}} </span> 
             <span>{{ p.data.salePrice | currency:"R"}}</span></p>
 
           <p *ngIf="p.data.onSale===false"> {{p.data.name}} <br>
-            <span>{{p.data.price | currency:"R"}}</span></p>
-          <p class="starz">
-
+            <span>{{p.data.price | currency:"R"}}</span> <br>
+          <span class="starz">
             <ion-icon [name]="p.data.avgRating>1 ? 'star' : 'star-outline'"></ion-icon>
             <ion-icon [name]="p.data.avgRating>2 ? 'star' : 'star-outline'"></ion-icon>
             <ion-icon [name]="p.data.avgRating>3 ? 'star' : 'star-outline'"></ion-icon>
             <ion-icon [name]="p.data.avgRating>4 ? 'star' : 'star-outline'"></ion-icon>
             <ion-icon [name]="p.data.avgRating>5 ? 'star' : 'star-outline'"></ion-icon>
-         
-          </p>
+          </span>
+          </p >
+
         </div>
       </div>
     </div>

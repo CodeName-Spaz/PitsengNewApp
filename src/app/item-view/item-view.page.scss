@@ -119,6 +119,16 @@ ion-toolbar {
       flex-flow: row;
       width: 100%;
       justify-content: space-between;
+
+    }
+
+    
+    .sale{
+      // display: flex;
+      // flex-flow: row;
+          font-size: 15px;
+        text-align: left;
+      justify-content: space-between;
     }
 
     p {
@@ -127,6 +137,44 @@ ion-toolbar {
       span {
         font-weight: bold;
       }
+    }
+
+    .addz{
+      font-size: 15px;
+      font-size: ion-back-button {
+        --background: #ffffff;
+        --background-focused: #3880ff;
+        --background-focused-opacity: 1;
+        --background-hover: #3880ff;
+        --background-hover-opacity: 1;
+        --border-radius: 4px;
+        --color: #3880ff;
+        --color-focused: #3880ff;
+        --color-hover: #3880ff;
+        --icon-font-size: 16px;
+        --icon-font-weight: normal;
+        --icon-margin-bottom: 4px;
+        --icon-margin-end: 4px;
+        --icon-margin-start: 4px;
+        --icon-margin-top: 4px;
+        --icon-padding-bottom: 4px;
+        --icon-padding-end: 4px;
+        --icon-padding-start: 4px;
+        --icon-padding-top: 4px;
+        --margin-bottom: 4px;
+        --margin-end: 4px;
+        --margin-start: 4px;
+        --margin-top: 4px;
+        --min-height: 32px;
+        --min-width: 44px;
+        --opacity: 1;
+        --padding-bottom: 4px;
+        --padding-end: 4px;
+        --padding-start: 4px;
+        --padding-top: 4px;
+        --ripple-color: #1e1e1e;
+        --transition: background-color 15ms linear;
+      };
     }
   }
 
