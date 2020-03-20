@@ -59,7 +59,6 @@ export class ItemViewPage implements OnInit {
   delType: string;
   loaderMessages = 'Loading...';
   loaderAnimate: boolean = true;
-  uid = firebase.auth().currentUser.uid;
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
       this.prod_id = params["id"];

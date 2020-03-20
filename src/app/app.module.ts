@@ -24,14 +24,22 @@ import { InfoPageModule } from './info/info.module'
 
 
 var firebaseConfig = {
-  apiKey: "AIzaSyD96pHc4rjR85yGc7y1Es4e1mGocFqHVjE",
-  authDomain: "pitseng-arts.firebaseapp.com",
-  databaseURL: "https://pitseng-arts.firebaseio.com",
-  projectId: "pitseng-arts",
-  storageBucket: "pitseng-arts.appspot.com",
-  messagingSenderId: "628652538196",
-  appId: "1:628652538196:web:b17d822fe6eb6702f9f0c1",
-  measurementId: "G-N7X15WH9QB"
+  // apiKey: "AIzaSyD96pHc4rjR85yGc7y1Es4e1mGocFqHVjE",
+  // authDomain: "pitseng-arts.firebaseapp.com",
+  // databaseURL: "https://pitseng-arts.firebaseio.com",
+  // projectId: "pitseng-arts",
+  // storageBucket: "pitseng-arts.appspot.com",
+  // messagingSenderId: "628652538196",
+  // appId: "1:628652538196:web:b17d822fe6eb6702f9f0c1",
+  // measurementId: "G-N7X15WH9QB"
+  apiKey: "AIzaSyCnRo3S9hOi1R9vMpnYNW5ajcpJh5G1tvo",
+  authDomain: "pitsengtest.firebaseapp.com",
+  databaseURL: "https://pitsengtest.firebaseio.com",
+  projectId: "pitsengtest",
+  storageBucket: "pitsengtest.appspot.com",
+  messagingSenderId: "728167140242",
+  appId: "1:728167140242:web:7b16d2f988fee781c90f4b",
+  measurementId: "G-TKFFCKLRTQ"
   // apiKey: "AIzaSyAxqR5pSWPudGtn3cvZlubPjwY-U6K5NRc",
   // authDomain: "pitsengdb-e8f33.firebaseapp.com",
   // databaseURL: "https://pitsengdb-e8f33.firebaseio.com",
