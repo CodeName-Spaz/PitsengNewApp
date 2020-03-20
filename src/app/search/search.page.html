@@ -8,9 +8,21 @@
     </div>
     <p style="color:white; text-align: center;">{{loaderMessages}}</p>
   </div> -->
-   <div class="loader">
-        <p style="color: white !important;">Loading...</p>
-      </div>
+  <div [ngClass]="{'loader': loaderAnimate, 'loader-hide': !loaderAnimate}">
+
+    <div class="loader">
+      <img src="../../assets/pottery-clipart-clay-13.gif" alt="">
+      <svg width="200" height="200" viewBox="0 0 100 100">
+        <polyline class="line-cornered stroke-still" points="0,0 100,0 100,100" stroke-width="10" fill="none"></polyline>
+        <polyline class="line-cornered stroke-still" points="0,0 0,100 100,100" stroke-width="10" fill="none"></polyline>
+        <polyline class="line-cornered stroke-animation" points="0,0 100,0 100,100" stroke-width="10" fill="none">
+        </polyline>
+        <polyline class="line-cornered stroke-animation" points="0,0 0,100 100,100" stroke-width="10" fill="none">
+        </polyline>
+      </svg>
+    </div>
+  </div>
+  
 </div>
 
 <ion-content>

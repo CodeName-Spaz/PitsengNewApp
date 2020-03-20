@@ -26,6 +26,7 @@
         <ion-icon slot="icon-only" name="person"></ion-icon>
       </ion-button>
     </ion-buttons>
+
   </ion-toolbar>
   <div class="toolbar" color="primary">
     <div class="navbar">
@@ -44,104 +45,31 @@
       <ion-icon name="home"></ion-icon>
     </div>
     <div>{{productName}}</div>
+
+    <ion-button fill="clear" class="notification" (click)="visitWish()">
+      <ion-icon slot="icon-only" name="heart"></ion-icon>
+      <span class="badge"></span>
+    </ion-button>
+
+    <ion-button  fill="clear"  class="notification" (click)="visitCart()">
+      <ion-icon slot="icon-only" name="basket"></ion-icon>
+      <span class="badge"></span>
+    </ion-button>
+
     <div (click)="showMenu()">
       <ion-icon name="{{menuBtn}}"></ion-icon>
     </div>
-  </div>
-  <div id="options">
-    <div class="menu-item" *ngIf="menuOpen == true">
 
-      <div>HOME</div>
-      <div>QUERIES</div>
-      <div>FAQS</div>
-      <div>ABOUT</div>
+  </div>
+  <div id="options">   
+    <div class="menu-item" *ngIf="menuOpen == true">
+      <div routerLink="/home">HOME</div>
+      <div (click)="visitProfile()">PROFILE</div>
+      <div (click)="createFaqs()">FAQS</div>
+      <div (click)="openAboutUS()">ABOUT</div>
     </div>
   </div>
 </div>
-
-<!-- <ion-header class="ion-no-border" id="web">
-  <ion-toolbar>
-    <img src="../../assets/Group 235.png" alt="">
-
-
-    <ion-buttons slot="end">
-
-      <ion-button (click)="search()">
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-
-      <ion-button class="notification" (click)="reviewed()">
-        <ion-icon slot="icon-only" name="heart"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-
-      <ion-button class="notification" (click)="getCart()">
-        <ion-icon slot="icon-only" name="basket"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-      <ion-button color="secondary" (click)="gotoProfile()">
-        <ion-icon slot="icon-only" name="person"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-
-  <ion-toolbar class="ribbon" color="transparent">
-
-    <ion-buttons slot="secondary">
-      <ion-button id="{{val}}" (click)="getProductsbyCategory('Deco')">
-        <ion-icon slot="start" src="../../assets/PhotoFrame.svg"></ion-icon> Decorations
-      </ion-button>
-
-      <ion-button (click)="getProductsbyCategory('Pottery')">
-        <ion-icon slot="start" src="../../assets/pottery.svg"></ion-icon> Pottery
-      </ion-button>
-
-      <ion-button (click)="getProductsbyCategory('Vases')">
-        <ion-icon slot="start" src="../../assets/pot.svg"></ion-icon> Vases
-      </ion-button>
-
-      <ion-button (click)="getProductsbyCategory('Lamps')">
-        <ion-icon slot="start" src="../../assets/lamp.svg"></ion-icon> Lamps
-      </ion-button>
-
-      
-      <ion-button (click)="getProductonSale()">
-        <ion-icon slot="start" src="../../assets/lamp.svg"></ion-icon> Sales
-      </ion-button>
-      
-      
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-
-<ion-header class="ion-no-border" id="mobile">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-
-      <ion-button (click)="search()">
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-
-      <ion-button class="notification" (click)="visitWish()">
-        <ion-icon slot="icon-only" name="heart"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-
-      <ion-button class="notification" (click)="visitCart()">
-        <ion-icon slot="icon-only" name="basket"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-      <ion-button color="secondary" (click)="visitProfile()">
-        <ion-icon slot="icon-only" name="person"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header> -->
 
 <div [ngClass]="{'loader': loaderAnimate, 'loader-hide': !loaderAnimate}">
 
@@ -198,8 +126,6 @@
 
     <div class="info">
       <p>{{myProduct.length}} Products</p>
-      <p class="best_selling" (click)="createFaqs()">Best Selling <ion-icon name="chevron-down-outline"></ion-icon>
-      </p>
     </div>
     <!-- Skeleton Text -->
     <div class="cards" *ngIf="myProduct.length===0">
@@ -326,15 +252,12 @@
             <span>{{p.data.price | currency:"R"}}</span></p>
           <p class="starz">
 
-            <!-- isMember>4 ? 'fs' : 'ds' -->
             <ion-icon [name]="p.data.avgRating>1 ? 'star' : 'star-outline'"></ion-icon>
             <ion-icon [name]="p.data.avgRating>2 ? 'star' : 'star-outline'"></ion-icon>
             <ion-icon [name]="p.data.avgRating>3 ? 'star' : 'star-outline'"></ion-icon>
             <ion-icon [name]="p.data.avgRating>4 ? 'star' : 'star-outline'"></ion-icon>
             <ion-icon [name]="p.data.avgRating>5 ? 'star' : 'star-outline'"></ion-icon>
-            <!-- <ion-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
-              defaultColor="#D3D3D3" readonly="true" rating="{{avgRating}}" fontSize="18px"
-              (ratingChanged)="getRatings()"></ion-rating> -->
+         
           </p>
         </div>
       </div>
@@ -426,14 +349,12 @@
             <i>Please Note: You can collect your items at any time
             </i></p>
           <ion-button color="transparent" [disabled]="!delType" (click)="placeOrder()">
-            <div *ngIf="delType==='Delivery'"> PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div>
-            <div *ngIf="delType==='Collection'">PLACE ORDER ({{notDelivery(getTotal()) | currency:'R'}})</div>
-            <div *ngIf="!delType">PLACE ORDER</div>
+            <div *ngIf="delType==='Delivery'" (click)="placeOrder()"> PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div>
+            <div *ngIf="delType==='Collection'" (click)="placeOrder()">PLACE ORDER ({{notDelivery(getTotal()) | currency:'R'}})</div>
+            <div *ngIf="!delType" (click)="placeOrder()">PLACE ORDER</div>
           </ion-button>
         </div>
-
       </div>
-
     </div>
   </div>
   <!-- Wishlist - Side Menu -->
@@ -586,7 +507,7 @@
 
   <ion-footer id="webview">
     <div class="footer">
-      <div class="heading">
+      <div class="heading" routerLink="/home">
         <img src="../../assets/Group 235.png" alt="">
       </div>
 
@@ -610,8 +531,8 @@
 
       <div class="info">
         <h1>QUICK LINKS</h1>
-        <ion-button color="transparent">
-          <span>FAQs</span>
+        <ion-button color="transparent" (click)="createFaqs()">
+          <span >FAQs</span>
         </ion-button>
         <ion-button color="transparent">
           <span>Terms and Privacy Policy</span>

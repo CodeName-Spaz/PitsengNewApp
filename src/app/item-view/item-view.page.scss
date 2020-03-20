@@ -9,7 +9,7 @@ ion-toolbar {
   p {
     color: rgb(0, 0, 0);
   }
- 
+
   .notification .badge {
     position: absolute;
     top: 1px;
@@ -21,20 +21,17 @@ ion-toolbar {
   }
 }
 .ratings {
+  width: 100%;
+  text-align: center;
   position: absolute;
-  bottom: 0;
-  right: 10px;
+  bottom: 50px;
+  right: 100px;
   z-index: 500;
   text-align: right;
   p {
-    font-size: 2.4em;
+    font-size: 20px;
     margin: 0;
-    span {
-      margin: 0;
-      font-size: 0.2em !important;
-    }
   }
-
 }
 .sizeStyle {
   background: rgba(175, 175, 175, 0.712);
@@ -48,30 +45,31 @@ ion-toolbar {
   display: flex;
   flex-flow: column;
   width: 100vw;
-
-
-
+  position: relative;
+  // top: 0;
 
   .image {
     position: relative;
     width: 100%;
     height: 40vh;
     top: 0;
-
+    ion-slide {
+      width: 100%;
+      height: 40vh;
+    }
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .starz {
+    .ratings {
       position: absolute;
-      top: 80%;
-      left: 40%;
-      ion-icon{
-        font-size: 20px;
-       color: rgb(206, 169, 7) !important;
-       z-index: 9999999;
+      top: 70%;
+      right: 33%;
+      ion-icon {
+        font-size: 30px;
+        z-index: 9999999;
       }
     }
     .star {
@@ -100,6 +98,7 @@ ion-toolbar {
     display: flex;
     flex-flow: column;
     // height: 70vh;
+
     .sizes {
       display: flex;
       flex-flow: row;
@@ -115,50 +114,50 @@ ion-toolbar {
       }
     }
 
-    .price{
-        display: flex;
-        flex-flow: row;
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    p{
-        font-size: 12px;
-        color: grey;
-        span{
-            font-weight: bold;
-        }
-    }
-  }
-
-  .segment_slides{
-    padding-bottom: 50px;
-  }
-
-  .pictures{
+    .price {
       display: flex;
       flex-flow: row;
       width: 100%;
-      padding: 5px;
-      padding-bottom: 10px;
-      overflow-x: auto;
+      justify-content: space-between;
+    }
 
-      .image1{
-        min-width: 300px;
-        height: 10vh;
-        margin: 5px;
-        border-radius: 10px;
-        img{
-          height: 100%;
-          width: 100%;
-          margin: 5px;
-          border-radius: 10px;
-          object-fit: cover;
-        }
+    p {
+      font-size: 12px;
+      color: grey;
+      span {
+        font-weight: bold;
       }
+    }
   }
 
-  .reviewz{
+  .segment_slides {
+    padding-bottom: 50px;
+  }
+
+  .pictures {
+    display: flex;
+    flex-flow: row;
+    width: 100%;
+    padding: 5px;
+    padding-bottom: 10px;
+    overflow-x: auto;
+
+    .image1 {
+      min-width: 250px;
+      height: 250px;
+      margin: 5px;
+      border-radius: 10px;
+      img {
+        height: 100%;
+        width: 100%;
+        margin: 5px;
+        border-radius: 10px;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .reviewz {
     width: 95%;
     margin: auto;
     border: 1px solid grey;
@@ -166,14 +165,14 @@ ion-toolbar {
     text-align: center;
     margin-bottom: 20px;
 
-    .starz1{
-      ion-icon{
+    .starz1 {
+      ion-icon {
         font-size: 35px;
         color: rgb(206, 169, 7) !important;
       }
     }
 
-    ion-button{
+    ion-button {
       border: 2px solid rgb(131, 35, 0);
       font-size: 12px;
       border-radius: 6px;
@@ -182,14 +181,14 @@ ion-toolbar {
     }
   }
 
-  .add{
+  .add {
     position: fixed;
     bottom: 10px;
     left: 5%;
     width: 90%;
     // margin: auto;
     border-radius: 10px;
-    ion-button{
+    ion-button {
       width: 100%;
       object-fit: cover;
       background: rgb(131, 35, 0);
@@ -199,61 +198,58 @@ ion-toolbar {
     }
   }
 
-  .also_like{
+  .also_like {
     padding: 5px;
-    ion-segment{
+    ion-segment {
       border-bottom: 2px solid orangered;
       border-radius: 0 !important;
-
-  
     }
   }
 }
 @media screen and (max-width: 768px) {
-  ion-toolbar{
+  ion-toolbar {
     position: absolute !important;
   }
   #webview {
     display: none;
   }
 
-  #web{
+  #web {
     display: none;
   }
 
-  #cart{
+  #cart {
     display: none;
   }
 
-  #wish{
+  #wish {
     display: none;
   }
 
-  .wishes{
+  .wishes {
     display: none;
   }
 }
-
 
 @media screen and (min-width: 769px) {
   #mobile {
     display: none;
   }
 
-  .add{
+  .add {
     display: none;
   }
 
-  .wishlist{
+  .wishlist {
     display: none;
   }
   #web {
     ion-toolbar {
       width: 70%;
       margin: auto;
-        ion-icon {
-          color: black;
-        }
+      ion-icon {
+        color: black;
+      }
     }
 
     .ribbon {
@@ -267,92 +263,88 @@ ion-toolbar {
         text-align: center;
         ion-button {
           margin-right: 30px;
-          ion-icon{
+          ion-icon {
             color: white;
           }
         }
 
-        ion-button:hover{
+        ion-button:hover {
           border-bottom: 2px solid white;
-          ion-icon{
+          ion-icon {
             color: white;
           }
         }
 
-        #deco{
+        #deco {
           border-bottom: 2px solid white;
         }
       }
     }
   }
-  .container{
+  .container {
     width: 70%;
     margin: auto;
     position: relative;
     top: 1.5%;
   }
 
-  .items_info{
+  .items_info {
     display: flex;
     flex-flow: row;
-    padding-bottom: 10px ;
+    padding-bottom: 10px;
 
-    .image{
+    .image {
       height: 450px !important;
       flex: 1;
-      width:35%;
+      width: 35%;
       position: relative;
 
-      ion-slides{
+      ion-slides {
+        width: 100%;
+        height: 100%;
+        object-fit: cover !important;
+        ion-slide {
           width: 100%;
           height: 100%;
-          object-fit: cover !important;
-     ion-slide{
-       width: 100%;
-       height: 100%;
-       object-fit: cover;  
-     }
+          object-fit: cover;
+        }
       }
-    .starz{
-        ion-icon{
-          font-size: 35px;
+      .starz {
+        ion-icon {
+          font-size: 5px;
         }
       }
     }
 
-    .item_info{
+    .item_info {
       margin: 10px;
       width: 50%;
       margin-top: -20px;
     }
-
   }
 
-
-
-
-  .add{
+  .add {
     position: fixed;
     width: 60% !important;
     margin: auto !important;
     height: 50px;
     left: 20% !important;
-    ion-button{
+    ion-button {
       font-size: 30px;
     }
   }
 
-  .reviewz{
+  .reviewz {
     width: 50% !important;
     margin: 30px auto !important;
     padding: 20px;
   }
 
-  .segment_slides{
-   .image1{
-     height: 30vh !important;
-     min-width: 30%;
-   }
+  .segment_slides {
+    .image1 {
+      height: 30vh !important;
+      min-width: 30%;
+    }
   }
 
   .delivery_options {
@@ -571,7 +563,7 @@ ion-toolbar {
               .clicks {
                 margin: 5px;
                 margin-bottom: 5px;
-            
+
                 p {
                   font-size: 12px;
                 }
@@ -763,7 +755,7 @@ ion-toolbar {
   .viewwishlist {
     position: fixed;
     z-index: 150;
-   background: white;
+    background: white;
     width: 400px;
     height: 100vh;
     top: 2px;
@@ -927,7 +919,7 @@ ion-toolbar {
   .viewprofile {
     position: fixed;
     z-index: 150;
-    background:white;
+    background: white;
     width: 400px;
     height: 100vh;
     top: 2px;
@@ -1006,29 +998,28 @@ ion-toolbar {
       }
     }
 
-    .inputs{
+    .inputs {
       width: 85% !important;
       margin: 10px;
-      ion-input{
+      ion-input {
         width: 100%;
         border-bottom: 1px solid rgb(160, 160, 160);
       }
 
-      .button{
+      .button {
         width: 100%;
       }
-      #done{
+      #done {
         background: rgb(11, 66, 0);
         width: 45%;
         margin: 5px;
       }
 
-      #cancel{
+      #cancel {
         background: rgb(119, 0, 0);
         width: 45%;
         margin: 5px;
       }
-
     }
 
     .line {
@@ -1175,8 +1166,6 @@ ion-toolbar {
     flex-flow: column;
     overflow: hidden;
   }
-
-
 }
 
 ion-footer {
@@ -1251,82 +1240,6 @@ ion-footer {
     background: rgb(173, 46, 0);
     color: white;
   }
-}
-
-ion-footer {
-  text-align: center;
-  .footer {
-    display: flex;
-    flex-flow: row;
-    justify-content: space-evenly;
-    width: 100vw;
-    background: rgb(0, 0, 32);
-    color: white;
-
-    .heading {
-      margin: 5px;
-      width: 250px;
-      height: 200px;
-    }
-
-    .app_store {
-      width: 10vw;
-      height: 5vw;
-    }
-
-    .contact_details {
-      font-size: 13px;
-      text-align: left;
-      p {
-        font-size: 13px;
-      }
-      h1 {
-        font-size: 20px;
-      }
-    }
-
-    .info {
-      font-size: 13px;
-      text-align: left;
-      display: flex;
-      flex-flow: column;
-      ion-button {
-        font-size: 13px;
-        color: white;
-
-        padding-left: 0 !important;
-        span {
-          text-align: left;
-          width: 100%;
-          left: 0px !important;
-          margin-left: -15%;
-        }
-      }
-
-      h1 {
-        font-size: 20px;
-      }
-    }
-
-    .connect {
-      display: flex;
-      flex-flow: column;
-      ion-button {
-        overflow: hidden;
-      }
-      h1 {
-        font-size: 20px;
-      }
-    }
-  }
-
-  ion-toolbar {
-    text-align: center;
-    background: rgb(173, 46, 0);
-    color: white;
-  }
-
-  
 }
 
 ion-header {
@@ -1337,23 +1250,7 @@ ion-header {
     display: flex;
     justify-content: baseline;
     margin-top: 10px;
-    text-align: center;
-    color: white;
-    width: 100%;
-    h1{
-      margin-left: 45%;
-    }
-    .categories {
-      height: 60px;
-      color: white;
-      text-transform: capitalize;
-      width: 10vw;
-      text-align: center;
-      background-color: #9f190c;
-      position: relative;
-      top: -5px;
-      z-index: 99999999999999999;
-    }
+
     .navbar {
       display: flex;
       justify-content: space-between;
@@ -1361,6 +1258,16 @@ ion-header {
       margin: 0 auto;
       ion-buttons {
         color: white;
+      }
+      ion-button {
+        margin: 10px;
+        //border: 2px solid white;
+      }
+
+      ion-button:hover {
+        //margin: 5px;
+        border-bottom: 2px solid white;
+        border-radius: 0 !important;
       }
     }
   }
@@ -1412,93 +1319,99 @@ ion-header {
   }
 }
 .top-nav {
-width: 100%;
-height: 50px;
-background-color: red;
-display: none;
-position: relative;
-
-.nav-grid{
   width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  background: #9f190c;
-}
-.nav-grid > div {
-  height: 100%;
-  min-width: 50px;
-  color: white;
-}
-.nav-grid > div:nth-child(odd){
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  cursor: pointer;
-}
-.nav-grid > div:nth-child(2){
-  width: calc(100% - 100px);
-  text-align: center;
-  font-size: 15px;
-  font-weight: bold;
-  line-height: 50px;
-}
+  height: 50px;
+  position: fixed;
+  display: none;
+  z-index: 10;
+  //position: relative;
 
-#options{
-  width: 100%;
-  height: 100vh;
-  position: absolute;
-  z-index: 100;
-  top: -100vh;
-  background: rgba(0, 0, 0, 0.397)
-}
-#options > div > div {
-  height: 40px;
-  // border: 1px solid black;
-  line-height: 40px;
-  padding-left: 10px;
-  background: #b62013;
-  transition: 300ms;
-  color: white;
-  cursor: pointer;
-}
-.menu-item{
-  animation: sliderIn 300ms
-}
-#options > div > div:active{
-    background: #d62d1d
+  .nav-grid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    background: transparent;
+
+    ion-button {
+      color: rgb(0, 0, 0);
+      font-size: 11px;
+      margin-top: 10px;
+      background: none;
+    }
+  }
+  .nav-grid > div {
+    height: 100%;
+    min-width: 50px;
+    color: rgb(0, 0, 0);
+  }
+  .nav-grid > div:nth-child(odd) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .nav-grid > div:nth-child(2) {
+    width: calc(100% - 100px);
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 50px;
+  }
+
+  #options {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    z-index: 100;
+    top: -100vh;
+    background: rgba(0, 0, 0, 0.397);
+  }
+  #options > div > div {
+    height: 40px;
+    // border: 1px solid black;
+    line-height: 40px;
+    padding-left: 10px;
+    background: #ffffff;
+    transition: 300ms;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+  }
+  .menu-item {
+    animation: sliderIn 300ms;
+  }
+  #options > div > div:active {
+    background: #d62d1d;
   }
   @keyframes sliderIn {
-    0%{
+    0% {
       opacity: 0;
     }
-    100%{
+    100% {
       opacity: 1;
     }
   }
   @keyframes sliderOut {
-    0%{
+    0% {
       opacity: 1;
     }
-    100%{
+    100% {
       opacity: 0;
     }
   }
-
 }
 
-@media screen and (max-width: 780px){
+@media screen and (max-width: 780px) {
   // this affects only the navBar
-  ion-header{
+  ion-header {
     height: 0;
     overflow: hidden;
   }
-  .top-nav{
-    display: block
+  .top-nav {
+    display: block;
   }
-  #breadcrumbs{
-    display: none
+  #breadcrumbs {
+    display: none;
   }
 }
-

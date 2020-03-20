@@ -1,4 +1,3 @@
-
 <ion-header id="web">
   <ion-toolbar>
     <div class="navigation-bar-upper-section">
@@ -23,36 +22,21 @@
         <ion-icon slot="icon-only" name="basket"></ion-icon>
         <span class="badge"></span>
       </ion-button>
-      <ion-button color="secondary" (click)="gotoProfile()">
-        <ion-icon slot="icon-only" name="person"></ion-icon>
-      </ion-button>
     </ion-buttons>
+
   </ion-toolbar>
   <div class="toolbar" color="primary">
-    <h1>{{prod_name}}</h1>
+    <div class="navbar">
+      <ion-button fill="clear" color="light" (click)="getProductsbyCategory('Deco')">Deco</ion-button>
+      <ion-button fill="clear" color="light" (click)="getProductsbyCategory('Pottery')">Pottery</ion-button>
+      <ion-button fill="clear" color="light" (click)="getProductsbyCategory('Vases')">Vases</ion-button>
+      <ion-button fill="clear" color="light" (click)="getProductsbyCategory('Lamps')">Lamps</ion-button>
+      <ion-button fill="clear" color="light" (click)="getProductonSale()">Sales & Promos</ion-button>
+    </div>
   </div>
 </ion-header>
 
-  <div class="top-nav">
-    <div class="nav-grid">
-      <div (click)="goHome()">
-        <ion-icon name="home"></ion-icon>
-      </div>
-      <div>{{prod_name}}</div>
-      <div (click)="showMenu()">
-        <ion-icon name="{{menuBtn}}"></ion-icon>
-      </div>
-    </div>
-    <div id="options">
-      <div class="menu-item" *ngIf="menuOpen == true">
-        
-      <div>HOME</div>
-      <div>QUERIES</div>
-      <div>FAQS</div>
-      <div>ABOUT</div>
-      </div>
-    </div>
-  </div>
+
 
 
 <!-- <ion-header class="ion-no-border" id="web">
@@ -106,23 +90,35 @@
   </ion-toolbar>
 </ion-header> -->
 
-<ion-content fullscreen>
+<ion-content [fullscreen]="true">
+  <div class="top-nav">
+    <div class="nav-grid">
+      <div (click)="goHome()">
+        <ion-icon name="home"></ion-icon>
+      </div>
+      <div>{{productName}}</div>
+
+      <ion-button fill="clear" class="notification" (click)="visitWish()">
+        <ion-icon slot="icon-only" name="heart"></ion-icon>
+        <span class="badge"></span>
+      </ion-button>
+
+      <ion-button fill="clear" class="notification" (click)="visitCart()">
+        <ion-icon slot="icon-only" name="basket"></ion-icon>
+        <span class="badge"></span>
+      </ion-button>
+
+      <ion-button fill="clear" (click)="visitProfile()">
+        <ion-icon slot="icon-only" name="person"></ion-icon>
+      </ion-button>
+
+    </div>
+  </div>
 
   <div class='container'>
     <div class="items_info">
       <div class="image">
-        <div class="ratings">
-          <p><span>Ratings</span>&nbsp;
-            
-            <ion-icon [name]="avgRating>1 ? 'star' : 'star-outline'"></ion-icon>
-            <ion-icon [name]="avgRating>2 ? 'star' : 'star-outline'"></ion-icon>
-            <ion-icon [name]="avgRating>3 ? 'star' : 'star-outline'"></ion-icon>
-            <ion-icon [name]="avgRating>4 ? 'star' : 'star-outline'"></ion-icon>
-            <ion-icon [name]="avgRating>5 ? 'star' : 'star-outline'"></ion-icon>
-
-          </p>
-          
-        </div>
+     
         <!-- <img src="{{prod_image}}" alt=""> -->
         <ion-slides style=" z-index: 1;" pager="true">
 
@@ -143,23 +139,22 @@
           </ion-slide>
         </ion-slides>
 
-        <p class="starz"></p>
-        <div class="stars" *ngFor="let item of reviews">
-          <ionic4-star-rating [rate]="rate" activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#ff0000"
-            defaultColor="#aaaaaa" rating="{{item.Rating}}" fontSize="18px" readonly="true"
-            (rateChange)="logRatingChange()">
-          </ionic4-star-rating>
-          <ion-button fill="clear" color="dark">
-            <ion-icon slot="icon-only" name="star"> </ion-icon>
-          </ion-button>
-        </div>
-
         <div class="wishlist">
           <ion-fab-button color="transparent" (click)="wishListAdd()">
             <ion-icon name="{{onWish}}"></ion-icon>
-
           </ion-fab-button>
         </div>
+
+    
+          <p class="ratings">
+            <ion-icon [name]="avgRating>1 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="avgRating>2 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="avgRating>3 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="avgRating>4 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="avgRating>5 ? 'star' : 'star-outline'"></ion-icon>
+
+          </p>
+
       </div>
       <div class="item_info">
 
@@ -174,16 +169,7 @@
               [ngClass]="{'sizeStyle':sizeIndex==i}">
               {{s}}
             </ion-button>
-
-            <!-- <ion-button color="transparent">
-            M
-          </ion-button>
-
-          <ion-button color="transparent">
-            L
-          </ion-button> -->
           </div>
-
         </div>
 
         <div class="price">
@@ -235,8 +221,8 @@
     </div>
 
     <div class="segment_slides" [ngSwitch]="yudsegment">
-      <div class="pictures" *ngSwitchCase="'like'">
-        <div class="image1" *ngFor="let items of similarItems">
+      <div class="pictures" *ngSwitchCase="'like'" >
+        <div class="image1" *ngFor="let items of similarItems" (click)="showPictures(items)">
           <img src="{{items.info.image}}" alt="">
         </div>
 
@@ -285,50 +271,50 @@
       <div class="div">
 
 
-       
-          <div class="items" *ngFor="let cp of prodCart; let i of index">
-            <div class="left" *ngFor="let prod of cp.data.product">
-              <div class="img">
-                <img src="{{prod.picture}}" alt="">
-              </div>
-  
-              <div class="item_details">
-                <p> <b>{{prod.product_name}} <br> {{prod.cost | currency:"R"}}</b><br>
-                  <span>size: {{prod.size}}</span><br>
-                </p>
-  
-                <div class="add_buttons">
-                  <p>QTY: {{prod.quantity}}</p>
-                  <div class="clicks">
-                    <ion-button (click)="pluss(prod, i)" color="transparent" class="adds">
-                      <span>
-                        <ion-icon slot="start" name="add"></ion-icon>
-                      </span>
-                    </ion-button>
-                    <ion-button (click)="minuss(prod, i)" color="transparent" class="adds1">
-                      <span>
-                        <ion-icon slot="start" name="remove"></ion-icon>
-                      </span>
-                    </ion-button>
-                  </div>
-  
-                  <!-- <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
-                  3 <ion-icon slot="end" name="add-circle-outline"></ion-icon> -->
-                </div>
-  
-              </div>
+
+        <div class="items" *ngFor="let cp of prodCart; let i of index">
+          <div class="left" *ngFor="let prod of cp.data.product">
+            <div class="img">
+              <img src="{{prod.picture}}" alt="">
             </div>
-  
-            <div class="right">
-              <div class="trash_icon" (click)="removeProd(cp.id)">
-                <ion-icon slot="start" name="trash"></ion-icon>
+
+            <div class="item_details">
+              <p> <b>{{prod.product_name}} <br> {{prod.cost | currency:"R"}}</b><br>
+                <span>size: {{prod.size}}</span><br>
+              </p>
+
+              <div class="add_buttons">
+                <p>QTY: {{prod.quantity}}</p>
+                <div class="clicks">
+                  <ion-button (click)="pluss(prod, i)" color="transparent" class="adds">
+                    <span>
+                      <ion-icon slot="start" name="add"></ion-icon>
+                    </span>
+                  </ion-button>
+                  <ion-button (click)="minuss(prod, i)" color="transparent" class="adds1">
+                    <span>
+                      <ion-icon slot="start" name="remove"></ion-icon>
+                    </span>
+                  </ion-button>
+                </div>
+
+                <!-- <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
+                  3 <ion-icon slot="end" name="add-circle-outline"></ion-icon> -->
               </div>
-  
-  
+
             </div>
           </div>
 
-          <!-- <div class="right">
+          <div class="right">
+            <div class="trash_icon" (click)="removeProd(cp.id)">
+              <ion-icon slot="start" name="trash"></ion-icon>
+            </div>
+
+
+          </div>
+        </div>
+
+        <!-- <div class="right">
             <div class="trash_icon" (click)="removeProd(cp.id)">
               <ion-icon slot="start" name="trash"></ion-icon>
             </div>
@@ -445,7 +431,7 @@
         <ion-button color="transparent">
           <span>Disclaimer</span>
         </ion-button>
-        <ion-button (click)="openAboutUS()"color="transparent">
+        <ion-button (click)="openAboutUS()" color="transparent">
           <span>About Us</span>
         </ion-button>
       </div>
