@@ -59,7 +59,7 @@ export class ItemViewPage implements OnInit {
   delType: string;
   loaderMessages = 'Loading...';
   loaderAnimate: boolean = true;
-  uid=firebase.auth().currentUser.uid;
+  uid = firebase.auth().currentUser.uid;
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
       this.prod_id = params["id"];
@@ -132,6 +132,22 @@ export class ItemViewPage implements OnInit {
         this.getRatings(code, this.prod_id)
       }
     });
+
+  }
+  showPictures(data) {
+    console.log(data);
+
+    this.prod_name = data.info.name;
+    this.prod_image = data.info.image;
+    this.imageTop = data.info.imageTop;
+    this.imageBack = data.info.imageBack;
+    this.imageSide = data.info.imageSide;
+    this.price = data.info.price;
+    this.desc = data.info.description;
+    this.sizes = data.info.sizes;
+    this.productCode = data.info.productCode
+
+
 
   }
   openAboutUS() {
@@ -283,8 +299,8 @@ export class ItemViewPage implements OnInit {
   getTot() {
     let total = 0;
 
-        total += this.price * this.quantity
-   
+    total += this.price * this.quantity
+
     //console.log('My tot ', total);
     return total;
   }
