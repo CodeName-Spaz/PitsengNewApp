@@ -20,6 +20,22 @@ ion-toolbar {
     color: white;
   }
 }
+.ratings {
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  z-index: 500;
+  text-align: right;
+  p {
+    font-size: 2.4em;
+    margin: 0;
+    span {
+      margin: 0;
+      font-size: 0.2em !important;
+    }
+  }
+
+}
 .sizeStyle {
   background: rgba(175, 175, 175, 0.712);
   border: 2px solid rgb(146, 146, 146);
@@ -285,6 +301,8 @@ ion-toolbar {
       height: 450px !important;
       flex: 1;
       width:35%;
+      position: relative;
+
       ion-slides{
           width: 100%;
           height: 100%;

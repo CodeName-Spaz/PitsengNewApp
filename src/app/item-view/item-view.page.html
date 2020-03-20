@@ -111,6 +111,10 @@
   <div class='container'>
     <div class="items_info">
       <div class="image">
+        <div class="ratings">
+          <p><span>Ratings</span>&nbsp;3.5</p>
+          
+        </div>
         <!-- <img src="{{prod_image}}" alt=""> -->
         <ion-slides style=" z-index: 1;" pager="true">
 
@@ -137,6 +141,9 @@
             defaultColor="#aaaaaa" rating="{{item.Rating}}" fontSize="18px" readonly="true"
             (rateChange)="logRatingChange()">
           </ionic4-star-rating>
+          <ion-button fill="clear" color="dark">
+            <ion-icon slot="icon-only" name="star"> </ion-icon>
+          </ion-button>
         </div>
 
         <div class="wishlist">

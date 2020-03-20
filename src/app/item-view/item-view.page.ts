@@ -56,7 +56,7 @@ export class ItemViewPage implements OnInit {
   myOrder = [];
   delCost: number;
   delType: string;
-  // uid=firebase.auth().currentUser.uid;
+  uid=firebase.auth().currentUser.uid;
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
       this.prod_id = params["id"];
@@ -99,7 +99,7 @@ export class ItemViewPage implements OnInit {
   }
   star(num, uid, code) {
     console.log('hh', num, code)
-    console.log(code);
+    console.log(code, uid,);
 
     firebase.firestore().collection('Reviews').where('uid', '==', uid).where('productCode', '==', code).onSnapshot(snapshot => {
       if (snapshot.size > 0) {
