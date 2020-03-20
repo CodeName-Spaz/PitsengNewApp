@@ -70,8 +70,9 @@ export class ItemViewPage implements OnInit {
     this.getProduct(this.prod_id);
     setTimeout(() => {
       this.mostViewed();
+      this.getWishItems();
     }, 1000);
-    this.getWishItems();
+    
     // this.getRatings()
     this.yudsegment = "like";
 

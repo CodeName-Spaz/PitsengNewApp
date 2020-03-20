@@ -6,7 +6,8 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./info.page.scss'],
 })
 export class InfoPage implements OnInit {
-
+  val;
+  searchArray=[];
   constructor(public modalController: ModalController) { }
 
   ngOnInit() {
@@ -17,5 +18,7 @@ export class InfoPage implements OnInit {
       'dismissed':true
     });
   }
-
+  searchresult(event) {
+    
+  }
 }
