@@ -112,7 +112,15 @@
     <div class="items_info">
       <div class="image">
         <div class="ratings">
-          <p><span>Ratings</span>&nbsp;3.5</p>
+          <p><span>Ratings</span>&nbsp;
+            
+            <ion-icon [name]="avgRating>1 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="avgRating>2 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="avgRating>3 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="avgRating>4 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="avgRating>5 ? 'star' : 'star-outline'"></ion-icon>
+
+          </p>
           
         </div>
         <!-- <img src="{{prod_image}}" alt=""> -->

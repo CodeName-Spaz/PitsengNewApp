@@ -72,8 +72,6 @@ export class ItemViewPage implements OnInit {
     this.getWishItems();
     // this.getRatings()
     this.yudsegment = "like";
-    // this.wishItemCount = this.cartService.getWishItemCount();
-    // this.cartItemCount = this.cartService.getCartItemCount();
   }
   mostViewed() {
     this.dbProduct.orderBy('viewed', 'desc').limit(4).onSnapshot((res) => {
@@ -168,6 +166,7 @@ export class ItemViewPage implements OnInit {
       this.onSale = doc.data().onSale;
       this.salePrice = doc.data().salePrice;
       this.discount = doc.data().percentage;
+      this.avgRating = doc.data().avgRating;
       // this.getRatings(doc.data().productCode, id)
     })
   }
@@ -203,7 +202,6 @@ export class ItemViewPage implements OnInit {
               this.onWish = "heart-outline";
             }
           } else {
-            // console.log("No items found");
 
           }
         })

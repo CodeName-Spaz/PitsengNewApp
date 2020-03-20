@@ -57,7 +57,7 @@ export class HomePage implements OnInit {
   reviews = {
     Rating: 0
   }
-  avgRating = 4
+  avgRating =0
   // router: any;
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, private router : Router,public modalController: ModalController,
     public toastCtrl: ToastController) { }
@@ -93,9 +93,9 @@ export class HomePage implements OnInit {
   }
   ratingProducts() {
     firebase.firestore().collection("Products").onSnapshot(snapshot => {
-      this.myReviews = []
+      this.myProduct = []
       snapshot.forEach(item => {
-        this.myReviews.push(item.data())
+        this.myProduct.push(item.data())
       })
       console.log("Current rate for the product ", this.myReviews);
 
