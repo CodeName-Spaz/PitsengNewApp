@@ -113,10 +113,18 @@ ion-toolbar {
       border-radius: 10px;
       margin: 3px;
       //height: fit-content;
-
+      .image {
+        width: 100%;
+      }
       ion-thumbnail {
-        width: 30vw;
-        height: 40vh;
+        width: 100% !important;
+        height: 30vh;
+      }
+
+      #thumbnail {
+        p {
+          width: 300px;
+        }
       }
 
       img {
@@ -463,8 +471,9 @@ ion-toolbar {
   }
   .container {
     width: 75%;
-    //height: 100%;
     margin: auto;
+    height: 100%;
+    display: table;
 
     .title {
       h2 {
@@ -501,9 +510,23 @@ ion-toolbar {
       }
     }
     .cards {
-      height: 100%;
+      //border: 1px solid red;
+
       #card {
         width: 30%;
+        .image {
+          width: 100%;
+        }
+        ion-thumbnail {
+          width: 100% !important;
+          height: 30vh;
+        }
+
+        #thumbnail {
+          p {
+            width: 100%;
+          }
+        }
         .text {
           p {
             font-size: 20px;
@@ -1365,6 +1388,8 @@ ion-toolbar {
 }
 
 ion-footer {
+  display: table-row;
+    height: 0;
   text-align: center;
   .footer {
     display: flex;
