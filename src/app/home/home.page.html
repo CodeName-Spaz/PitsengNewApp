@@ -507,7 +507,7 @@
 
   <ion-footer id="webview">
     <div class="footer">
-      <div class="heading">
+      <div class="heading" routerLink="/home">
         <img src="../../assets/Group 235.png" alt="">
       </div>
 
@@ -531,8 +531,8 @@
 
       <div class="info">
         <h1>QUICK LINKS</h1>
-        <ion-button color="transparent">
-          <span>FAQs</span>
+        <ion-button color="transparent" (click)="createFaqs()">
+          <span >FAQs</span>
         </ion-button>
         <ion-button color="transparent">
           <span>Terms and Privacy Policy</span>
