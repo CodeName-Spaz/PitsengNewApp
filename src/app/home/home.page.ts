@@ -65,9 +65,9 @@ export class HomePage implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       this.loaderAnimate = false;
+      this.getProductsbyCategory('Deco');
     }, 4000);
     this.checkUser();
-    this.getProductsbyCategory('Deco')
 
     this.ratingProducts();
 
