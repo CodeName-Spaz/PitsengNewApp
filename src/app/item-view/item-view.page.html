@@ -163,7 +163,7 @@
         </ion-button>
 
         <ion-button (click)="addToCart()" class="wishes">
-          Add to Bag {{getTotal() | currency:"R"}}
+          Add to Bag {{getTot() | currency:"R"}}
         </ion-button>
       </div>
     </div>
@@ -306,10 +306,10 @@
           <p style="width: 100%; text-align: right; font-size: 13px; color:rgb(129, 35, 1)">
             <i>Please Note: You can collect your items at any time
             </i></p>
-          <ion-button color="transparent" [disabled]="!delType" (click)="placeOrder()">
-            <div *ngIf="delType==='Delivery'"> PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div>
-            <div *ngIf="delType==='Collection'">PLACE ORDER ({{notDelivery(getTotal()) | currency:'R'}})</div>
-            <div *ngIf="!delType">PLACE ORDER</div>
+          <ion-button color="transparent" [disabled]="!delType" >
+            <div *ngIf="delType==='Delivery'" (click)="placeOrder()"> PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div>
+            <div *ngIf="delType==='Collection'" (click)="placeOrder()">PLACE ORDER ({{notDelivery(getTotal()) | currency:'R'}})</div>
+            <div *ngIf="!delType" (click)="placeOrder()">PLACE ORDER</div>
           </ion-button>
         </div>
 

@@ -92,22 +92,19 @@ export class ItemViewPage implements OnInit {
       })
     })
   }
-  showPictures(data) {
-    console.log(data);
-    
-    this.prod_name = data.info.name;
-    this.prod_image = data.info.image;
-    this.imageTop = data.info.imageTop;
-    this.imageBack = data.info.imageBack;
-    this.imageSide = data.info.imageSide;
-    this.price = data.info.price;
-    this.desc = data.info.description;
-    this.sizes = data.info.sizes;
-    this.productCode = data.info.productCode
+  gotoProfile() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.viewProfile = !this.viewProfile
+        this.viewBackdrop = !this.viewBackdrop
+      } else {
+        this.presentAlertConfirm1();
+      }
+    })
 
 
-    
   }
+
   viewProd(id) {
     // if (this.itemChecked === true) {
     this.getProduct(id);
@@ -279,10 +276,16 @@ export class ItemViewPage implements OnInit {
       product.forEach((item) => {
         total += item.cost * item.quantity
       })
-
     }
     //console.log('My tot ', total);
+    return total;
+  }
+  getTot() {
+    let total = 0;
 
+        total += this.price * this.quantity
+   
+    //console.log('My tot ', total);
     return total;
   }
   visitWish() {
@@ -528,11 +531,6 @@ export class ItemViewPage implements OnInit {
 
   reviewed() {
     this.viewWishlist = !this.viewWishlist
-    this.viewBackdrop = !this.viewBackdrop
-  }
-
-  gotoProfile() {
-    this.viewProfile = !this.viewProfile
     this.viewBackdrop = !this.viewBackdrop
   }
 
