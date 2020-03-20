@@ -86,6 +86,19 @@ export class ItemViewPage implements OnInit {
       })
     })
   }
+  gotoProfile() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.viewProfile = !this.viewProfile
+        this.viewBackdrop = !this.viewBackdrop
+      } else {
+        this.presentAlertConfirm1();
+      }
+    })
+
+
+  }
+
   viewProd(id) {
     // if (this.itemChecked === true) {
     this.getProduct(id);
@@ -257,10 +270,16 @@ export class ItemViewPage implements OnInit {
       product.forEach((item) => {
         total += item.cost * item.quantity
       })
-
     }
     //console.log('My tot ', total);
+    return total;
+  }
+  getTot() {
+    let total = 0;
 
+        total += this.price * this.quantity
+   
+    //console.log('My tot ', total);
     return total;
   }
   visitWish() {
@@ -506,11 +525,6 @@ export class ItemViewPage implements OnInit {
 
   reviewed() {
     this.viewWishlist = !this.viewWishlist
-    this.viewBackdrop = !this.viewBackdrop
-  }
-
-  gotoProfile() {
-    this.viewProfile = !this.viewProfile
     this.viewBackdrop = !this.viewBackdrop
   }
 

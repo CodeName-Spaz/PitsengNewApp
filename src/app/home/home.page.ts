@@ -337,9 +337,7 @@ export class HomePage implements OnInit {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.navCtrl.navigateForward('profile');
-      } else {
-        this.presentAlertConfirm1();
-      }
+      } 
     })
 
   }
