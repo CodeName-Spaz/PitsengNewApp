@@ -1,4 +1,3 @@
-
 <ion-header id="web">
   <ion-toolbar>
     <div class="navigation-bar-upper-section">
@@ -23,94 +22,63 @@
         <ion-icon slot="icon-only" name="basket"></ion-icon>
         <span class="badge"></span>
       </ion-button>
-      <ion-button color="secondary" (click)="gotoProfile()">
-        <ion-icon slot="icon-only" name="person"></ion-icon>
-      </ion-button>
     </ion-buttons>
+
   </ion-toolbar>
   <div class="toolbar" color="primary">
-    <h1>{{prod_name}}</h1>
+    <div class="navbar">
+      <h1>{{prod_name}}</h1>
+    </div>
   </div>
 </ion-header>
 
+
+<div [ngClass]="{'loader': loaderAnimate, 'loader-hide': !loaderAnimate}">
+
+  <div class="loader">
+    <img src="../../assets/pottery-clipart-clay-13.gif" alt="">
+    <svg width="200" height="200" viewBox="0 0 100 100">
+      <polyline class="line-cornered stroke-still" points="0,0 100,0 100,100" stroke-width="10" fill="none"></polyline>
+      <polyline class="line-cornered stroke-still" points="0,0 0,100 100,100" stroke-width="10" fill="none"></polyline>
+      <polyline class="line-cornered stroke-animation" points="0,0 100,0 100,100" stroke-width="10" fill="none">
+      </polyline>
+      <polyline class="line-cornered stroke-animation" points="0,0 0,100 100,100" stroke-width="10" fill="none">
+      </polyline>
+    </svg>
+  </div>
+</div>
+
+
+
+<ion-content [fullscreen]="true">
   <div class="top-nav">
     <div class="nav-grid">
       <div (click)="goHome()">
         <ion-icon name="home"></ion-icon>
       </div>
-      <div>{{prod_name}}</div>
-      <div (click)="showMenu()">
-        <ion-icon name="{{menuBtn}}"></ion-icon>
-      </div>
-    </div>
-    <div id="options">
-      <div class="menu-item" *ngIf="menuOpen == true">
-        
-      <div>HOME</div>
-      <div>QUERIES</div>
-      <div>FAQS</div>
-      <div>ABOUT</div>
-      </div>
+      <!-- <div>{{productName}}</div> -->
+
+      <ion-button fill="clear" class="notification" (click)="visitWish()">
+        <ion-icon slot="icon-only" name="heart"></ion-icon>
+        <span class="badge"></span>
+      </ion-button>
+
+      <ion-button fill="clear" class="notification" (click)="visitCart()">
+        <ion-icon slot="icon-only" name="basket"></ion-icon>
+        <span class="badge"></span>
+      </ion-button>
+
+      <ion-button fill="clear" (click)="visitProfile()">
+        <ion-icon slot="icon-only" name="person"></ion-icon>
+      </ion-button>
+
     </div>
   </div>
-
-
-<!-- <ion-header class="ion-no-border" id="web">
-  <ion-toolbar>
-    <img src="../../assets/Group 235.png" alt="">
-
-    <ion-buttons slot="end">
-
-      <ion-button class="notification" (click)="reviewed()">
-        <ion-icon slot="icon-only" name="heart"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-
-      <ion-button class="notification" (click)="getCart()">
-        <ion-icon slot="icon-only" name="basket"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-
-    </ion-buttons>
-  </ion-toolbar>
-
-  <ion-toolbar class="ribbon" color="transparent">
-
-    <h1>{{prod_name}}</h1>
-  </ion-toolbar>
-</ion-header>
-
-<ion-header class="ion-no-border" id="mobile">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-
-      <ion-button>
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-
-      <ion-button class="notification" (click)="visitWish()">
-        <ion-icon slot="icon-only" name="heart"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-
-      <ion-button class="notification" (click)="visitCart()">
-        <ion-icon slot="icon-only" name="basket"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-      <ion-button color="secondary" (click)="visitProfile()">
-        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header> -->
-
-<ion-content fullscreen>
 
   <div class='container'>
     <div class="items_info">
       <div class="image">
+     
         <!-- <img src="{{prod_image}}" alt=""> -->
         <ion-slides style=" z-index: 1;" pager="true">
 
@@ -131,20 +99,21 @@
           </ion-slide>
         </ion-slides>
 
-        <p class="starz"></p>
-        <div class="stars" *ngFor="let item of reviews">
-          <ionic4-star-rating [rate]="rate" activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#ff0000"
-            defaultColor="#aaaaaa" rating="{{item.Rating}}" fontSize="18px" readonly="true"
-            (rateChange)="logRatingChange()">
-          </ionic4-star-rating>
-        </div>
-
         <div class="wishlist">
           <ion-fab-button color="transparent" (click)="wishListAdd()">
             <ion-icon name="{{onWish}}"></ion-icon>
-
           </ion-fab-button>
         </div>
+
+    
+          <p class="ratings">
+            <ion-icon [name]="avgRating>1 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="avgRating>2 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="avgRating>3 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="avgRating>4 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="avgRating>5 ? 'star' : 'star-outline'"></ion-icon>
+          </p>
+
       </div>
       <div class="item_info">
 
@@ -159,23 +128,15 @@
               [ngClass]="{'sizeStyle':sizeIndex==i}">
               {{s}}
             </ion-button>
-
-            <!-- <ion-button color="transparent">
-            M
-          </ion-button>
-
-          <ion-button color="transparent">
-            L
-          </ion-button> -->
           </div>
-
         </div>
 
         <div class="price">
           <p *ngIf="onSale===false">{{price | currency:"R"}}</p>
-          <p *ngIf="onSale===true">{{price | currency:"R"}}<br>
-            {{salePrice | currency:"R"}}<br>
-            {{discount}}% OFF</p>
+          <p class="sale" *ngIf="onSale===true"><span style="text-decoration: line-through; color: red">{{price | currency:"R"}}</span> <br>
+            {{salePrice | currency:"R"}}  &nbsp; &nbsp; &nbsp;{{discount}}% OFF
+            <br>
+            </p>
           <p class="addz">
             <ion-icon slot="start" (click)="plus()" name="add"></ion-icon> &nbsp; {{quantity}} &nbsp;<ion-icon
               slot="start" (click)="minus()" name="remove"></ion-icon>
@@ -202,7 +163,7 @@
         </ion-button>
 
         <ion-button (click)="addToCart()" class="wishes">
-          Add to Bag {{getTotal() | currency:"R"}}
+          Add to Bag {{getTot() | currency:"R"}}
         </ion-button>
       </div>
     </div>
@@ -220,8 +181,8 @@
     </div>
 
     <div class="segment_slides" [ngSwitch]="yudsegment">
-      <div class="pictures" *ngSwitchCase="'like'">
-        <div class="image1" *ngFor="let items of similarItems">
+      <div class="pictures" *ngSwitchCase="'like'" >
+        <div class="image1" *ngFor="let items of similarItems" (click)="showPictures(items)">
           <img src="{{items.info.image}}" alt="">
         </div>
 
@@ -270,50 +231,50 @@
       <div class="div">
 
 
-       
-          <div class="items" *ngFor="let cp of prodCart; let i of index">
-            <div class="left" *ngFor="let prod of cp.data.product">
-              <div class="img">
-                <img src="{{prod.picture}}" alt="">
-              </div>
-  
-              <div class="item_details">
-                <p> <b>{{prod.product_name}} <br> {{prod.cost | currency:"R"}}</b><br>
-                  <span>size: {{prod.size}}</span><br>
-                </p>
-  
-                <div class="add_buttons">
-                  <p>QTY: {{prod.quantity}}</p>
-                  <div class="clicks">
-                    <ion-button (click)="pluss(prod, i)" color="transparent" class="adds">
-                      <span>
-                        <ion-icon slot="start" name="add"></ion-icon>
-                      </span>
-                    </ion-button>
-                    <ion-button (click)="minuss(prod, i)" color="transparent" class="adds1">
-                      <span>
-                        <ion-icon slot="start" name="remove"></ion-icon>
-                      </span>
-                    </ion-button>
-                  </div>
-  
-                  <!-- <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
-                  3 <ion-icon slot="end" name="add-circle-outline"></ion-icon> -->
-                </div>
-  
-              </div>
+
+        <div class="items" *ngFor="let cp of prodCart; let i of index">
+          <div class="left" *ngFor="let prod of cp.data.product">
+            <div class="img">
+              <img src="{{prod.picture}}" alt="">
             </div>
-  
-            <div class="right">
-              <div class="trash_icon" (click)="removeProd(cp.id)">
-                <ion-icon slot="start" name="trash"></ion-icon>
+
+            <div class="item_details">
+              <p> <b>{{prod.product_name}} <br> {{prod.cost | currency:"R"}}</b><br>
+                <span>size: {{prod.size}}</span><br>
+              </p>
+
+              <div class="add_buttons">
+                <p>QTY: {{prod.quantity}}</p>
+                <div class="clicks">
+                  <ion-button (click)="pluss(prod, i)" color="transparent" class="adds">
+                    <span>
+                      <ion-icon slot="start" name="add"></ion-icon>
+                    </span>
+                  </ion-button>
+                  <ion-button (click)="minuss(prod, i)" color="transparent" class="adds1">
+                    <span>
+                      <ion-icon slot="start" name="remove"></ion-icon>
+                    </span>
+                  </ion-button>
+                </div>
+
+                <!-- <ion-icon slot="start" name="remove-circle-outline"></ion-icon>
+                  3 <ion-icon slot="end" name="add-circle-outline"></ion-icon> -->
               </div>
-  
-  
+
             </div>
           </div>
 
-          <!-- <div class="right">
+          <div class="right">
+            <div class="trash_icon" (click)="removeProd(cp.id)">
+              <ion-icon slot="start" name="trash"></ion-icon>
+            </div>
+
+
+          </div>
+        </div>
+
+        <!-- <div class="right">
             <div class="trash_icon" (click)="removeProd(cp.id)">
               <ion-icon slot="start" name="trash"></ion-icon>
             </div>
@@ -345,10 +306,10 @@
           <p style="width: 100%; text-align: right; font-size: 13px; color:rgb(129, 35, 1)">
             <i>Please Note: You can collect your items at any time
             </i></p>
-          <ion-button color="transparent" [disabled]="!delType" (click)="placeOrder()">
-            <div *ngIf="delType==='Delivery'"> PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div>
-            <div *ngIf="delType==='Collection'">PLACE ORDER ({{notDelivery(getTotal()) | currency:'R'}})</div>
-            <div *ngIf="!delType">PLACE ORDER</div>
+          <ion-button color="transparent" [disabled]="!delType" >
+            <div *ngIf="delType==='Delivery'" (click)="placeOrder()"> PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div>
+            <div *ngIf="delType==='Collection'" (click)="placeOrder()">PLACE ORDER ({{notDelivery(getTotal()) | currency:'R'}})</div>
+            <div *ngIf="!delType" (click)="placeOrder()">PLACE ORDER</div>
           </ion-button>
         </div>
 
@@ -430,7 +391,7 @@
         <ion-button color="transparent">
           <span>Disclaimer</span>
         </ion-button>
-        <ion-button (click)="openAboutUS()"color="transparent">
+        <ion-button (click)="openAboutUS()" color="transparent">
           <span>About Us</span>
         </ion-button>
       </div>

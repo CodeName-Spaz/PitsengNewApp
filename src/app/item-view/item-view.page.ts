@@ -57,8 +57,8 @@ export class ItemViewPage implements OnInit {
   myOrder = [];
   delCost: number;
   delType: string;
-  rate = 0;
-  // uid=firebase.auth().currentUser.uid;
+  loaderMessages = 'Loading...';
+  loaderAnimate: boolean = true;
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
       this.prod_id = params["id"];
@@ -69,12 +69,15 @@ export class ItemViewPage implements OnInit {
     this.getProduct(this.prod_id);
     setTimeout(() => {
       this.mostViewed();
+      this.getWishItems();
     }, 1000);
-    this.getWishItems();
+    
     // this.getRatings()
     this.yudsegment = "like";
-    // this.wishItemCount = this.cartService.getWishItemCount();
-    // this.cartItemCount = this.cartService.getCartItemCount();
+
+    setTimeout(() => {
+      this.loaderAnimate = false;
+    }, 4000);
   }
   mostViewed() {
     this.dbProduct.orderBy('viewed', 'desc').limit(4).onSnapshot((res) => {
@@ -89,6 +92,19 @@ export class ItemViewPage implements OnInit {
       })
     })
   }
+  gotoProfile() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.viewProfile = !this.viewProfile
+        this.viewBackdrop = !this.viewBackdrop
+      } else {
+        this.presentAlertConfirm1();
+      }
+    })
+
+
+  }
+
   viewProd(id) {
     // if (this.itemChecked === true) {
     this.getProduct(id);
@@ -101,7 +117,6 @@ export class ItemViewPage implements OnInit {
   }
   star(num, code) {
     console.log('hh', num, code)
-    console.log(code);
 
     firebase.firestore().collection('Reviews').where('uid', '==', firebase.auth().currentUser.uid).where('productCode', '==', code).onSnapshot(snapshot => {
       if (snapshot.size > 0) {
@@ -117,6 +132,22 @@ export class ItemViewPage implements OnInit {
         this.getRatings(code, this.prod_id)
       }
     });
+
+  }
+  showPictures(data) {
+    console.log(data);
+
+    this.prod_name = data.info.name;
+    this.prod_image = data.info.image;
+    this.imageTop = data.info.imageTop;
+    this.imageBack = data.info.imageBack;
+    this.imageSide = data.info.imageSide;
+    this.price = data.info.price;
+    this.desc = data.info.description;
+    this.sizes = data.info.sizes;
+    this.productCode = data.info.productCode
+
+
 
   }
   openAboutUS() {
@@ -170,6 +201,7 @@ export class ItemViewPage implements OnInit {
       this.onSale = doc.data().onSale;
       this.salePrice = doc.data().salePrice;
       this.discount = doc.data().percentage;
+      this.avgRating = doc.data().avgRating;
       // this.getRatings(doc.data().productCode, id)
     })
   }
@@ -205,7 +237,6 @@ export class ItemViewPage implements OnInit {
               this.onWish = "heart-outline";
             }
           } else {
-            // console.log("No items found");
 
           }
         })
@@ -261,10 +292,20 @@ export class ItemViewPage implements OnInit {
       product.forEach((item) => {
         total += item.cost * item.quantity
       })
-
     }
     //console.log('My tot ', total);
-
+    return total;
+  }
+  getTot() {
+    let total = 0;
+    if (this.onSale === true) {
+      total += this.salePrice * this.quantity
+    } else {
+      total += this.price * this.quantity
+    }
+        
+   
+    //console.log('My tot ', total);
     return total;
   }
   visitWish() {
@@ -510,11 +551,6 @@ export class ItemViewPage implements OnInit {
 
   reviewed() {
     this.viewWishlist = !this.viewWishlist
-    this.viewBackdrop = !this.viewBackdrop
-  }
-
-  gotoProfile() {
-    this.viewProfile = !this.viewProfile
     this.viewBackdrop = !this.viewBackdrop
   }
 

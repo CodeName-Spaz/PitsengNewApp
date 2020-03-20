@@ -51,7 +51,9 @@ export class SearchPage implements OnInit {
     this.searchByName(event.value.name)
     console.log('port:', event.value);
   }
-
+  goHome() {
+    this.navCtrl.navigateRoot('/home')
+  }
   goBack(){
     this.navCtrl.pop()
   }

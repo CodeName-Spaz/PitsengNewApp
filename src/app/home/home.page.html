@@ -26,6 +26,7 @@
         <ion-icon slot="icon-only" name="person"></ion-icon>
       </ion-button>
     </ion-buttons>
+
   </ion-toolbar>
   <div class="toolbar" color="primary">
     <div class="navbar">
@@ -43,105 +44,32 @@
     <div (click)="goHome()">
       <ion-icon name="home"></ion-icon>
     </div>
-    <div>{{productName}}</div>
+    <!-- <div>{{productName}}</div> -->
+
+    <ion-button fill="clear" class="notification" (click)="visitWish()">
+      <ion-icon slot="icon-only" name="heart"></ion-icon>
+      <span class="badge"></span>
+    </ion-button>
+
+    <ion-button  fill="clear"  class="notification" (click)="visitCart()">
+      <ion-icon slot="icon-only" name="basket"></ion-icon>
+      <span class="badge"></span>
+    </ion-button>
+
     <div (click)="showMenu()">
       <ion-icon name="{{menuBtn}}"></ion-icon>
     </div>
-  </div>
-  <div id="options">
-    <div class="menu-item" *ngIf="menuOpen == true">
 
-      <div>HOME</div>
-      <div>QUERIES</div>
-      <div>FAQS</div>
-      <div>ABOUT</div>
+  </div>
+  <div id="options">   
+    <div class="menu-item" *ngIf="menuOpen == true">
+      <div routerLink="/home">HOME</div>
+      <div (click)="visitProfile()">PROFILE</div>
+      <div (click)="createFaqs()">FAQS</div>
+      <div (click)="openAboutUS()">ABOUT</div>
     </div>
   </div>
 </div>
-
-<!-- <ion-header class="ion-no-border" id="web">
-  <ion-toolbar>
-    <img src="../../assets/Group 235.png" alt="">
-
-
-    <ion-buttons slot="end">
-
-      <ion-button (click)="search()">
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-
-      <ion-button class="notification" (click)="reviewed()">
-        <ion-icon slot="icon-only" name="heart"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-
-      <ion-button class="notification" (click)="getCart()">
-        <ion-icon slot="icon-only" name="basket"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-      <ion-button color="secondary" (click)="gotoProfile()">
-        <ion-icon slot="icon-only" name="person"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-
-  <ion-toolbar class="ribbon" color="transparent">
-
-    <ion-buttons slot="secondary">
-      <ion-button id="{{val}}" (click)="getProductsbyCategory('Deco')">
-        <ion-icon slot="start" src="../../assets/PhotoFrame.svg"></ion-icon> Decorations
-      </ion-button>
-
-      <ion-button (click)="getProductsbyCategory('Pottery')">
-        <ion-icon slot="start" src="../../assets/pottery.svg"></ion-icon> Pottery
-      </ion-button>
-
-      <ion-button (click)="getProductsbyCategory('Vases')">
-        <ion-icon slot="start" src="../../assets/pot.svg"></ion-icon> Vases
-      </ion-button>
-
-      <ion-button (click)="getProductsbyCategory('Lamps')">
-        <ion-icon slot="start" src="../../assets/lamp.svg"></ion-icon> Lamps
-      </ion-button>
-
-      
-      <ion-button (click)="getProductonSale()">
-        <ion-icon slot="start" src="../../assets/lamp.svg"></ion-icon> Sales
-      </ion-button>
-      
-      
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-
-<ion-header class="ion-no-border" id="mobile">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-
-      <ion-button (click)="search()">
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-
-      <ion-button class="notification" (click)="visitWish()">
-        <ion-icon slot="icon-only" name="heart"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-
-      <ion-button class="notification" (click)="visitCart()">
-        <ion-icon slot="icon-only" name="basket"></ion-icon>
-        <span class="badge"></span>
-      </ion-button>
-      <ion-button color="secondary" (click)="visitProfile()">
-        <ion-icon slot="icon-only" name="person"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header> -->
 
 <div [ngClass]="{'loader': loaderAnimate, 'loader-hide': !loaderAnimate}">
 
@@ -198,156 +126,117 @@
 
     <div class="info">
       <p>{{myProduct.length}} Products</p>
-      <p class="best_selling" (click)="createFaqs()">Best Selling <ion-icon name="chevron-down-outline"></ion-icon>
-      </p>
     </div>
     <!-- Skeleton Text -->
     <div class="cards" *ngIf="myProduct.length===0">
       <div id="card" *ngIf="myProduct.length===0">
         <div class="image">
           <ion-thumbnail>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
           </ion-thumbnail>
 
         </div>
-        <div class="text">
+        <div class="text" id="thumbnail">
           <p>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> <br>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text> <br>
             <span>
-              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
             </span><br>
             <span>
-              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
             </span>
           </p>
 
-          <p>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> <br>
-            <span>
-              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-            </span>
-          </p>
-          <p class="starz">
-          </p>
         </div>
       </div>
 
       <div id="card" *ngIf="myProduct.length===0">
         <div class="image">
           <ion-thumbnail>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
           </ion-thumbnail>
 
         </div>
-        <div class="text">
+        <div class="text" id="thumbnail">
           <p>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> <br>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text> <br>
             <span>
-              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
             </span><br>
             <span>
-              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
             </span>
           </p>
 
-          <p>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> <br>
-            <span>
-              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-            </span>
-          </p>
-          <p class="starz">
-          </p>
         </div>
       </div>
       <div id="card" *ngIf="myProduct.length===0">
         <div class="image">
           <ion-thumbnail>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
           </ion-thumbnail>
 
         </div>
-        <div class="text">
+        <div class="text" id="thumbnail">
           <p>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> <br>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text> <br>
             <span>
-              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
             </span><br>
             <span>
-              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
             </span>
           </p>
 
-          <p>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> <br>
-            <span>
-              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-            </span>
-          </p>
-          <p class="starz">
-          </p>
         </div>
       </div>
+
       <div id="card" *ngIf="myProduct.length===0">
         <div class="image">
           <ion-thumbnail>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
           </ion-thumbnail>
 
         </div>
-        <div class="text">
+        <div class="text" id="thumbnail">
           <p>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> <br>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text> <br>
             <span>
-              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
             </span><br>
             <span>
-              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
             </span>
           </p>
 
-          <p>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> <br>
-            <span>
-              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-            </span>
-          </p>
-          <p class="starz">
-          </p>
         </div>
       </div>
+
       <div id="card" *ngIf="myProduct.length===0">
         <div class="image">
           <ion-thumbnail>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
           </ion-thumbnail>
 
         </div>
-        <div class="text">
+        <div class="text" id="thumbnail">
           <p>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> <br>
+            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text> <br>
             <span>
-              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
             </span><br>
             <span>
-              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
             </span>
           </p>
 
-          <p>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text> <br>
-            <span>
-              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-            </span>
-          </p>
-          <p class="starz">
-          </p>
         </div>
       </div>
+
 
     </div>
     <!-- End of skeleton text -->
-
+    <!-- Actual Cards -->
     <div class="cards">
       <div id="card" *ngFor="let p of myProduct" (click)="viewProduct(p)">
 
@@ -356,24 +245,27 @@
         </div>
         <div class="text">
           <p *ngIf="p.data.onSale===true"> {{p.data.name}} <br>
-            <span style="text-decoration: line-through;color: red "> {{ p.data.price | currency:"R"}}</span><br>
+            <span style="text-decoration: line-through;color: red "> {{ p.data.price | currency:"R"}} </span> 
             <span>{{ p.data.salePrice | currency:"R"}}</span></p>
 
           <p *ngIf="p.data.onSale===false"> {{p.data.name}} <br>
-            <span>{{p.data.price | currency:"R"}}</span></p>
-          <p class="starz">
+            <span>{{p.data.price | currency:"R"}}</span> <br>
+          <span class="starz">
+            <ion-icon [name]="p.data.avgRating>1 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="p.data.avgRating>2 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="p.data.avgRating>3 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="p.data.avgRating>4 ? 'star' : 'star-outline'"></ion-icon>
+            <ion-icon [name]="p.data.avgRating>5 ? 'star' : 'star-outline'"></ion-icon>
+          </span>
+          </p >
 
-
-            <ion-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
-              defaultColor="#D3D3D3" readonly="true" rating="{{avgRating}}" fontSize="18px"
-              (ratingChanged)="getRatings()"></ion-rating>
-          </p>
         </div>
       </div>
     </div>
 
   </div>
   <div class="backdrop1" *ngIf="viewBackdrop"></div>
+  <!-- Cart/Bag - Side Menu -->
   <div id="cart" [ngClass]="{'viewcart': viewCart, 'closecart': !viewCart}">
 
     <div class="heading">
@@ -457,17 +349,15 @@
             <i>Please Note: You can collect your items at any time
             </i></p>
           <ion-button color="transparent" [disabled]="!delType" (click)="placeOrder()">
-            <div *ngIf="delType==='Delivery'"> PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div>
-            <div *ngIf="delType==='Collection'">PLACE ORDER ({{notDelivery(getTotal()) | currency:'R'}})</div>
-            <div *ngIf="!delType">PLACE ORDER</div>
+            <div *ngIf="delType==='Delivery'" (click)="placeOrder()"> PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div>
+            <div *ngIf="delType==='Collection'" (click)="placeOrder()">PLACE ORDER ({{notDelivery(getTotal()) | currency:'R'}})</div>
+            <div *ngIf="!delType" (click)="placeOrder()">PLACE ORDER</div>
           </ion-button>
         </div>
-
       </div>
-
     </div>
   </div>
-
+  <!-- Wishlist - Side Menu -->
   <div id="wish" [ngClass]="{'viewwishlist': viewWishlist, 'closewishlist': !viewWishlist}">
     <div class="heading">
       <p> Your Wishlist
@@ -501,7 +391,7 @@
     </div>
   </div>
 
-
+  <!-- Profile - Side Menu -->
   <div id="wish" [ngClass]="{'viewprofile': viewProfile, 'closeprofile': !viewProfile}">
     <div class="heading">
       <p> Profile
@@ -617,7 +507,7 @@
 
   <ion-footer id="webview">
     <div class="footer">
-      <div class="heading">
+      <div class="heading" routerLink="/home">
         <img src="../../assets/Group 235.png" alt="">
       </div>
 
@@ -641,8 +531,8 @@
 
       <div class="info">
         <h1>QUICK LINKS</h1>
-        <ion-button color="transparent">
-          <span>FAQs</span>
+        <ion-button color="transparent" (click)="createFaqs()">
+          <span >FAQs</span>
         </ion-button>
         <ion-button color="transparent">
           <span>Terms and Privacy Policy</span>

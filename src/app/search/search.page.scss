@@ -16,7 +16,7 @@ ion-content{
     top: 20px;
     margin: 0;
     padding: 0;
-    background: rgb(226, 225, 225);
+    //background: rgb(226, 225, 225);
   }
   
   .search {
@@ -151,130 +151,146 @@ ion-content{
     align-items: center;
     justify-content: center;
     align-content: center;
-    background:rgb(0, 27, 63);
+    background: rgb(0, 0, 0);
     background-repeat: repeat-x;
     transform: scale(1);
     overflow: hidden;
     transition: 0.4s;
     transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
     animation: backgroundmover 30s linear infinite;
+    body {
+      background: #282828;
+    }
   
-  
-  
-    .loader {
-      width: 10em;
-      height: 10em;
-      font-size: 25px;
-      box-sizing: border-box;
-      border-top: 0.3em solid rgb(58, 0, 29);
-      border-radius: 50%;
+    img {
+      width: 150px;
+      height: 150px;
       position: relative;
-      animation: rotating 2s ease-in-out infinite;
-      --direction: 1;
+      top: 60px;
+      // transform: rotate(-20deg);
+      z-index: 10;
     }
   
-    .loader::before,
-    .loader::after {
-      content: "";
-      position: absolute;
-      width: inherit;
-      height: inherit;
-      border-radius: 50%;
-      box-sizing: border-box;
-      top: -0.2em;
+    svg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%) rotate(45deg) scale(1);
+      transform: translate(-50%, -50%) rotate(45deg) scale(1);
     }
   
-    .loader::before {
-      border-top: 0.3em solid rgb(0, 20, 39);
-      transform: rotate(120deg);
+    .stroke-still {
+      stroke: #ffffff;
     }
   
-    .loader::after {
-      border-top: 0.3em solid rgb(70, 70, 70);
-      transform: rotate(240deg);
+    .stroke-animation {
+      -webkit-animation: stroke-spacing 1.2s ease-in, stroke-color 4.8s linear;
+      animation: stroke-spacing 1.2s ease-in, stroke-color 4.8s linear;
+      -webkit-animation-iteration-count: infinite;
+      animation-iteration-count: infinite;
+      -webkit-animation-delay: 0;
+      animation-delay: 0;
+      -webkit-animation-direction: normal;
+      animation-direction: normal;
+      -webkit-animation-fill-mode: forwards;
+      animation-fill-mode: forwards;
+      -webkit-animation-play-state: running;
+      animation-play-state: running;
+      -webkit-transform-origin: center center;
+      transform-origin: center center;
     }
   
-    .loader span {
-      position: absolute;
-      color: white !important;
-      width: inherit;
-      height: inherit;
-      text-align: center;
-      line-height: 10em;
-      font-family: sans-serif;
-      animation: rotating 2s linear infinite;
-      --direction: -1;
-    }
-  
-    @keyframes rotating {
-      50% {
-        transform: rotate(calc(180deg * var(--direction)));
+    @-webkit-keyframes stroke-spacing {
+      0% {
+        stroke-dasharray: 0 200;
       }
-  
+      45% {
+        stroke-dashoffset: 0;
+        stroke-dasharray: 200 200;
+      }
+      90% {
+        stroke-dashoffset: -200;
+        stroke-dasharray: 200 200;
+      }
       100% {
-        transform: rotate(calc(360deg * var(--direction)));
+        stroke-dashoffset: -200;
+        stroke-dasharray: 200 200;
       }
     }
   
-    // .maploader {
-    //   .lds-ellipsis {
-    //     display: inline-block;
-    //     position: relative;
-    //     width: 80px;
-    //     height: 80px;
-    //   }
-    //   .lds-ellipsis div {
-    //     position: absolute;
-    //     top: 33px;
-    //     width: 13px;
-    //     height: 13px;
-    //     border-radius: 50%;
-    //     background: #fff;
-    //     animation-timing-function: cubic-bezier(0, 1, 1, 0);
-    //   }
-    //   .lds-ellipsis div:nth-child(1) {
-    //     left: 8px;
-    //     animation: lds-ellipsis1 0.6s infinite;
-    //   }
-    //   .lds-ellipsis div:nth-child(2) {
-    //     left: 8px;
-    //     animation: lds-ellipsis2 0.6s infinite;
-    //   }
-    //   .lds-ellipsis div:nth-child(3) {
-    //     left: 32px;
-    //     animation: lds-ellipsis2 0.6s infinite;
-    //   }
-    //   .lds-ellipsis div:nth-child(4) {
-    //     left: 56px;
-    //     animation: lds-ellipsis3 0.6s infinite;
-    //   }
-    //   @keyframes lds-ellipsis1 {
-    //     0% {
-    //       transform: scale(0);
-    //     }
-    //     100% {
-    //       transform: scale(1);
-    //     }
-    //   }
-    //   @keyframes lds-ellipsis3 {
-    //     0% {
-    //       transform: scale(1);
-    //     }
-    //     100% {
-    //       transform: scale(0);
-    //     }
-    //   }
-    //   @keyframes lds-ellipsis2 {
-    //     0% {
-    //       transform: translate(0, 0);
-    //     }
-    //     100% {
-    //       transform: translate(24px, 0);
-    //     }
-    //   }
-    // }
-   }
-   .loading-text {
+    @keyframes stroke-spacing {
+      0% {
+        stroke-dasharray: 0 200;
+      }
+      45% {
+        stroke-dashoffset: 0;
+        stroke-dasharray: 200 200;
+      }
+      90% {
+        stroke-dashoffset: -200;
+        stroke-dasharray: 200 200;
+      }
+      100% {
+        stroke-dashoffset: -200;
+        stroke-dasharray: 200 200;
+      }
+    }
+  
+    @-webkit-keyframes stroke-color {
+      0% {
+        stroke: rgb(173, 79, 3);
+      }
+      24% {
+        stroke: rgb(173, 79, 3);
+      }
+      25% {
+        stroke: rgb(173, 79, 3);
+      }
+      49% {
+        stroke: rgb(173, 79, 3);
+      }
+      50% {
+        stroke: rgb(173, 79, 3);
+      }
+      74% {
+        stroke: rgb(173, 79, 3);
+      }
+      75% {
+        stroke: rgb(173, 79, 3);
+      }
+      99% {
+        stroke: rgb(173, 79, 3);
+      }
+    }
+  
+    @keyframes stroke-color {
+      0% {
+        stroke: rgb(173, 79, 3);
+      }
+      24% {
+        stroke: rgb(173, 79, 3);
+      }
+      25% {
+        stroke: rgb(173, 79, 3);
+      }
+      49% {
+        stroke: rgb(173, 79, 3);
+      }
+      50% {
+        stroke: rgb(173, 79, 3);
+      }
+      74% {
+        stroke: rgb(173, 79, 3);
+      }
+      75% {
+        stroke: rgb(173, 79, 3);
+      }
+      99% {
+        stroke: rgb(173, 79, 3);
+      }
+    }
+  }
+  .loading-text {
     // color: yellow;
     position: absolute;
     bottom: 50vh;
@@ -285,8 +301,8 @@ ion-content{
     height: 50vh;
     //z-index: 90;
     margin: auto;
-   }
-   .loader-hide {
+  }
+  .loader-hide {
     position: absolute;
     top: 0;
     left: 0;
@@ -355,8 +371,8 @@ ion-content{
         }
       }
     }
-   }
-   @keyframes maploader {
+  }
+  @keyframes maploader {
     0% {
       // transform: rotate(0deg);
       border-color: rgb(182, 70, 95);
@@ -372,7 +388,7 @@ ion-content{
       // background: rgb(255, 167, 167);
       // transform: rotate(360deg);
     }
-   }
+  }
   
    @media only screen and (max-width: 1024px) {
     .web_view {
@@ -399,17 +415,17 @@ ion-content{
         top: 20px;
         margin: 0;
         padding: 0;
-        background: rgb(226, 225, 225);
+        //background: rgb(226, 225, 225);
       }
       
       .search {
         display: flex;
         flex-flow: row;
-        border: 1px solid rgb(196, 196, 196);
+        //border: 1px solid rgb(196, 196, 196);
         width: 100%;
         position: relative;
         //height: 40px;
-        background: maroon;
+        background: rgb(255, 255, 255);
         .back {
           width: 15vw;
           height: 40px;
@@ -520,5 +536,177 @@ ion-content{
           }
         }
       } 
+    }
+  }
+
+  ion-header {
+    .toolbar {
+      height: 56px;
+      background-color: #912322;
+      margin: 0 auto;
+      display: flex;
+      justify-content: baseline;
+      margin-top: 10px;
+  
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        width: 50vw;
+        margin: 0 auto;
+        ion-buttons {
+          color: white;
+        }
+        ion-button {
+          margin: 10px;
+          //border: 2px solid white;
+        }
+  
+        ion-button:hover {
+          //margin: 5px;
+          border-bottom: 2px solid white;
+          border-radius: 0 !important;
+        }
+      }
+    }
+    ion-toolbar {
+      .navigation-bar-upper-section {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 75vw;
+        margin: 0 auto;
+        justify-content: baseline;
+        justify-self: center;
+        .logo {
+          width: 15vw;
+          img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .nav-section {
+          display: flex;
+          font-size: 18px;
+          text-align: center;
+          align-items: center;
+          margin: 0 auto;
+          left: 0;
+          flex-direction: row;
+          justify-content: space-between;
+          justify-content: flex-end;
+          width: 59.5vw;
+          position: relative;
+          margin: 0 auto;
+          .search-section {
+            width: 35vw;
+            margin: 0 auto;
+            text-align: start;
+          }
+          .buttons {
+            float: left;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            justify-content: flex-end;
+          }
+        }
+      }
+    }
+  }
+  .top-nav {
+    width: 100%;
+    height: 50px;
+    background-color: red;
+    display: none;
+    position: relative;
+  
+    .nav-grid {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      background: #ffffff;
+  
+      ion-button {
+        color: rgb(0, 0, 0);
+        font-size: 11px;
+        margin-top: 10px;
+      }
+    }
+    .nav-grid > div {
+      height: 100%;
+      min-width: 50px;
+      color: rgb(0, 0, 0);
+    }
+    .nav-grid > div:nth-child(odd) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .nav-grid > div:nth-child(2) {
+      width: calc(100% - 100px);
+      text-align: center;
+      font-size: 15px;
+      font-weight: bold;
+      line-height: 50px;
+    }
+  
+    #options {
+      width: 100%;
+      height: 100vh;
+      position: absolute;
+      z-index: 100;
+      top: -100vh;
+      background: rgba(0, 0, 0, 0.397);
+    }
+    #options > div > div {
+      height: 40px;
+      // border: 1px solid black;
+      line-height: 40px;
+      padding-left: 10px;
+      background: #ffffff;
+      transition: 300ms;
+      color: rgb(0, 0, 0);
+      cursor: pointer;
+    }
+    .menu-item {
+      animation: sliderIn 300ms;
+    }
+    #options > div > div:active {
+      background: #d62d1d;
+    }
+    @keyframes sliderIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    @keyframes sliderOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+  }
+  
+  @media screen and (max-width: 780px) {
+    // this affects only the navBar
+    ion-header {
+      height: 0;
+      overflow: hidden;
+    }
+    .top-nav {
+      display: block;
+    }
+    #breadcrumbs {
+      display: none;
     }
   }
