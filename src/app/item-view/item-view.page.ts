@@ -86,6 +86,22 @@ export class ItemViewPage implements OnInit {
       })
     })
   }
+  showPictures(data) {
+    console.log(data);
+    
+    this.prod_name = data.info.name;
+    this.prod_image = data.info.image;
+    this.imageTop = data.info.imageTop;
+    this.imageBack = data.info.imageBack;
+    this.imageSide = data.info.imageSide;
+    this.price = data.info.price;
+    this.desc = data.info.description;
+    this.sizes = data.info.sizes;
+    this.productCode = data.info.productCode
+
+
+    
+  }
   viewProd(id) {
     // if (this.itemChecked === true) {
     this.getProduct(id);

@@ -224,8 +224,8 @@
     </div>
 
     <div class="segment_slides" [ngSwitch]="yudsegment">
-      <div class="pictures" *ngSwitchCase="'like'">
-        <div class="image1" *ngFor="let items of similarItems">
+      <div class="pictures" *ngSwitchCase="'like'" >
+        <div class="image1" *ngFor="let items of similarItems" (click)="showPictures(items)">
           <img src="{{items.info.image}}" alt="">
         </div>
 
