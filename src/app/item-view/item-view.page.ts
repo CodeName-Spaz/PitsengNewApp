@@ -57,6 +57,8 @@ export class ItemViewPage implements OnInit {
   myOrder = [];
   delCost: number;
   delType: string;
+  loaderMessages = 'Loading...';
+  loaderAnimate: boolean = true;
   uid=firebase.auth().currentUser.uid;
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.route.queryParams.subscribe(params => {
@@ -72,6 +74,10 @@ export class ItemViewPage implements OnInit {
     this.getWishItems();
     // this.getRatings()
     this.yudsegment = "like";
+
+    setTimeout(() => {
+      this.loaderAnimate = false;
+    }, 4000);
   }
   mostViewed() {
     this.dbProduct.orderBy('viewed', 'desc').limit(4).onSnapshot((res) => {
