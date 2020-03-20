@@ -174,7 +174,9 @@ export class HomePage implements OnInit {
     }, 0);
   }
   logout() {
-    firebase.auth().signOut();
+    firebase.auth().signOut().then(()=>{
+      this.navCtrl.navigateRoot('/home');
+    });
   }
   viewReciept(id) {
     let navigationExtras: NavigationExtras = {

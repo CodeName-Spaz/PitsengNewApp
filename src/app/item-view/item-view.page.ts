@@ -298,9 +298,13 @@ export class ItemViewPage implements OnInit {
   }
   getTot() {
     let total = 0;
-
-    total += this.price * this.quantity
-
+    if (this.onSale === true) {
+      total += this.salePrice * this.quantity
+    } else {
+      total += this.price * this.quantity
+    }
+        
+   
     //console.log('My tot ', total);
     return total;
   }
