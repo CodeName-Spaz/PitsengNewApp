@@ -41,8 +41,13 @@
         </div>
         <div class="section spacer">
           <div>
-            <input type="tel" maxlength="10" pattern="[0-9]" placeholder="Phone (eg 0812345678)"  [(ngModel)]="profile.number">
+            <ion-input type="tel" maxlength="10" pattern="[0-9]" placeholder="Phone (eg 0812345678)"  [(ngModel)]="profile.number" (ionInput)="phone($event)"></ion-input>
+            
           </div>
+          <div >
+           
+          </div>
+          
           <div>
             <ion-icon name="call"></ion-icon>
           </div>

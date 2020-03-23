@@ -18,13 +18,16 @@ export class AuthService {
        err => reject(err))
    })
   }
-  signupUser(email: string, password: string, name: string): Promise<any> {
+  signupUser(email: string, password: string, name: string, address: string, number: string, image: string): Promise<any> {
     return firebase
     .auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
       firebase.firestore().doc(`/UserProfile/${newUserCredential.user.uid}`).set({
         name: name,
         email : email,
-        uid:newUserCredential.user.uid
+        uid:newUserCredential.user.uid,
+        address: address,
+        number: number,
+        image : image
 
       });
       // firebase.firestore().collection("UserProfile").doc().set({

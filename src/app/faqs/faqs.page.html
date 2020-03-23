@@ -38,45 +38,6 @@
             </div>
           </ion-card>
 
-          <!-- <ion-card class="product">
-            <div>
-              <img src="../../assets/Group 235.png" alt="">
-            </div>
-            <div>
-              <p id="prod-name">Vase</p>
-              <p>
-                <b>Code:</b> vase133456
-              </p>
-              <p>
-                <b>Size:</b> M
-              <p>
-                <b>Price:</b> R900
-              </p>
-              <p>
-                <b>Qty:</b> 5
-              </p>
-            </div>
-          </ion-card> -->
-
-          <!-- <ion-card class="product">
-            <div>
-              <img src="../../assets/Group 235.png" alt="">
-            </div>
-            <div>             
-              <p id="prod-name">Vase</p>
-              <p>
-                <b>Code:</b> vase133456
-              </p>
-              <p>
-                <b>Size:</b> M
-              <p>
-                <b>Price:</b> R900
-              </p>
-              <p>
-                <b>Qty:</b> 5
-              </p>
-            </div>
-          </ion-card> -->
         </div>
 
       
@@ -92,13 +53,13 @@
             <div id="four">4</div>
           </div>
 
-          <div class="buttons">
-            <button id="cancel" (click)="cancelOrder()" *ngIf="status === 'received'">Cancel</button>
-            <button id="approve" (click)="approveOrder()" *ngIf="status === 'received'">Approve</button>
-            <button id="ready" (click)="prepareOrder()" *ngIf="status === 'processed'">Order Ready</button>
-            <button id="ready" (click)="concludeOrder()" *ngIf="status == 'ready'">Conclude Order</button>
-            <p id="cancelledOrder" *ngIf="status === 'cancelled'">Order was cancelled</p>
+          <div class="text">
+            <div>Order <br> Received</div>
+            <div> Payment <br> Recieved</div>
+            <div> Order <br> Ready</div>
+            <div> Order <br> Delivered/Collected</div>
           </div>
+          
         </div>
       </div>
       <div class="details" id="right">

@@ -37,7 +37,7 @@ export class EditProfilePage implements OnInit {
   }
   loader: boolean = true;
   isprofile: boolean = false;
-  ;
+  myArr = [];
   constructor(public alertCtrl: AlertController, private router: Router, public route: ActivatedRoute, public navCtrl: NavController) {
     // this.route.queryParams.subscribe(params => {
     //   this.profile.name = params["name"];
@@ -90,7 +90,7 @@ export class EditProfilePage implements OnInit {
     ////
     //////
   }
-
+ 
   changeListener(event): void {
     const i = event.target.files[0];
     console.log(i);

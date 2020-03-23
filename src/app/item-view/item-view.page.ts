@@ -135,9 +135,9 @@ export class ItemViewPage implements OnInit {
 
   }
   showPictures(data) {
-    console.log(data);
-
-    this.prod_name = data.info.name;
+    this.prod_id = data.id;
+    this.getProduct(data.id)
+    /* this.prod_name = data.info.name;
     this.prod_image = data.info.image;
     this.imageTop = data.info.imageTop;
     this.imageBack = data.info.imageBack;
@@ -146,9 +146,7 @@ export class ItemViewPage implements OnInit {
     this.desc = data.info.description;
     this.sizes = data.info.sizes;
     this.productCode = data.info.productCode;
-    this.avgRating = data.info.avgRating 
-
-
+    this.avgRating = data.info.avgRating  */
   }
   openAboutUS() {
     this.navCtrl.navigateForward('/about-us')
@@ -310,7 +308,7 @@ export class ItemViewPage implements OnInit {
   }
   visitWish() {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
+      if (user.uid) {
         this.navCtrl.navigateForward('wish-list');
       } else {
         this.presentAlertConfirm1();
@@ -321,14 +319,12 @@ export class ItemViewPage implements OnInit {
   }
   visitCart() {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
+      if (user.uid) {
         this.navCtrl.navigateForward('cart');
       } else {
         this.presentAlertConfirm1();
       }
-
     })
-
   }
   sizeChosen(data, index) {
     // console.log("event ", ev);

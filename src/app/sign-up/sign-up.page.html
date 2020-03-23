@@ -1,7 +1,9 @@
 
 <body>
 <div class="logo">
-  <img src="../../assets/imgs/pitseng Logo.png" alt="">
+  <img *ngIf="!image" src="../../assets/imgs/pitseng Logo.png" alt="">
+  <img *ngIf="image" src="{{image}}" alt="">
+  <ion-input type="file" id="file" (change)="changeListener($event)"></ion-input>
 </div>
   <div class="container">
     <div class="user-form">
@@ -11,15 +13,20 @@
           </ion-button>
 
         <h3>Sign up</h3>
-        <input type="text" placeholder="Name" formControlName="name">
+        <input type="text" [(ngModel)]="name" placeholder="Name" formControlName="name">
 
-        <input type="email" placeholder="Email" formControlName="email" [class.invalid]="!signupForm.controls['email'].valid && signupForm.controls['email'].touched">
+        <input type="email" placeholder="Email" [(ngModel)]="email" formControlName="email" [class.invalid]="!signupForm.controls['email'].valid && signupForm.controls['email'].touched">
         <ion-item lines="none" color="transparent" class="error-message" *ngIf="!signupForm.controls['email'].valid
         && signupForm.controls['email'].touched">
         <div>    <ion-title class="error-message" >Please enter a valid email.</ion-title></div>
       </ion-item>
 
-
+      <input type="tel"  placeholder="Contact number" formControlName="phone" [class.invalid]="!signupForm.controls['phone'].valid && signupForm.controls['phone'].touched">
+      <ion-item lines="none" color="transparent" class="error-message" *ngIf="!signupForm.controls['phone'].valid
+      && signupForm.controls['phone'].touched">
+      <div>    <ion-title class="error-message" >Please enter a valid phone number.</ion-title></div>
+    </ion-item>
+      <input type="text"  placeholder="Physical address" formControlName="address">
         <input type="password" placeholder="Password" formControlName="password" [class.invalid]="!signupForm.controls['password'].valid && signupForm.controls['password'].touched">
         <ion-item lines="none"  color="transparent" class="error-message" *ngIf="!signupForm.controls['password'].valid  &&
           signupForm.controls['password'].touched">
@@ -29,7 +36,7 @@
 
         <input type="password" placeholder="Confirm Password">
         <div class="gridder">
-          <div (click)="signupUser(signupForm)">Sign up</div>
+          <ion-button [disabled]="!signupForm.valid" (click)="signupUser(signupForm)">Sign up</ion-button>
         </div>
       </form>
     </div>

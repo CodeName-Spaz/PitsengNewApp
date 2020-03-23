@@ -41,6 +41,8 @@ var firebaseConfig = {
   // messagingSenderId: "728167140242",
   // appId: "1:728167140242:web:7b16d2f988fee781c90f4b",
   // measurementId: "G-TKFFCKLRTQ"
+
+
   // apiKey: "AIzaSyD96pHc4rjR85yGc7y1Es4e1mGocFqHVjE",
   // authDomain: "pitseng-arts.firebaseapp.com",
   // databaseURL: "https://pitseng-arts.firebaseio.com",

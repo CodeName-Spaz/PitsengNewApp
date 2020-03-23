@@ -32,6 +32,7 @@ export class OrderClosedPage implements OnInit {
   getItem() {
     this.dbOrder.doc(this.prod_id).onSnapshot((doc) => {
       // this.myOrder = [];
+      this.status = doc.data().status
       this.myOrder = doc.data().product
     })
   }
