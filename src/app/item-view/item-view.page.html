@@ -56,7 +56,7 @@
       <div (click)="goHome()">
         <ion-icon name="home"></ion-icon>
       </div>
-      <div>{{productName}}</div>
+      <div></div>
 
       <ion-button fill="clear" class="notification" (click)="visitWish()">
         <ion-icon slot="icon-only" name="heart"></ion-icon>
@@ -112,7 +112,6 @@
             <ion-icon [name]="avgRating>3 ? 'star' : 'star-outline'"></ion-icon>
             <ion-icon [name]="avgRating>4 ? 'star' : 'star-outline'"></ion-icon>
             <ion-icon [name]="avgRating>5 ? 'star' : 'star-outline'"></ion-icon>
-
           </p>
 
       </div>
