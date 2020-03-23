@@ -140,11 +140,13 @@ export class HomePage implements OnInit {
           this.dbCart.where('customerUID', '==', res.uid).onSnapshot((info) => {
             // this.cartCount = info.size;
             this.prodCart = [];
+            this.myOrder = [];
             // this.totalCost = 0;
             info.forEach((doc) => {
-              /* doc.data().product.forEach((z) => {
+              doc.data().product.forEach((z) => {
                 this.myOrder.push(z)
-              }) */
+              }) 
+              // this.myOrder = doc.data().product;
               this.prodCart.push({ data: doc.data(), id: doc.id });
             })
           })
@@ -430,14 +432,15 @@ export class HomePage implements OnInit {
   }
   getTotal() {
     let total = 0;
-    for (let i = 0; i < this.prodCart.length; i++) {
+    for (let i = 0; i < this.prodCart.length;) {
       let product = this.prodCart[i].data.product;
       // this.myOrder = product;
       product.forEach((item) => {
         total += (item.cost * item.quantity);
-        this.myOrder.push(item);
+        
       })
       //
+      // this.myOrder = product;
     }
     //console.log('My tot ', total);
     return total;
