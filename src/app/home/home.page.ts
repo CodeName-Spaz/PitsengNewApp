@@ -57,9 +57,9 @@ export class HomePage implements OnInit {
   reviews = {
     Rating: 0
   }
-  avgRating =0
+  avgRating = 0
   // router: any;
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private router : Router,public modalController: ModalController,
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private router: Router, public modalController: ModalController,
     public toastCtrl: ToastController) { }
 
   ngOnInit() {
@@ -97,7 +97,7 @@ export class HomePage implements OnInit {
       snapshot.forEach(item => {
         this.myProduct.push(item.data())
       })
-      console.log("Current rate for the product ", this.myReviews);
+      // console.log("Current rate for the product ", this.myReviews);
 
     })
   }
@@ -140,11 +140,13 @@ export class HomePage implements OnInit {
           this.dbCart.where('customerUID', '==', res.uid).onSnapshot((info) => {
             // this.cartCount = info.size;
             this.prodCart = [];
+            this.myOrder = [];
             // this.totalCost = 0;
             info.forEach((doc) => {
               doc.data().product.forEach((z) => {
                 this.myOrder.push(z)
-              })
+              }) 
+              // this.myOrder = doc.data().product;
               this.prodCart.push({ data: doc.data(), id: doc.id });
             })
           })
@@ -163,19 +165,25 @@ export class HomePage implements OnInit {
             })
           })
           this.dbProfile.doc(res.uid).onSnapshot(snapshot => {
-            this.profile.image = snapshot.data().image;
-            this.profile.name = snapshot.data().name;
-            this.profile.number = snapshot.data().number;
-            this.profile.address = snapshot.data().address;
-            this.profile.email = snapshot.data().email;
+            if (snapshot.exists) {
+              this.profile.image = snapshot.data().image;
+              this.profile.name = snapshot.data().name;
+              this.profile.number = snapshot.data().number;
+              this.profile.address = snapshot.data().address;
+              this.profile.email = snapshot.data().email;
+            } else {
+              this.navCtrl.navigateForward('sign-up');
+            }
+
           })
         }
       })
     }, 0);
   }
   logout() {
-    firebase.auth().signOut().then(()=>{
-      this.navCtrl.navigateRoot('/home');
+    firebase.auth().signOut().then(() => {
+      this.viewProfile = !this.viewProfile
+      this.viewBackdrop = !this.viewBackdrop
     });
   }
   viewReciept(id) {
@@ -339,7 +347,7 @@ export class HomePage implements OnInit {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.navCtrl.navigateForward('profile');
-      } 
+      }
     })
 
   }
@@ -382,6 +390,8 @@ export class HomePage implements OnInit {
   }
   placeOrder() {
     let docname = 'PITSENG' + new Date().getTime();
+    console.log("my order ", this.myOrder);
+    
     this.dbOrder.doc(docname).set({
       product: this.myOrder, timestamp: new Date().getTime(), status: 'received', userID: firebase.auth().currentUser.uid, totalPrice: this.getTotal(),
       deliveryType: this.delType, deliveryCost: this.delCost
@@ -422,12 +432,15 @@ export class HomePage implements OnInit {
   }
   getTotal() {
     let total = 0;
-    for (let i = 0; i < this.prodCart.length; i++) {
+    for (let i = 0; i < this.prodCart.length;i++) {
       let product = this.prodCart[i].data.product;
+      // this.myOrder = product;
       product.forEach((item) => {
         total += (item.cost * item.quantity);
+        
       })
       //
+      // this.myOrder = product;
     }
     //console.log('My tot ', total);
     return total;
@@ -626,10 +639,10 @@ export class HomePage implements OnInit {
 
   async createFaqs() {
     const modal = await this.modalController.create({
-      component:InfoPage,
+      component: InfoPage,
       cssClass: 'my-add-to-cart',
-      
-    
+
+
     });
     return await modal.present();
   }

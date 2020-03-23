@@ -33,6 +33,8 @@ export class PaymentPage implements OnInit {
     }, 1000);
   }
   viewProduct(index) {
+    // console.log(index);
+    
     this.order.name = this.myOrder[index].product_name;
     this.order.picture = this.myOrder[index].picture;
     this.order.productCode = this.myOrder[index].productCode;
