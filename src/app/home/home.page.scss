@@ -116,7 +116,7 @@ ion-toolbar {
       .image {
         width: 100%;
         height: 30vh;
-        img{
+        img {
           height: 100%;
           width: 100%;
           object-fit: cover;
@@ -431,7 +431,7 @@ ion-toolbar {
 @media screen and (min-width: 769px) {
   #web {
     ion-toolbar {
-      width: 60%;
+      width: 70%;
       margin: auto;
     }
 
@@ -523,12 +523,11 @@ ion-toolbar {
         .image {
           width: 100%;
           height: 40vh;
-          img{
+          img {
             width: 100%;
             height: 100%;
             object-fit: cover;
           }
-      
         }
         ion-thumbnail {
           width: 100% !important;
@@ -547,7 +546,6 @@ ion-toolbar {
               font-size: 20px;
             }
           }
-
         }
       }
     }
@@ -1511,17 +1509,19 @@ ion-header {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: space-around;
       width: 75vw;
       margin: 0 auto;
       justify-content: baseline;
       justify-self: center;
       .logo {
         width: 15vw;
+        margin: 10px;
         img {
           object-fit: cover;
           width: 100%;
           height: 100%;
+      ;
         }
       }
       .nav-section {
@@ -1577,7 +1577,6 @@ ion-header {
     height: 100%;
     min-width: 50px;
     color: rgb(151, 63, 3);
-   
   }
   .nav-grid > div:nth-child(odd) {
     display: flex;
