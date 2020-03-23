@@ -14,8 +14,12 @@ import { LoginPage } from '../login/login.page';
 export class SignUpPage implements OnInit {
   db = firebase.firestore()
   storage = firebase.storage().ref();
+  dbProfile = firebase.firestore().collection('UserProfile');
   public signupForm: FormGroup;
   public loading: any;
+  name;
+  email;
+  image;
   constructor(
     private authService: AuthService,
     private loadingCtrl: LoadingController,
@@ -31,12 +35,49 @@ export class SignUpPage implements OnInit {
         '',
         Validators.compose([Validators.minLength(6), Validators.required])
       ],
-      name:['']
+      name:[''],
+      phone:['', Validators.compose([Validators.minLength(10),Validators.maxLength(10), Validators.required])],
+      address:['', Validators.compose([Validators.minLength(5),Validators.required])]
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.checkUser()
+   
+    // this.signupForm.value.password = firebase.auth().currentUser.uid
+  }
+  checkUser() {
+    setTimeout(() => {
+      firebase.auth().onAuthStateChanged((res) => {
+        if (res) {
+          this.email = res.email;
+          this.name = res.displayName;
+        } else {
+          this.email = '';
+          this.name = '';
+        }
+      })
+    },0)
+  }
+ 
 
+  changeListener(event): void {
+    const i = event.target.files[0];
+    console.log(i);
+    const upload = this.storage.child(i.name).put(i);
+    upload.on('state_changed', snapshot => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('upload is: ', progress, '% done.');
+    }, err => {
+    }, () => {
+      upload.snapshot.ref.getDownloadURL().then(dwnURL => {
+        // this.dbProfile.doc(firebase.auth().currentUser.uid).set({
+        //   image: dwnURL
+        // }, { merge: true })
+        this.image = dwnURL;
+      });
+    });
+  }
   async signupUser(signupForm: FormGroup): Promise<void> {
     if (!signupForm.valid) {
       console.log(
@@ -47,8 +88,9 @@ export class SignUpPage implements OnInit {
       const email: string = signupForm.value.email;
       const password: string = signupForm.value.password;
       const name: string = signupForm.value.name; 
-
-      this.authService.signupUser(email, password, name).then(
+      const address: string = signupForm.value.address;
+      const phone: string = signupForm.value.phone
+      this.authService.signupUser(email, password, name,address,phone,this.image).then(
         () => {
           this.loading.dismiss().then(() => {
              this.createProfile(email,name);

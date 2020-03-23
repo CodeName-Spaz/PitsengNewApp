@@ -4,9 +4,10 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { NavController, AlertController, LoadingController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 // import Swal from 'sweetalert2';
+import {Location} from '@angular/common';
 
 import * as firebase from 'firebase'
-  import { from } from 'rxjs';
+import { from } from 'rxjs';
 // import { RegisterPage } from '../register/register.page';
 import { Router } from '@angular/router';
 // import { ResetPasswordPage } from '../reset-password/reset-password.page';
@@ -16,21 +17,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  
+
   validations_form: FormGroup;
   errorMessage: string = '';
-  
+
 
   constructor(
- 
+
     private navCtrl: NavController,
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
     public modalController: ModalController,
     public alertController: AlertController,
-    public loadingCtrl: LoadingController
- 
+    public loadingCtrl: LoadingController,
+    public location:Location
+
   ) { }
 
   loader: boolean = true;
@@ -40,7 +42,7 @@ export class LoginPage implements OnInit {
     }, 2000);
   }
   ngOnInit() {
- 
+
     this.validations_form = this.formBuilder.group({
       email: new FormControl('', Validators.compose([
         Validators.required,
@@ -52,8 +54,8 @@ export class LoginPage implements OnInit {
       ])),
     });
   }
- 
- 
+
+
   validation_messages = {
     'email': [
       { type: 'required', message: 'Email is required.' },
@@ -64,43 +66,53 @@ export class LoginPage implements OnInit {
       { type: 'minlength', message: 'Password must be at least 5 characters long.' }
     ]
   };
- 
- 
-  loginUser(value){
+
+
+  loginUser(value) {
     firebase.auth().signInWithEmailAndPassword(value.email, value.password)
-    .then(res => {
-      // this.presentLoading();
-      this.errorMessage = "";
-      this.navCtrl.navigateForward('/home');
-    }, err => {
-      this.errorMessage = err.message;
-    });
+      .then(res => {
+        // this.presentLoading();
+        this.errorMessage = "";
+        this.navCtrl.navigateForward('/home');
+      }, err => {
+        this.errorMessage = err.message;
+      });
   }
-  facebookSignIn(){
-    
+  facebookSignIn() {
+
   }
 
-    dismissLoader(){
-  this.loadingCtrl.dismiss({
-    'dismissed':true
-  });
-}
+  dismissLoader() {
+    this.loadingCtrl.dismiss({
+      'dismissed': true
+    });
+  }
   googleSignin() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().getRedirectResult().then( (result) => {
+  /*   var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().getRedirectResult().then((result) => {
       if (!result.user) {
         firebase.auth().signInWithRedirect(provider);
       } else {
         this.router.navigateByUrl('home');
       }
-  }).catch(function (error) {
-    console.log(error)
-    // ...
-  });
+    }).catch(function (error) {
+      console.log(error)
+      // ...
+    }); */
+    try {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      const credential = firebase.auth().signInWithPopup(provider).then((i)=>{
+        if (i.user) {
+          this.location.back();
+        }
+      });
+    } catch(err) {
+      console.log(err)
+    }
   }
 
- 
-  createAccount(){
+
+  createAccount() {
     this.navCtrl.navigateForward('/sign-up');
     // this.createModalRegister();
   }
@@ -110,7 +122,7 @@ export class LoginPage implements OnInit {
   async createModalLogin() {
     const modal = await this.modalController.create({
       component: LoginPage,
-      
+
     });
     return await modal.present();
   }
@@ -118,7 +130,7 @@ export class LoginPage implements OnInit {
   //   const modal = await this.modalController.create({
   //     component: RegisterPage,
   //     cssClass: 'login-register',
-   
+
   //   });
   //   return await modal.present();
   // }
@@ -127,7 +139,7 @@ export class LoginPage implements OnInit {
   //     component : ResetPasswordPage,
   //     cssClass: 'resetModal'
   //   })
-    
+
   //   return await modal.present();
   //  }
   dismiss() {
@@ -135,7 +147,7 @@ export class LoginPage implements OnInit {
       'dismissed': true
     });
   }
-  async success(){
+  async success() {
     const alert = await this.alertController.create({
       header: 'Logging.....',
       subHeader: 'Success',
@@ -144,30 +156,30 @@ export class LoginPage implements OnInit {
     });
 
     await alert.present();
-    
-      // const alert = await this.alertController.create({
-      //   header: '',
-      //   subHeader: '',
-      //   message: 'logging.....',
-       
-      // });
-  
-      // await alert.present();
-      // setTimeout(() => {
-      // }, 500)
-    }
-    
-    async presentLoading() {
-      const loading = await this.loadingCtrl.create({
-        message: 'Logging in.....',
-      }); 
-      await loading.present();
-      setTimeout(() => {
-        loading.dismiss();
-      }, 3000);
-  
-      // const { role, data } = await loading.onDidDismiss();
-  
-      // console.log('Loading dismissed!');
-    }
+
+    // const alert = await this.alertController.create({
+    //   header: '',
+    //   subHeader: '',
+    //   message: 'logging.....',
+
+    // });
+
+    // await alert.present();
+    // setTimeout(() => {
+    // }, 500)
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Logging in.....',
+    });
+    await loading.present();
+    setTimeout(() => {
+      loading.dismiss();
+    }, 3000);
+
+    // const { role, data } = await loading.onDidDismiss();
+
+    // console.log('Loading dismissed!');
+  }
 }

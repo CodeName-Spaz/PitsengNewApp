@@ -57,9 +57,9 @@ export class HomePage implements OnInit {
   reviews = {
     Rating: 0
   }
-  avgRating =0
+  avgRating = 0
   // router: any;
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private router : Router,public modalController: ModalController,
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private router: Router, public modalController: ModalController,
     public toastCtrl: ToastController) { }
 
   ngOnInit() {
@@ -163,19 +163,25 @@ export class HomePage implements OnInit {
             })
           })
           this.dbProfile.doc(res.uid).onSnapshot(snapshot => {
-            this.profile.image = snapshot.data().image;
-            this.profile.name = snapshot.data().name;
-            this.profile.number = snapshot.data().number;
-            this.profile.address = snapshot.data().address;
-            this.profile.email = snapshot.data().email;
+            if (snapshot.exists) {
+              this.profile.image = snapshot.data().image;
+              this.profile.name = snapshot.data().name;
+              this.profile.number = snapshot.data().number;
+              this.profile.address = snapshot.data().address;
+              this.profile.email = snapshot.data().email;
+            } else {
+              this.navCtrl.navigateForward('sign-up');
+            }
+
           })
         }
       })
     }, 0);
   }
   logout() {
-    firebase.auth().signOut().then(()=>{
-      this.navCtrl.navigateRoot('/home');
+    firebase.auth().signOut().then(() => {
+      this.viewProfile = !this.viewProfile
+      this.viewBackdrop = !this.viewBackdrop
     });
   }
   viewReciept(id) {
@@ -339,7 +345,7 @@ export class HomePage implements OnInit {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.navCtrl.navigateForward('profile');
-      } 
+      }
     })
 
   }
@@ -626,10 +632,10 @@ export class HomePage implements OnInit {
 
   async createFaqs() {
     const modal = await this.modalController.create({
-      component:InfoPage,
+      component: InfoPage,
       cssClass: 'my-add-to-cart',
-      
-    
+
+
     });
     return await modal.present();
   }
