@@ -145,8 +145,8 @@ export class ItemViewPage implements OnInit {
     this.price = data.info.price;
     this.desc = data.info.description;
     this.sizes = data.info.sizes;
-    this.productCode = data.info.productCode
-
+    this.productCode = data.info.productCode;
+    this.avgRating = data.info.avgRating 
 
 
   }
