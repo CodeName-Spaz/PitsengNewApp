@@ -9,7 +9,7 @@
     <div class="user-form">
       <form [formGroup]="signupForm">
         <ion-button fill="clear" id="backBTN" color="secondaryColor">
-          <ion-icon name="arrow-back"></ion-icon> Go Back
+          <ion-icon name="arrow-back" (click)="backToLogin()"></ion-icon> Go Back
           </ion-button>
 
         <h3>Sign up</h3>

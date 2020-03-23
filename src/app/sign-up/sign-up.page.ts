@@ -122,6 +122,10 @@ export class SignUpPage implements OnInit {
     this.navCtrl.navigateForward(['/home'], navigationExtras);
   }
 
+  backToLogin(){
+    this.navCtrl.pop();
+  }
+
 async openLogin(){
   const modal = await this.modalController.create({
     component:LoginPage,
