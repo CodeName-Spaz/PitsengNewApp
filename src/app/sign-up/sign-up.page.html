@@ -21,7 +21,11 @@
         <div>    <ion-title class="error-message" >Please enter a valid email.</ion-title></div>
       </ion-item>
 
-      <input type="tel"  placeholder="Contact number" formControlName="phone">
+      <input type="tel"  placeholder="Contact number" formControlName="phone" [class.invalid]="!signupForm.controls['phone'].valid && signupForm.controls['phone'].touched">
+      <ion-item lines="none" color="transparent" class="error-message" *ngIf="!signupForm.controls['phone'].valid
+      && signupForm.controls['phone'].touched">
+      <div>    <ion-title class="error-message" >Please enter a valid phone number.</ion-title></div>
+    </ion-item>
       <input type="text"  placeholder="Physical address" formControlName="address">
         <input type="password" placeholder="Password" formControlName="password" [class.invalid]="!signupForm.controls['password'].valid && signupForm.controls['password'].touched">
         <ion-item lines="none"  color="transparent" class="error-message" *ngIf="!signupForm.controls['password'].valid  &&
@@ -32,7 +36,7 @@
 
         <input type="password" placeholder="Confirm Password">
         <div class="gridder">
-          <div (click)="signupUser(signupForm)">Sign up</div>
+          <ion-button [disabled]="!signupForm.valid" (click)="signupUser(signupForm)">Sign up</ion-button>
         </div>
       </form>
     </div>

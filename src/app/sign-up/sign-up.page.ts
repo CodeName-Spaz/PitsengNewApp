@@ -20,6 +20,7 @@ export class SignUpPage implements OnInit {
   name;
   email;
   image;
+  myArr = [];
   constructor(
     private authService: AuthService,
     private loadingCtrl: LoadingController,
@@ -59,7 +60,13 @@ export class SignUpPage implements OnInit {
       })
     },0)
   }
- 
+  phone(ev) { 
+    if (ev.detail.data===null) {
+     this.myArr.splice(this.myArr.lastIndexOf(this.myArr[this.myArr.length-1]));
+   } else {
+     this.myArr.push(ev.detail.data)
+   }
+ }
 
   changeListener(event): void {
     const i = event.target.files[0];

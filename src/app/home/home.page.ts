@@ -97,7 +97,7 @@ export class HomePage implements OnInit {
       snapshot.forEach(item => {
         this.myProduct.push(item.data())
       })
-      console.log("Current rate for the product ", this.myReviews);
+      // console.log("Current rate for the product ", this.myReviews);
 
     })
   }
@@ -432,7 +432,7 @@ export class HomePage implements OnInit {
   }
   getTotal() {
     let total = 0;
-    for (let i = 0; i < this.prodCart.length;) {
+    for (let i = 0; i < this.prodCart.length;i++) {
       let product = this.prodCart[i].data.product;
       // this.myOrder = product;
       product.forEach((item) => {
