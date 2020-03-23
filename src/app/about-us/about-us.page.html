@@ -115,7 +115,7 @@
         </ion-list>
       </div>
       <div>
-        <ion-button (click)="addMessage()">Submit</ion-button>
+        <ion-button [disabled]="!message" (click)="addMessage()">Submit</ion-button>
       </div>
 
     </div>
