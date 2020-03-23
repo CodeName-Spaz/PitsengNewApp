@@ -218,7 +218,7 @@ export class ItemViewPage implements OnInit {
         this.reviews.push(doc.data());
       })
 
-      this.avgRating = this.ratingTotal / this.reviews.length;
+      this.avgRating = Math.round(this.ratingTotal / this.reviews.length);
       console.log("Product Star Ratings ", this.avgRating);
       return firebase.firestore().collection('Products').doc(id).update({
         avgRating: this.avgRating
