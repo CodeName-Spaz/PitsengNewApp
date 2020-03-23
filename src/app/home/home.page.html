@@ -349,9 +349,9 @@
             <i>Please Note: You can collect your items at any time
             </i></p>
           <ion-button color="transparent" [disabled]="!delType" (click)="placeOrder()">
-            <div *ngIf="delType==='Delivery'" (click)="placeOrder()"> PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div>
-            <div *ngIf="delType==='Collection'" (click)="placeOrder()">PLACE ORDER ({{notDelivery(getTotal()) | currency:'R'}})</div>
-            <div *ngIf="!delType" (click)="placeOrder()">PLACE ORDER</div>
+            <div *ngIf="delType==='Delivery'"> PLACE ORDER ({{Delivery(getTotal()) | currency:'R'}}) </div>
+            <div *ngIf="delType==='Collection'">PLACE ORDER ({{notDelivery(getTotal()) | currency:'R'}})</div>
+            <div *ngIf="!delType">PLACE ORDER</div>
           </ion-button>
         </div>
       </div>

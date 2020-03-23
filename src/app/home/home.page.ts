@@ -142,9 +142,9 @@ export class HomePage implements OnInit {
             this.prodCart = [];
             // this.totalCost = 0;
             info.forEach((doc) => {
-              doc.data().product.forEach((z) => {
+              /* doc.data().product.forEach((z) => {
                 this.myOrder.push(z)
-              })
+              }) */
               this.prodCart.push({ data: doc.data(), id: doc.id });
             })
           })
@@ -388,6 +388,8 @@ export class HomePage implements OnInit {
   }
   placeOrder() {
     let docname = 'PITSENG' + new Date().getTime();
+    console.log("my order ", this.myOrder);
+    
     this.dbOrder.doc(docname).set({
       product: this.myOrder, timestamp: new Date().getTime(), status: 'received', userID: firebase.auth().currentUser.uid, totalPrice: this.getTotal(),
       deliveryType: this.delType, deliveryCost: this.delCost
@@ -430,8 +432,10 @@ export class HomePage implements OnInit {
     let total = 0;
     for (let i = 0; i < this.prodCart.length; i++) {
       let product = this.prodCart[i].data.product;
+      // this.myOrder = product;
       product.forEach((item) => {
         total += (item.cost * item.quantity);
+        this.myOrder.push(item);
       })
       //
     }
