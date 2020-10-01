@@ -163,7 +163,7 @@
         </ion-button>
 
         <ion-button (click)="addToCart()" class="wishes">
-          Add to Bag {{getTotal() | currency:"R"}}
+          Add to Bag {{getTot() | currency:"R"}}
         </ion-button>
       </div>
     </div>
@@ -211,7 +211,7 @@
 
     <div class="add">
       <ion-button color="transparent" (click)="addToCart()">
-        ADD TO BAG {{getTotal() | currency:"R"}}
+        ADD TO BAG {{getTot() | currency:"R"}}
       </ion-button>
     </div>
   </div>

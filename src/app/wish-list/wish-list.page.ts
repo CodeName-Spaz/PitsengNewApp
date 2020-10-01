@@ -10,10 +10,11 @@ import { NavigationExtras } from '@angular/router';
 export class WishListPage implements OnInit {
   dbWishlist = firebase.firestore().collection('Wishlist');
   dbProfile = firebase.firestore().collection('UserProfile');
+  dbProduct = firebase.firestore().collection('Products');
   myWish = [];
   myArr = [];
   cart = [];
-  itemChecked : boolean;
+  itemChecked: boolean;
   prodId;
   prod_image;
   prod_name;
@@ -22,7 +23,7 @@ export class WishListPage implements OnInit {
   category;
   desc
   quantity: number;
-  constructor(public alertCtrl : AlertController, public navCtrl : NavController, public toastCtrl: ToastController) { }
+  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public toastCtrl: ToastController) { }
 
   ngOnInit() {
     this.checkUser();
@@ -36,7 +37,7 @@ export class WishListPage implements OnInit {
     // this.event.quantity = this.currentNumber
   }
   delete(id) {
-    this.dbWishlist.doc(id).delete().then((res) => {
+    this.dbProfile.doc(firebase.auth().currentUser.uid).collection('wishlists').doc(id).delete().then((res) => {
     })
   }
   check(ev, id) {
@@ -45,7 +46,7 @@ export class WishListPage implements OnInit {
     this.prodId = id;
     console.log(this.prodId);
   }
-  closeWish(){
+  closeWish() {
     this.navCtrl.pop();
   }
   decrement(p) {
@@ -56,11 +57,11 @@ export class WishListPage implements OnInit {
     return this.currentNumber;
   }
 
-  
+
   addToCart(productCode) {
-    
+
     console.log(productCode);
-  
+
     // let wish = firebase.firestore().collection('Wishlist')
     // let increment: number = 0
     // wish.where('productCode', '==', productCode).get().then((snapshot => {
@@ -70,7 +71,7 @@ export class WishListPage implements OnInit {
     //     increment = data.data().quantity + this.quantity
     //     wish.doc(data.id).set({quantity: increment }, {merge: true});
     //     console.log('items increment by one');
-        
+
     //   })
     // }else{
     //   firebase.firestore().collection("WishList").onSnapshot(data => {
@@ -97,11 +98,11 @@ export class WishListPage implements OnInit {
 
   }
 
-  async CheckBoxes(obj){
+  async CheckBoxes(obj) {
     console.log(obj)
-          
-    }
-    
+
+  }
+
   checkUser() {
     setTimeout(() => {
       firebase.auth().onAuthStateChanged((user) => {
@@ -134,33 +135,50 @@ export class WishListPage implements OnInit {
           // this.alertView = this.localSt.retrieve('alertShowed');
           // console.log('My data ',this.alertView);
           // if (this.localSt.retrieve('alertShowed') !== true) {
-            this.presentAlertConfirm1();
-          // }
+          this.presentAlertConfirm1();
+          // }9
         }
       })
     }, 0);
   }
   viewProduct(val) {
     // if (this.itemChecked === true) {
+    let image;
+    let imageBack;
+    let imageSide;
+    let imageTop;
+    let item;
+    let name;
+    let sizes;
+    let description;
+    let productCode;
+    let category;
+    let price;
+
+    this.dbProduct.doc(val.id).onSnapshot((doc) => {
+
       let navigationExtras: NavigationExtras = {
-      queryParams: {
-        id: val.id,
-        image: val.info.image,
-        imageBack: val.info.imageBack,
-        imageSide: val.info.imageSide,
-        imageTop: val.info.imageTop,
-        item: val.info.item,
-        name: val.info.name,
-        sizes: val.info.sizes,
-        description: val.info.description,
-        productCode: val.info.productCode,
-        category: val.info.category,
-        price: val.info.price
-      }
-    };
-    this.navCtrl.navigateForward(['/item-view'], navigationExtras).then(()=>{
+        queryParams: {
+          id: val.id,
+          image: doc.data().image,
+          imageBack: doc.data().imageBack,
+          imageSide: doc.data().imageSide,
+          imageTop: doc.data().imageTop,
+          // item: val.info.item,
+          name: doc.data().name,
+          sizes: doc.data().sizes,
+          description: doc.data().description,
+          productCode: productCode,
+          category: doc.data().category,
+          price: doc.data().price
+        }
+      };
+
+      this.navCtrl.navigateForward(['/item-view'], navigationExtras).then(() => {
+       
+      });
       this.delete(val.id);
-    });
+    })
     // } 
   }
   async presentAlertConfirm1() {
