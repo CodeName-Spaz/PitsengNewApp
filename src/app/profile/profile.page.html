@@ -8,7 +8,7 @@
   <div class="content-container">
   <div class="banner">
     <div class="dpHolder">
-      <img src="{{profile.image}}" id="userDP" alt="">
+      <img src="{{profile.image}}" *ngIf="profile.image" id="userDP" alt="">
       <img src="../../assets/imgs/1511539.jpg" *ngIf="!profile.image" id="userDP" alt="">
     </div>
     <img src="../../assets/imgs/514275.jpg" id="userBanner" alt="">

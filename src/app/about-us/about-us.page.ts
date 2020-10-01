@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import * as firebase from 'firebase';
@@ -27,6 +28,22 @@ export class AboutUsPage implements OnInit {
     subject: '',
     message:''
  }
+  aboutForm = new FormGroup({
+    fullName: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.email),
+    subject: new FormControl('', Validators.required),
+    msg: new FormControl('', Validators.minLength(20)),
+  })
+//  aboutForm = F.group({
+//   firstName: [''],
+//   lastName: [''],
+//   address: this.fb.group({
+//     street: [''],
+//     city: [''],
+//     state: [''],
+//     zip: ['']
+//   }),
+// });
  myProduct = false;
   constructor(private router: Router,  public modalController: ModalController,public toastCtrl: ToastController) { 
     this.adminInfo();

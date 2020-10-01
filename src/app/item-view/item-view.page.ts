@@ -61,7 +61,7 @@ export class ItemViewPage implements OnInit {
   loaderMessages = 'Loading...';
   loaderAnimate: boolean = true;
   prodCode;
-
+  
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     setTimeout(() => {
       this.route.queryParams.subscribe(params => {
@@ -76,6 +76,7 @@ export class ItemViewPage implements OnInit {
         this.category = params["category"];
         this.productCode = params["productCode"];
         this.prod_name = params["name"];
+        this.avgRating = params["avgRating"];
       })
        this.dbProfile.doc(firebase.auth().currentUser.uid).collection('wishlists').doc(this.prod_id).onSnapshot((doc)=>{
         if (doc.exists) {
@@ -143,8 +144,8 @@ export class ItemViewPage implements OnInit {
     })
   }
   star(num, code) {
-    console.log('hh', num, code)
-
+    // console.log('hh', num, code)
+    
     firebase.firestore().collection('Reviews').where('uid', '==', firebase.auth().currentUser.uid).where('productCode', '==', code).onSnapshot(snapshot => {
       if (snapshot.size > 0) {
         console.log('update');
@@ -159,7 +160,13 @@ export class ItemViewPage implements OnInit {
         this.getRatings(code, this.prod_id)
       }
     });
-
+    // firebase.auth().onAuthStateChanged((user) => {
+    //   if (user) {
+        
+    //   } else {
+    //     this.presentAlertConfirm1();
+    //   }
+    // })
   }
   showPictures(data) {
     this.prod_id = data.id;
@@ -254,20 +261,9 @@ export class ItemViewPage implements OnInit {
   getWishItems() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.dbWishlist.doc(this.prod_id).onSnapshot((res) => {
-          if (res.exists === true) {
-            if (res.data().customerUID === user.uid) {
-              this.onWish = "heart";
-            } else {
-              this.onWish = "heart-outline";
-            }
-          } else {
-
-          }
-        })
-        this.dbWishlist.where('customerUID', '==', user.uid).onSnapshot((res) => {
+        this.dbProfile.doc(user.uid).collection('wishlists').onSnapshot((res) => {
           this.myWish = [];
-          res.forEach((doc) => {
+           res.forEach((doc) => {
             this.itemAvailable = [];
             this.dbProduct.doc(doc.id).onSnapshot((data) => {
               if (data.data().hideItem === true) {
@@ -277,7 +273,7 @@ export class ItemViewPage implements OnInit {
               }
             })
             this.myWish.push({ info: doc.data(), id: doc.id });
-          })
+           })
         })
         this.dbCart.where('customerUID', '==', user.uid).onSnapshot((info) => {
           // this.cartCount = info.size;

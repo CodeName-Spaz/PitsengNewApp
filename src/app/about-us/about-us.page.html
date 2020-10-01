@@ -93,32 +93,34 @@
   </div>
   <div class="leave_message">
     <ion-label class="heading">Leave Us a Message</ion-label>
-    <div class="messageInputs">
 
 
-      <ion-item color="light">
-        <ion-input type="text" [(ngModel)]="message.fullname" placeholder="Full Names" required></ion-input>
-      </ion-item>
+    <form [formGroup]="aboutForm" class="messageInputs">
+
+
+      <ion-item color="light"> 
+        <ion-input type="text" [(ngModel)]="message.fullname" formControlName="fullName" placeholder="Full Names" required></ion-input>
+      </ion-item> 
       <ion-item>
-        <ion-input type="email" [(ngModel)]="message.email" placeholder="Email Address" required>
+        <ion-input type="email" [(ngModel)]="message.email" formControlName="email" placeholder="Email Address" required>
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="text" [(ngModel)]="message.subject" placeholder="Enter subject" required>
+        <ion-input type="text" [(ngModel)]="message.subject" formControlName="subject" placeholder="Enter subject" required>
         </ion-input>
       </ion-item>
       <div>
         <ion-list>
           <ion-item>
-            <ion-textarea name="" [(ngModel)]="message.message" id="" placeholder="Message" required></ion-textarea>
+            <ion-textarea name="" [(ngModel)]="message.message" formControlName="msg" id="" placeholder="Message...more than 20 characters" required></ion-textarea>
           </ion-item>
         </ion-list>
       </div>
       <div>
-        <ion-button [disabled]="!message" (click)="addMessage()">Submit</ion-button>
+        <ion-button [disabled]="!aboutForm.valid" (click)="addMessage()">Submit</ion-button>
       </div>
 
-    </div>
+    </form>
     <div>
 
     </div>

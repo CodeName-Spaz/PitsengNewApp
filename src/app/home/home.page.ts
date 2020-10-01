@@ -382,7 +382,8 @@ export class HomePage implements OnInit {
         description: val.data.description,
         productCode: val.data.productCode,
         category: val.data.category,
-        price: val.data.price
+        price: val.data.price,
+        avgRating : val.data.avgRating
       }
     };
     console.log(val);
