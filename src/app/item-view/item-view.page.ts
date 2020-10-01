@@ -42,6 +42,7 @@ export class ItemViewPage implements OnInit {
   sizeIndex = null;
   dbCart = firebase.firestore().collection("Cart");
   dbWishlist = firebase.firestore().collection("Wishlist");
+  dbProfile = firebase.firestore().collection('UserProfile');
   category;
   onWish = "heart-outline";
   imageBack: any;
@@ -59,26 +60,52 @@ export class ItemViewPage implements OnInit {
   delType: string;
   loaderMessages = 'Loading...';
   loaderAnimate: boolean = true;
+  prodCode;
+
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
-    this.route.queryParams.subscribe(params => {
-      this.prod_id = params["id"];
-    })
+    setTimeout(() => {
+      this.route.queryParams.subscribe(params => {
+        this.prod_id = params["id"];
+        this.prod_image = params["image"];
+        this.imageTop = params["imageTop"];
+        this.imageSide = params["imageSide"];
+        this.imageBack = params["imageBack"];
+        this.sizes = params["sizes"];
+        this.desc = params["description"];
+        this.price = params["price"];
+        this.category = params["category"];
+        this.productCode = params["productCode"];
+        this.prod_name = params["name"];
+      })
+       this.dbProfile.doc(firebase.auth().currentUser.uid).collection('wishlists').doc(this.prod_id).onSnapshot((doc)=>{
+        if (doc.exists) {
+          this.onWish = "heart";    
+        } else {
+          this.onWish = "heart-outline";
+        }
+      })
+    }, 3000);
   }
 
   ngOnInit() {
-    this.getProduct(this.prod_id);
+    // this.getProduct(this.prod_id);
+    
+    
     setTimeout(() => {
       this.mostViewed();
       this.getWishItems();
-    }, 1000);
-    
+    }, 2000);
+   
     // this.getRatings()
     this.yudsegment = "like";
-
+    // console.log(this.desc);
+    
     setTimeout(() => {
+     
       this.loaderAnimate = false;
-    }, 4000);
+    }, 3000);
   }
+  
   mostViewed() {
     this.dbProduct.orderBy('viewed', 'desc').limit(4).onSnapshot((res) => {
       this.similarItems = [];
@@ -107,7 +134,7 @@ export class ItemViewPage implements OnInit {
 
   viewProd(id) {
     // if (this.itemChecked === true) {
-    this.getProduct(id);
+    // this.getProduct(id);
     this.reviewed();
     // } 
   }
@@ -136,7 +163,7 @@ export class ItemViewPage implements OnInit {
   }
   showPictures(data) {
     this.prod_id = data.id;
-    this.getProduct(data.id)
+    // this.getProduct(data.id)
     /* this.prod_name = data.info.name;
     this.prod_image = data.info.image;
     this.imageTop = data.info.imageTop;
@@ -183,26 +210,26 @@ export class ItemViewPage implements OnInit {
       })
     })
   }
-  getProduct(id) {
-    this.dbProduct.doc(id).onSnapshot((doc) => {
-      this.prod_image = doc.data().image;
-      this.prod_name = doc.data().name;
-      // this.prod_image = params["image"];
-      this.sizes = doc.data().sizes;
-      this.desc = doc.data().description;
-      this.price = doc.data().price;
-      this.category = doc.data().category;
-      this.imageBack = doc.data().imageBack;
-      this.imageSide = doc.data().imageSide;
-      this.imageTop = doc.data().imageTop;
-      this.productCode = doc.data().productCode;
-      this.onSale = doc.data().onSale;
-      this.salePrice = doc.data().salePrice;
-      this.discount = doc.data().percentage;
-      this.avgRating = doc.data().avgRating;
-      // this.getRatings(doc.data().productCode, id)
-    })
-  }
+  // getProduct(id) {
+  //   this.dbProduct.doc(id).onSnapshot((doc) => {
+  //     this.prod_image = doc.data().image;
+  //     this.prod_name = doc.data().name;
+  //     // this.prod_image = params["image"];
+  //     this.sizes = doc.data().sizes;
+  //     this.desc = doc.data().description;
+  //     this.price = doc.data().price;
+  //     this.category = doc.data().category;
+  //     this.imageBack = doc.data().imageBack;
+  //     this.imageSide = doc.data().imageSide;
+  //     this.imageTop = doc.data().imageTop;
+  //     this.productCode = doc.data().productCode;
+  //     this.onSale = doc.data().onSale;
+  //     this.salePrice = doc.data().salePrice;
+  //     this.discount = doc.data().percentage;
+  //     this.avgRating = doc.data().avgRating;
+  //     // this.getRatings(doc.data().productCode, id)
+  //   })
+  // }
 
   getRatings(code, id) {
     console.log('i am running');
@@ -504,34 +531,34 @@ export class ItemViewPage implements OnInit {
     await alert.present();
   }
 
-  wishListAdd() {
+  wishListAdd(image, category, pname, price) {
 
     setTimeout(() => {
       firebase.auth().onAuthStateChanged((res1) => {
         if (res1) {
-          // this.heartIndex = index;
-          this.dbWishlist.doc(this.prod_id).get().then((res) => {
+          // // this.heartIndex = index;
+          this.dbProfile.doc(res1.uid).collection('wishlists').doc(this.prod_id).get().then((res) => {
             if (res.exists == true) {
               if (res.data().customerUID === res1.uid) {
-                this.dbWishlist.doc(res.id).delete().then((res) => {
+                this.dbProfile.doc(res1.uid).collection('wishlists').doc(this.prod_id).delete().then((res) => {
                   this.toastController('Removed from wishlist..');
                   this.onWish = "heart-outline";
                 })
-              } else {
-                console.log("uid not found, unable to delete");
-
               }
             } else {
-              this.dbWishlist.doc(this.prod_id).set({
-                customerUID: firebase.auth().currentUser.uid, price: this.price,
-                image: this.prod_image, name: this.prod_name, id: this.prod_id, category: this.category, productCode: this.productCode,
-                description: this.desc
+              this.dbProfile.doc(res1.uid).collection('wishlists').doc(this.prod_id).set({
+                category: category, customerUID: res1.uid,
+                id: this.prod_id, image: image,
+                name: pname, price: price,
+                productCode : this.productCode
               }).then(() => {
+                this.onWish = "heart";
                 // this.myProduct[index].wish = 'heart';
                 this.toastController('Added to wishlist..');
               })
             }
           })
+         
         } else {
           // this.alertView = this.localSt.retrieve('alertShowed');
           this.presentAlertConfirm1();

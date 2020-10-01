@@ -95,12 +95,12 @@
           </ion-slide>
 
           <ion-slide>
-            <img src="{{imageTop}}" />
+            <img src="{{imageBack}}" />
           </ion-slide>
         </ion-slides>
 
         <div class="wishlist">
-          <ion-fab-button color="transparent" (click)="wishListAdd()">
+          <ion-fab-button color="transparent" (click)="wishListAdd(prod_image, category, prod_name, price)">
             <ion-icon name="{{onWish}}"></ion-icon>
           </ion-fab-button>
         </div>
@@ -163,7 +163,7 @@
         </ion-button>
 
         <ion-button (click)="addToCart()" class="wishes">
-          Add to Bag {{getTot() | currency:"R"}}
+          Add to Bag {{getTotal() | currency:"R"}}
         </ion-button>
       </div>
     </div>

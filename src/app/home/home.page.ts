@@ -145,7 +145,7 @@ export class HomePage implements OnInit {
             info.forEach((doc) => {
               doc.data().product.forEach((z) => {
                 this.myOrder.push(z)
-              }) 
+              })
               // this.myOrder = doc.data().product;
               this.prodCart.push({ data: doc.data(), id: doc.id });
             })
@@ -270,8 +270,8 @@ export class HomePage implements OnInit {
   visitWish() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.dbWishlist.where('customerUID', '==', user.uid).onSnapshot((info) => {
-          if (info.size == 0) {
+        this.dbProfile.doc(user.uid).collection('wishlists').onSnapshot((info) => {
+          if (info.size === 0) {
             this.presentAlert('Wishlist');
           } else {
             this.navCtrl.navigateForward('wish-list');
@@ -372,26 +372,27 @@ export class HomePage implements OnInit {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         id: val.id,
-        //image: val.data.image,
-        // imageBack: val.data.imageBack,
-        // imageSide: val.data.imageSide,
-        // imageTop: val.data.imageTop,
-        // item: val.data.item,
-        // name: val.data.name,
-        // sizes: val.data.sizes,
-        // description: val.data.description,
-        // productCode: val.data.productCode,
-        // category: val.data.category,
-        // price: val.data.price
+        image: val.data.image,
+        imageBack: val.data.imageBack,
+        imageSide: val.data.imageSide,
+        imageTop: val.data.imageTop,
+        item: val.data.item,
+        name: val.data.name,
+        sizes: val.data.sizes,
+        description: val.data.description,
+        productCode: val.data.productCode,
+        category: val.data.category,
+        price: val.data.price
       }
     };
-
+    console.log(val);
+    
     this.navCtrl.navigateForward(['/item-view'], navigationExtras);
   }
   placeOrder() {
     let docname = 'PITSENG' + new Date().getTime();
     console.log("my order ", this.myOrder);
-    
+
     this.dbOrder.doc(docname).set({
       product: this.myOrder, timestamp: new Date().getTime(), status: 'received', userID: firebase.auth().currentUser.uid, totalPrice: this.getTotal(),
       deliveryType: this.delType, deliveryCost: this.delCost
@@ -432,12 +433,12 @@ export class HomePage implements OnInit {
   }
   getTotal() {
     let total = 0;
-    for (let i = 0; i < this.prodCart.length;i++) {
+    for (let i = 0; i < this.prodCart.length; i++) {
       let product = this.prodCart[i].data.product;
       // this.myOrder = product;
       product.forEach((item) => {
         total += (item.cost * item.quantity);
-        
+
       })
       //
       // this.myOrder = product;

@@ -9,6 +9,7 @@ import { NavigationExtras } from '@angular/router';
 })
 export class WishListPage implements OnInit {
   dbWishlist = firebase.firestore().collection('Wishlist');
+  dbProfile = firebase.firestore().collection('UserProfile');
   myWish = [];
   myArr = [];
   cart = [];
@@ -103,9 +104,9 @@ export class WishListPage implements OnInit {
     
   checkUser() {
     setTimeout(() => {
-      firebase.auth().onAuthStateChanged((res) => {
-        if (res) {
-          this.dbWishlist.where('customerUID', '==', res.uid).onSnapshot((res) => {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          this.dbProfile.doc(user.uid).collection('wishlists').onSnapshot((res) => {
             this.myWish = [];
             res.forEach((doc) => {
               // if (doc.data().brand === "Specials") {
@@ -139,15 +140,26 @@ export class WishListPage implements OnInit {
       })
     }, 0);
   }
-  viewProduct(id) {
+  viewProduct(val) {
     // if (this.itemChecked === true) {
       let navigationExtras: NavigationExtras = {
       queryParams: {
-        id: id,
+        id: val.id,
+        image: val.info.image,
+        imageBack: val.info.imageBack,
+        imageSide: val.info.imageSide,
+        imageTop: val.info.imageTop,
+        item: val.info.item,
+        name: val.info.name,
+        sizes: val.info.sizes,
+        description: val.info.description,
+        productCode: val.info.productCode,
+        category: val.info.category,
+        price: val.info.price
       }
     };
     this.navCtrl.navigateForward(['/item-view'], navigationExtras).then(()=>{
-      this.delete(id);
+      this.delete(val.id);
     });
     // } 
   }

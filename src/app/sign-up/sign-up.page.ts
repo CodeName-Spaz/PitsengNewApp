@@ -67,7 +67,9 @@ export class SignUpPage implements OnInit {
      this.myArr.push(ev.detail.data)
    }
  }
-
+ gotoLogin() {
+   this.navCtrl.navigateBack('login');
+ }
   changeListener(event): void {
     const i = event.target.files[0];
     console.log(i);

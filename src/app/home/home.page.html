@@ -45,13 +45,13 @@
       <ion-icon name="home"></ion-icon>
     </div>
     <!-- <div>{{productName}}</div> -->
-<div></div>
+    <div></div>
     <ion-button fill="clear" class="notification" (click)="visitWish()">
       <ion-icon slot="icon-only" name="heart"></ion-icon>
       <span class="badge"></span>
     </ion-button>
 
-    <ion-button  fill="clear"  class="notification" (click)="visitCart()">
+    <ion-button fill="clear" class="notification" (click)="visitCart()">
       <ion-icon slot="icon-only" name="basket"></ion-icon>
       <span class="badge"></span>
     </ion-button>
@@ -61,7 +61,7 @@
     </div>
 
   </div>
-  <div id="options">   
+  <div id="options">
     <div class="menu-item" *ngIf="menuOpen == true">
       <div routerLink="/home">HOME</div>
       <div (click)="visitProfile()">PROFILE</div>
@@ -245,19 +245,19 @@
         </div>
         <div class="text">
           <p *ngIf="p.data.onSale===true"> {{p.data.name}} <br>
-            <span style="text-decoration: line-through;color: red "> {{ p.data.price | currency:"R"}} </span> 
+            <span style="text-decoration: line-through;color: red "> {{ p.data.price | currency:"R"}} </span>
             <span>{{ p.data.salePrice | currency:"R"}}</span></p>
 
           <p *ngIf="p.data.onSale===false"> {{p.data.name}} <br>
             <span>{{p.data.price | currency:"R"}}</span> <br>
-          <span class="starz">
-            <ion-icon [name]="p.data.avgRating>1 ? 'star' : 'star-outline'"></ion-icon>
-            <ion-icon [name]="p.data.avgRating>2 ? 'star' : 'star-outline'"></ion-icon>
-            <ion-icon [name]="p.data.avgRating>3 ? 'star' : 'star-outline'"></ion-icon>
-            <ion-icon [name]="p.data.avgRating>4 ? 'star' : 'star-outline'"></ion-icon>
-            <ion-icon [name]="p.data.avgRating>5 ? 'star' : 'star-outline'"></ion-icon>
-          </span>
-          </p >
+            <span class="starz">
+              <ion-icon [name]="p.data.avgRating>1 ? 'star' : 'star-outline'"></ion-icon>
+              <ion-icon [name]="p.data.avgRating>2 ? 'star' : 'star-outline'"></ion-icon>
+              <ion-icon [name]="p.data.avgRating>3 ? 'star' : 'star-outline'"></ion-icon>
+              <ion-icon [name]="p.data.avgRating>4 ? 'star' : 'star-outline'"></ion-icon>
+              <ion-icon [name]="p.data.avgRating>5 ? 'star' : 'star-outline'"></ion-icon>
+            </span>
+          </p>
 
         </div>
       </div>
@@ -465,7 +465,7 @@
           </div>
         </div>
 
-        
+
 
 
 
@@ -480,7 +480,7 @@
         </p>
 
       </div>
-      <div class="orders" *ngIf="orderHistory" >
+      <div class="orders" *ngIf="orderHistory">
 
         <div class="card" *ngFor="let hstry of History">
           <div class="img">
@@ -537,7 +537,7 @@
       <div class="info">
         <h1>QUICK LINKS</h1>
         <ion-button color="transparent" (click)="createFaqs()">
-          <span >FAQs</span>
+          <span>FAQs</span>
         </ion-button>
         <ion-button color="transparent">
           <span>Terms and Privacy Policy</span>

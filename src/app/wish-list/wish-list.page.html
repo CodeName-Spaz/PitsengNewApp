@@ -12,7 +12,7 @@
       <div class="order-list" *ngFor="let w of myWish; let i = index">
         <div class="checkBox-add-to-cart" >
     
-          <ion-checkbox color="primary"  slot="start" [checked]="w.id.checked" (ionChange)="viewProduct(w.id); w.id.checked = !w.id.checked;"></ion-checkbox>
+          <ion-checkbox color="primary"  slot="start" [checked]="w.id.checked" (ionChange)="viewProduct(w); w.id.checked = !w.id.checked;"></ion-checkbox>
         </div>
         <div class="image-container">
           <img src="{{w.info.image}}" alt="">
@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="code">
-            <ion-label>HGUY52525</ion-label>
+            <ion-label>{{w.info.productCode}}</ion-label>
           </div>
           <div class="price">
             <ion-label>{{w.info.price | currency:'R'}}</ion-label>
