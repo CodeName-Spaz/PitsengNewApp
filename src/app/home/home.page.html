@@ -129,7 +129,7 @@
     </div>
     <!-- Skeleton Text -->
     <div class="cards" *ngIf="myProduct.length===0">
-      <div id="card" *ngIf="myProduct.length===0">
+      <!-- <div id="card" *ngIf="myProduct.length===0">
         <div class="image">
           <ion-thumbnail>
             <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
@@ -148,9 +148,9 @@
           </p>
 
         </div>
-      </div>
+      </div> -->
 
-      <div id="card" *ngIf="myProduct.length===0">
+      <!-- <div id="card" *ngIf="myProduct.length===0">
         <div class="image">
           <ion-thumbnail>
             <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
@@ -169,8 +169,21 @@
           </p>
 
         </div>
+      </div> -->
+      <div *ngIf="myProduct.length===0">
+        <ion-card>
+          <ion-card-header>
+            <!-- <ion-card-subtitle></ion-card-subtitle> -->
+            <ion-card-title>No item found</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+            Keep shopping with us, by checking other products
+          </ion-card-content>
+        </ion-card>
       </div>
-      <div id="card" *ngIf="myProduct.length===0">
+
+      <!-- <div id="card" *ngIf="myProduct.length===0">
         <div class="image">
           <ion-thumbnail>
             <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
@@ -189,9 +202,9 @@
           </p>
 
         </div>
-      </div>
+      </div> -->
 
-      <div id="card" *ngIf="myProduct.length===0">
+      <!-- <div id="card" *ngIf="myProduct.length===0">
         <div class="image">
           <ion-thumbnail>
             <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
@@ -210,28 +223,7 @@
           </p>
 
         </div>
-      </div>
-
-      <div id="card" *ngIf="myProduct.length===0">
-        <div class="image">
-          <ion-thumbnail>
-            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
-          </ion-thumbnail>
-
-        </div>
-        <div class="text" id="thumbnail">
-          <p>
-            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text> <br>
-            <span>
-              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
-            </span><br>
-            <span>
-              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
-            </span>
-          </p>
-
-        </div>
-      </div>
+      </div> -->
 
 
     </div>

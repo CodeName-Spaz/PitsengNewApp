@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { NavController, AlertController, LoadingController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController, Platform } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 // import Swal from 'sweetalert2';
 import {Location} from '@angular/common';
-
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import * as firebase from 'firebase'
 import { from } from 'rxjs';
 // import { RegisterPage } from '../register/register.page';
@@ -31,7 +31,10 @@ export class LoginPage implements OnInit {
     public modalController: ModalController,
     public alertController: AlertController,
     public loadingCtrl: LoadingController,
-    public location:Location
+    public location:Location,
+    private googlePlus: GooglePlus,
+    public plt : Platform
+
 
   ) { }
 
@@ -87,6 +90,13 @@ export class LoginPage implements OnInit {
       'dismissed': true
     });
   }
+  login() {
+    if (this.plt.is('cordova')) {
+      this.nativeGoogleLogin();
+    } else {
+      this.googleSignin()
+    }
+  }
   googleSignin() {
   /*   var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().getRedirectResult().then((result) => {
@@ -110,7 +120,22 @@ export class LoginPage implements OnInit {
       console.log(err)
     }
   }
-
+  async nativeGoogleLogin() {
+    //let credential = '';
+    try {
+      const gplusUser = await this.googlePlus.login({
+        'webClientId': '728167140242-7qj7uekpi05dpci0icv7u3rroeisjs3h.apps.googleusercontent.com',
+        'offline': true,
+        'scopes': 'profile email'
+      })
+       await firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)).then((i)=>{
+        //this.userProfile.doc(i.user.uid).set
+        this.router.navigateByUrl('create-account')
+       })
+    } catch(err) {
+      console.log('Error ',err)
+    }
+  }
 
   createAccount() {
     this.navCtrl.navigateForward('/sign-up');

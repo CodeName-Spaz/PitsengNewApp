@@ -19,7 +19,8 @@
             <div><label for="diplayPic">
                 <ion-icon name="camera"></ion-icon></label>
             </div>
-            <input type="file" id="diplayPic" style="display: none"  accept="image/*" multiple="false" (change)="changeListener($event)">
+            <input type="file" id="diplayPic" style="display: none" *ngIf="plt.is('cordova')"  accept="image/*" multiple="false" (change)="selectImage()">
+            <input type="file" id="diplayPic" style="display: none" *ngIf="plt.is('mobileweb')"  accept="image/*" multiple="false" (change)="changeListener($event)">
           </div>
         </div>
         <div class="section spacer">
