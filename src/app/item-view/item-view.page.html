@@ -189,7 +189,7 @@
       </div>
 
       <div class="reviewz" *ngSwitchCase="'review'">
-        <p class="starz1" *ngIf="!avgRating">
+        <p class="starz1" *ngIf="avgRating<=0">
           Rate this product <br>
 
           <ion-icon name="star-outline" (click)="star(1, productCode)"></ion-icon>&nbsp;
@@ -205,7 +205,7 @@
           </ion-button>
         </p>
 
-        <p class="starz1" *ngIf="avgRating">
+        <p class="starz1" *ngIf="avgRating>0">
          
             <ion-icon [name]="avgRating>1 ? 'star' : 'star-outline'"></ion-icon>
             <ion-icon [name]="avgRating>2 ? 'star' : 'star-outline'"></ion-icon>
