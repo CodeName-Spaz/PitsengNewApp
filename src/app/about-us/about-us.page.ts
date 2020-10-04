@@ -52,7 +52,7 @@ export class AboutUsPage implements OnInit {
 
   ngOnInit() {
     this.getAbout()
-    this.getServices()
+    // this.getServices()
   }
  
   async toastController(message) {

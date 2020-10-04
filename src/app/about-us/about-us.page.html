@@ -39,10 +39,39 @@
 
 
 <ion-content>
-  <div class="content">
+  <ion-slides pager="true" [options]="slideOpts">
+    <ion-slide *ngFor="let a of about">
+      <!-- <h1>Slide 1</h1> -->
+      <div class="image-section">
+        <img src="{{a.image}}" alt="">
+      </div>
+      <div class="description-section">
+     
+        <div>
+          <ion-label>{{a.subject}}</ion-label>
+        </div>
+        <div>
+          <p>{{a.message}}
+          </p>
+
+        </div>
+      </div>
+      <div style="margin-top: 30%;" >
+        <ion-title>{{a.name}}</ion-title>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 2</h1>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 3</h1>
+    </ion-slide>
+  </ion-slides>
+  <!-- <div class="content">
     <div class="main-cover">
-      <div class="whoWeAre" *ngFor="let a of about">
-        <!-- <ion-title>Contact Us</ion-title> -->
+  -->
+      <!-- <div class="whoWeAre" *ngFor="let a of about">
+       
         <div class="image-section">
           <img src="{{a.image}}" alt="">
         </div>
@@ -58,12 +87,12 @@
             </p>
 
           </div>
-        </div>
+        </div> -->
 
-      </div>
+      <!-- </div> -->
 
-      <div class="services" *ngFor="let s of service">
-        <!-- <ion-title>Contact Us</ion-title> -->
+      <!-- <div class="services" *ngFor="let s of service">
+      
         <div class="services-description-section">
           <div>
             <ion-title>{{s.service}}</ion-title>
@@ -85,12 +114,12 @@
           <img src="{{s.image}}" alt="">
 
         </div>
-      </div>
+      </div> -->
 
 
-    </div>
+    <!-- </div> -->
 
-  </div>
+  <!-- </div> -->
   <div class="leave_message">
     <ion-label class="heading">Leave Us a Message</ion-label>
 
