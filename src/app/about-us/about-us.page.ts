@@ -18,10 +18,10 @@ export class AboutUsPage implements OnInit {
   isabout = false;
   service: any= [];
   isservice = false;
-  user = {
-    uid: '',
-    email: firebase.auth().currentUser.email
-  }
+  // user = {
+  //   uid: '',
+  //   email: firebase.auth().currentUser.email
+  // }
   message = {
     fullname: '',
     email: '',

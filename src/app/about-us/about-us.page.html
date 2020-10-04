@@ -32,16 +32,44 @@
   </div>
 </ion-header>
 
-  <div class="top-nav">
+<div class="top-nav">
+  <div class="nav-grid">
+    <div (click)="goHome()">
+      <ion-icon name="home"></ion-icon>
+    </div>
+    <!-- <div>{{productName}}</div> -->
+    <div></div>
+    <ion-button fill="clear" class="notification" (click)="visitWish()">
+      <ion-icon slot="icon-only" name="heart"></ion-icon>
+      <span class="badge"></span>
+    </ion-button>
+
+    <ion-button fill="clear" class="notification" (click)="visitCart()">
+      <ion-icon slot="icon-only" name="basket"></ion-icon>
+      <span class="badge"></span>
+    </ion-button>
+
+    <div (click)="showMenu()">
+      <ion-icon name="{{menuBtn}}"></ion-icon>
+    </div>
 
   </div>
+  <div id="options">
+    <div class="menu-item" *ngIf="menuOpen == true">
+      <div routerLink="/home">HOME</div>
+      <div (click)="visitProfile()">PROFILE</div>
+      <div (click)="createFaqs()">FAQS</div>
+      <div (click)="openAboutUS()">ABOUT</div>
+    </div>
+  </div>
+</div>
 
 
 
 <ion-content>
+  
   <ion-slides pager="true" [options]="slideOpts">
     <ion-slide *ngFor="let a of about">
-      <!-- <h1>Slide 1</h1> -->
       <div class="image-section">
         <img src="{{a.image}}" alt="">
       </div>
@@ -56,7 +84,7 @@
 
         </div>
       </div>
-      <div style="margin-top: 30%;" >
+      <div>
         <ion-title>{{a.name}}</ion-title>
       </div>
     </ion-slide>
