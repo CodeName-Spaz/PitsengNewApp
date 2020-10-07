@@ -27,7 +27,7 @@ export class ProfilePage implements OnInit {
     uid: '',
     email: ''
   }
-
+  db = firebase.firestore();
   orderHistory = []
   constructor(public alertCtrl: AlertController, private router: Router, public navCtrl: NavController) {
     if (firebase.auth().currentUser) {
@@ -42,18 +42,18 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.admin.uid = user.uid
-        this.admin.email = user.email
-        this.getProfile();
-        this.GetOrders(user.uid);
-        this.getHistory();
-      } else {
-        console.log('no admin');
-      }
-    })
+
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          this.admin.uid = user.uid
+          this.admin.email = user.email
+          this.getProfile();
+          this.GetOrders(user.uid);
+          this.getHistory();
+        } else {
+          console.log('no admin');
+        }
+      })
     }, 1000);
 
     // this.GetOrders();
@@ -63,25 +63,19 @@ export class ProfilePage implements OnInit {
     this.navCtrl.navigateForward('/login');
   }
   popBack() {
-    this.navCtrl.pop();
+    this.navCtrl.navigateBack('home');
   }
   getProfile() {
-    firebase.firestore().collection('UserProfile').where('uid', '==', this.admin.uid).onSnapshot(snapshot => {
-      this.Profile = []
-      if (snapshot.empty) {
-        this.isprofile = false;
-      } else {
-        this.isprofile = true;
-        snapshot.forEach(doc => {
-          this.profile.image = doc.data().image;
-          this.profile.name = doc.data().name;
-          this.profile.number = doc.data().number;
-          this.profile.address = doc.data().address;
-          this.profile.email = doc.data().email;
-        })
-      }
+    this.db.collection('UserProfile').doc(firebase.auth().currentUser.uid).onSnapshot(doc => {
+
+      this.profile.image = doc.data().image;
+      this.profile.name = doc.data().name;
+      this.profile.number = doc.data().number;
+      this.profile.address = doc.data().address;
+      this.profile.email = doc.data().email;
     })
   }
+
 
   editProfile() {
     this.router.navigateByUrl('/edit-profile')

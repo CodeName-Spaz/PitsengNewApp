@@ -32,7 +32,7 @@ export class LoginPage implements OnInit {
     public alertController: AlertController,
     public loadingCtrl: LoadingController,
     public location:Location,
-    private googlePlus: GooglePlus,
+    // private googlePlus: GooglePlus,
     public plt : Platform
 
 
@@ -90,13 +90,13 @@ export class LoginPage implements OnInit {
       'dismissed': true
     });
   }
-  login() {
-    if (this.plt.is('cordova')) {
-      this.nativeGoogleLogin();
-    } else {
-      this.googleSignin()
-    }
-  }
+  // login() {
+  //   // if (this.plt.is('cordova')) {
+  //   //   this.nativeGoogleLogin();
+  //   // } else {
+  //     this.googleSignin()
+  //   // }
+  // }
   googleSignin() {
   /*   var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().getRedirectResult().then((result) => {
@@ -120,22 +120,22 @@ export class LoginPage implements OnInit {
       console.log(err)
     }
   }
-  async nativeGoogleLogin() {
-    //let credential = '';
-    try {
-      const gplusUser = await this.googlePlus.login({
-        'webClientId': '728167140242-7qj7uekpi05dpci0icv7u3rroeisjs3h.apps.googleusercontent.com',
-        'offline': true,
-        'scopes': 'profile email'
-      })
-       await firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)).then((i)=>{
-        //this.userProfile.doc(i.user.uid).set
-        this.router.navigateByUrl('create-account')
-       })
-    } catch(err) {
-      console.log('Error ',err)
-    }
-  }
+  // async nativeGoogleLogin() {
+  //   //let credential = '';
+  //   try {
+  //     const gplusUser = await this.googlePlus.login({
+  //       'webClientId': '728167140242-7qj7uekpi05dpci0icv7u3rroeisjs3h.apps.googleusercontent.com',
+  //       'offline': true,
+  //       'scopes': 'profile email'
+  //     })
+  //      await firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)).then((i)=>{
+  //       //this.userProfile.doc(i.user.uid).set
+  //       this.router.navigateByUrl('create-account')
+  //      })
+  //   } catch(err) {
+  //     console.log('Error ',err)
+  //   }
+  // }
 
   createAccount() {
     this.navCtrl.navigateForward('/sign-up');

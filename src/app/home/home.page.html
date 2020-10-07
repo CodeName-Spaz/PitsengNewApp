@@ -413,7 +413,7 @@
 
     <div class='inputs' *ngIf="showInputs">
       <ion-input type="text" [(ngModel)]="profile.name" placeholder="Name"></ion-input>
-      <ion-input type="text" [(ngModel)]="profile.email" placeholder="Email"></ion-input>
+      <ion-input type="text" [(ngModel)]="profile.email" placeholder="Email" readonly></ion-input>
       <ion-input type="text" [(ngModel)]="profile.number" placeholder="Number"></ion-input>
       <ion-input type="text" [(ngModel)]="profile.address" placeholder="Address"></ion-input>
       <ion-input type="file" id="file" (change)="changeListener($event)"></ion-input>
