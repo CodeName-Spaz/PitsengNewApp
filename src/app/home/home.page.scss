@@ -1506,7 +1506,7 @@ ion-header {
   }
   ion-toolbar {
     .navigation-bar-upper-section {
-      display: flex;
+      // display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -1515,7 +1515,7 @@ ion-header {
       justify-content: baseline;
       justify-self: center;
       .logo {
-        width: 15vw;
+        width: 17vw;
         margin: 10px;
         img {
           object-fit: cover;
