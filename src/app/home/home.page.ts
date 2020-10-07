@@ -58,6 +58,9 @@ export class HomePage implements OnInit {
     Rating: 0
   }
   avgRating = 0
+  inventory: Array<any> = [];
+  searchedItems: Array<any> = [];
+  searchtxt: any;
   // router: any;
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, private router: Router, public modalController: ModalController,
     public toastCtrl: ToastController) { }
@@ -73,6 +76,38 @@ export class HomePage implements OnInit {
 
 
   }
+  clearSearch(ev) {
+    // console.log('my ev', ev.returnValue);
+    if (ev.returnValue===true) {
+      this.getProductsbyCategory('Deco')
+    }
+  }
+  searchProducts(event) {
+    this.searchtxt = event.target.value;
+     console.log(event);
+    if (this.searchtxt === '') {
+      this.getProductsbyCategory('Deco')
+    } else {
+      let query = event.target.value.trim();
+      this.dbProduct.onSnapshot((res) => {
+        this.inventory = [];
+        res.forEach((doc) => {
+          this.inventory.push({ id: doc.id, data: doc.data() })
+        })
+      })
+
+      setTimeout(() => {
+        this.searchedItems = this.inventory.filter(item => item.data.name.toLowerCase().indexOf(query.toLowerCase()) >= 0)
+      }, 1000);
+    }
+
+    // let query = event.target.value.trim()
+    // this.searchedItems = this.inventory.filter( item => item.data.name.toLowerCase().indexOf(query.toLowerCase()) >= 0 )
+
+    // this.searchResults = event.target.value;
+    console.log(this.searchedItems);
+  }
+
   goHome() {
     this.navCtrl.navigateRoot('/home')
   }
@@ -238,7 +273,7 @@ export class HomePage implements OnInit {
       };
 
       this.navCtrl.navigateForward(['/item-view'], navigationExtras).then(() => {
-       
+
       });
       this.delete(val.id);
     })
@@ -373,7 +408,7 @@ export class HomePage implements OnInit {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.navCtrl.navigateForward('profile');
-      }else {
+      } else {
         this.presentAlertConfirm1();
       }
     })
@@ -411,11 +446,11 @@ export class HomePage implements OnInit {
         productCode: val.data.productCode,
         category: val.data.category,
         price: val.data.price,
-        avgRating : val.data.avgRating
+        avgRating: val.data.avgRating
       }
     };
     // console.log(val);
-    
+
     this.navCtrl.navigateForward(['/item-view'], navigationExtras);
   }
   placeOrder() {

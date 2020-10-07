@@ -1,18 +1,16 @@
 <ion-header id="web">
   <ion-toolbar>
-    <div class="navigation-bar-upper-section">
+    <div class="navigation-bar-upper-section" >
       <div class="logo" (click)='goHome()'>
         <img src="../../../assets/Group 235.png" alt="">
       </div>
+      
     </div>
+   
+      
+    
     <ion-buttons slot="end">
-
-      <ion-button (click)="search()">
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-
+      <ion-searchbar (keyup)='searchProducts($event)' (ionClear)="clearSearch($event)"></ion-searchbar>
       <ion-button class="notification" (click)="reviewed()">
         <ion-icon slot="icon-only" name="heart"></ion-icon>
         <span class="badge"></span>
@@ -87,7 +85,7 @@
 </div>
 
 <ion-content>
-  <div class="container">
+  <div class="container" *ngIf="searchedItems.length===0 || searchtxt===''">
 
     <div class="title">
       <h2>Explore</h2>
@@ -506,7 +504,43 @@
       SIGN-OUT
     </ion-button>
   </div>
+  <div class="container" *ngIf="searchedItems.length>0 && searchtxt!=''">
+    <p>Search Results</p>
+    <!-- <div class="searched-grid">
+      <div class="myCol" *ngFor="let item of searchedItems" (click)='viewDetails(item)'>
+        <img [src]='item.image' id="item-image" alt="">
+        <p>{{item.name}}</p>
+        <p id="rating"><b> {{item.salePrice | currency : 'R'}}</b><b
+            id="strike">{{item.price | currency : 'R'}}</b></p>
+      </div>
+    </div> -->
 
+    <div class="cards">
+      <div id="card" *ngFor="let p of searchedItems" (click)="viewProduct(p)">
+
+        <div class="image">
+          <img src="{{p.data.image}}" alt="">
+        </div>
+        <div class="text">
+          <p *ngIf="p.data.onSale"> {{p.data.name}} <br>
+            <span style="text-decoration: line-through;color: red "> {{ p.data.price | currency:"R"}} </span>
+            <span>{{ p.data.salePrice | currency:"R"}}</span></p>
+
+          <p *ngIf="!p.data.onSale"> {{p.data.name}} <br>
+            <span>{{p.data.price | currency:"R"}}</span> <br>
+            <span class="starz">
+              <ion-icon [name]="p.data.avgRating>1 ? 'star' : 'star-outline'"></ion-icon>
+              <ion-icon [name]="p.data.avgRating>2 ? 'star' : 'star-outline'"></ion-icon>
+              <ion-icon [name]="p.data.avgRating>3 ? 'star' : 'star-outline'"></ion-icon>
+              <ion-icon [name]="p.data.avgRating>4 ? 'star' : 'star-outline'"></ion-icon>
+              <ion-icon [name]="p.data.avgRating>5 ? 'star' : 'star-outline'"></ion-icon>
+            </span>
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
   <ion-footer id="webview">
     <div class="footer">
       <div class="heading" routerLink="/home">

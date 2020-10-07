@@ -1508,7 +1508,7 @@ ion-header {
     .navigation-bar-upper-section {
       // display: flex;
       flex-direction: row;
-      flex-wrap: wrap;
+      // flex-wrap: nowrap;
       justify-content: space-between;
       width: 75vw;
       margin: 0 auto;
