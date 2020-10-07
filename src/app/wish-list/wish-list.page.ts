@@ -168,7 +168,7 @@ export class WishListPage implements OnInit {
           name: doc.data().name,
           sizes: doc.data().sizes,
           description: doc.data().description,
-          productCode: productCode,
+          productCode: doc.data().productCode,
           category: doc.data().category,
           price: doc.data().price
         }

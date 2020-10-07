@@ -359,14 +359,14 @@
     <div class="wishlist_items">
       <div class="div">
         <div class="items" *ngFor="let w of myWish; let i = index">
-          <ion-checkbox (ionChange)="viewProd(w.id)"></ion-checkbox>
+          <ion-checkbox (ionChange)="viewProd(w)"></ion-checkbox>
           <div class="left">
             <div class="img">
-              <img src="{{w.info.image}}" alt="">
+              <img src="{{w.data.image}}" alt="">
             </div>
 
             <div class="item_details">
-              <p>{{w.info.name}}<br>{{w.info.price | currency:'R'}} <br> Code: {{w.info.productCode}}</p>
+              <p>{{w.data.name}}<br>{{w.data.price | currency:'R'}} <br> Code: {{w.data.productCode}}</p>
               <p style="color: rgb(77, 1, 1)"><i>{{itemAvailable[i] }}</i></p>
             </div>
           </div>

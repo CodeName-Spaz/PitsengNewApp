@@ -61,7 +61,7 @@ export class ItemViewPage implements OnInit {
   loaderMessages = 'Loading...';
   loaderAnimate: boolean = true;
   prodCode;
-  
+  db = firebase.firestore();
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     setTimeout(() => {
       this.route.queryParams.subscribe(params => {
@@ -241,10 +241,10 @@ export class ItemViewPage implements OnInit {
   getRatings(code, id) {
     console.log('i am running');
 
-    firebase.firestore().collection('Reviews').where('productCode', '==', code).get().then(snapshot => {
+    this.db.collection('Reviews').where('productCode', '==', code).where('uid','==',firebase.auth().currentUser.uid).onSnapshot(snapshot => {
       this.reviews = [];
       snapshot.forEach(doc => {
-        console.log(doc.data());
+        console.log('data',doc.data());
 
         this.ratingTotal += parseFloat(doc.data().Rating);
         this.reviews.push(doc.data());

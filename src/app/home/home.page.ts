@@ -150,7 +150,7 @@ export class HomePage implements OnInit {
               this.prodCart.push({ data: doc.data(), id: doc.id });
             })
           })
-          this.dbWishlist.where('customerUID', '==', res.uid).onSnapshot((res) => {
+          this.dbProfile.doc(res.uid).collection('wishlists').onSnapshot((res) => {
             this.myWish = [];
             res.forEach((doc) => {
               this.itemAvailable = [];
@@ -161,7 +161,7 @@ export class HomePage implements OnInit {
                   this.itemAvailable.push("In stock");
                 }
               })
-              this.myWish.push({ info: doc.data(), id: doc.id });
+              this.myWish.push({ data: doc.data(), id: doc.id });
             })
           })
           this.dbProfile.doc(res.uid).onSnapshot(snapshot => {
@@ -205,20 +205,46 @@ export class HomePage implements OnInit {
   editProfile() {
     this.navCtrl.navigateForward('/edit-profile')
   }
-  viewProd(id) {
-    // if (this.itemChecked === true) {
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        id: id,
-      }
-    };
-    this.navCtrl.navigateForward(['/item-view'], navigationExtras).then(() => {
-      this.delete(id);
-    });
-    // } 
+  viewProd(val) {
+    let image;
+    let imageBack;
+    let imageSide;
+    let imageTop;
+    let item;
+    let name;
+    let sizes;
+    let description;
+    let productCode;
+    let category;
+    let price;
+
+    this.dbProduct.doc(val.id).onSnapshot((doc) => {
+
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          id: val.id,
+          image: doc.data().image,
+          imageBack: doc.data().imageBack,
+          imageSide: doc.data().imageSide,
+          imageTop: doc.data().imageTop,
+          // item: val.info.item,
+          name: doc.data().name,
+          sizes: doc.data().sizes,
+          description: doc.data().description,
+          productCode: doc.data().productCode,
+          category: doc.data().category,
+          price: doc.data().price
+        }
+      };
+
+      this.navCtrl.navigateForward(['/item-view'], navigationExtras).then(() => {
+       
+      });
+      this.delete(val.id);
+    })
   }
   delete(id) {
-    this.dbWishlist.doc(id).delete().then((res) => {
+    this.dbProfile.doc(firebase.auth().currentUser.uid).collection('wishlists').doc(id).delete().then((res) => {
     })
   }
   plus(prod, index) {
@@ -388,7 +414,7 @@ export class HomePage implements OnInit {
         avgRating : val.data.avgRating
       }
     };
-    console.log(val);
+    // console.log(val);
     
     this.navCtrl.navigateForward(['/item-view'], navigationExtras);
   }
