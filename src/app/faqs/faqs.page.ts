@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { NavParams, ModalController } from '@ionic/angular';
+
 //const FileSaver = require('file-saver');
 @Component({
   selector: 'app-faqs',
@@ -19,11 +20,11 @@ export class FaqsPage implements OnInit {
     description: '',
     size: ''
   }
-  reciept;
+  reciept=null;
   status: string;
-  constructor(params: NavParams,public modalController: ModalController) {
+  constructor(params: NavParams, public modalController: ModalController) {
     this.prod_id = params.get('id');
-   }
+  }
 
   ngOnInit() {
     this.getItem();
@@ -78,8 +79,18 @@ export class FaqsPage implements OnInit {
     })
   }
   download(pdf) {
-    //FileSaver.saveAs(pdf);
+    console.log(pdf);
+    
   }
+
+  downloadUrl() {
+  
+     this.reciept.download();
+  //  }, 1000);
+    
+  }
+
+
   cancelOrder() {
 
   }
@@ -90,7 +101,7 @@ export class FaqsPage implements OnInit {
 
   }
   concludeOrder() {
-    
+
   }
   getTotal() {
     let total = 0;

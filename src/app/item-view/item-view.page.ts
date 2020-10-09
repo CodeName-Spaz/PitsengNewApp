@@ -62,6 +62,18 @@ export class ItemViewPage implements OnInit {
   loaderAnimate: boolean = true;
   prodCode;
   db = firebase.firestore();
+  notify_class: string;
+  notify_class1: string;
+  profile = {
+    image: '',
+    name: '',
+    number: '',
+    address: '',
+    email: '',
+    uid: '',
+  }
+  History: any[];
+  Allorders: any[];
   constructor(public route: ActivatedRoute, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     setTimeout(() => {
       this.route.queryParams.subscribe(params => {
@@ -274,6 +286,11 @@ export class ItemViewPage implements OnInit {
             })
             this.myWish.push({ info: doc.data(), id: doc.id });
            })
+           if (res.size===0) {
+            this.notify_class = '';
+          } else {
+            this.notify_class = 'badge';
+          }
         })
         this.dbCart.where('customerUID', '==', user.uid).onSnapshot((info) => {
           // this.cartCount = info.size;
@@ -284,6 +301,39 @@ export class ItemViewPage implements OnInit {
               this.myOrder.push(z)
             })
             this.prodCart.push({ data: doc.data(), id: doc.id });
+          })
+          if (info.size===0) {
+            this.notify_class1 = '';
+          } else {
+            this.notify_class1 = 'badge';
+          }
+        })
+
+        this.dbProfile.doc(user.uid).onSnapshot(snapshot => {
+          if (snapshot.exists) {
+            this.profile.image = snapshot.data().image;
+            this.profile.name = snapshot.data().name;
+            this.profile.number = snapshot.data().number;
+            this.profile.address = snapshot.data().address;
+            this.profile.email = snapshot.data().email;
+          } else {
+            this.navCtrl.navigateForward('sign-up');
+          }
+
+        })
+
+        firebase.firestore().collection("orderHistory").where('userID', '==', user.uid).onSnapshot((data) => {
+          this.History = [];
+          data.forEach((item) => {
+            this.History.push({ ref: item.id, info: item.data() })
+          })
+          //  console.log("orders ", this.Allorders);
+
+        })
+        firebase.firestore().collection("Order").where('userID', '==', user.uid).onSnapshot((data) => {
+          this.Allorders = [];
+          data.forEach((item) => {
+            this.Allorders.push({ ref: item.id, info: item.data() })
           })
         })
       }
@@ -567,15 +617,62 @@ export class ItemViewPage implements OnInit {
   popBack() {
     this.navCtrl.pop();
   }
+  async presentAlert(name) {
+    const alert = await this.alertCtrl.create({
+      header: name + ' empty',
+      message: 'Please view our new products and add to ' + name.toLowerCase(),
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            // this.alertView = true;
+            // this.localSt.store('alertShowed', this.alertView);
+          }
+        }
+      ]
+    });
 
+    await alert.present();
+  }
   reviewed() {
-    this.viewWishlist = !this.viewWishlist
-    this.viewBackdrop = !this.viewBackdrop
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        if (this.myWish.length===0) {
+          this.viewWishlist = false;
+          this.viewBackdrop = false;
+          // this.notify_class = '';
+          this.presentAlert('Wishlist');
+        } else {
+          // this.notify_class = 'badge'
+           this.viewWishlist = !this.viewWishlist
+           this.viewBackdrop = !this.viewBackdrop
+        }
+       
+      } else {
+        this.presentAlertConfirm1();
+      }
+    })
+
   }
 
   getCart() {
-    this.viewCart = !this.viewCart
-    this.viewBackdrop = !this.viewBackdrop
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        if (this.prodCart.length === 0) {
+          this.viewCart = false;
+          this.viewBackdrop = false;
+          this.presentAlert('Cart');
+        } else {
+          this.viewCart = !this.viewCart
+        this.viewBackdrop = !this.viewBackdrop
+        }
+        
+      } else {
+        this.presentAlertConfirm1();
+      }
+    })
   }
 
   viewPendingOrders() {

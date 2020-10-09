@@ -68,7 +68,7 @@
 
 <ion-content>
   
-  <ion-slides pager="true" [options]="slideOpts">
+  <!-- <ion-slides pager="true" [options]="slideOpts">
     <ion-slide *ngFor="let a of about">
       <div class="image-section">
         <img src="{{a.image}}" alt="">
@@ -88,7 +88,7 @@
         <ion-title>{{a.name}}</ion-title>
       </div>
     </ion-slide>
-  </ion-slides>
+  </ion-slides> -->
   <div class="content">
     <div class="main-cover">
  
@@ -109,9 +109,34 @@
             </p>
 
           </div>
-        </div> -->
+        </div>
 
-      <!-- </div> -->
+      </div> -->
+
+      <div class="services" *ngFor="let a of about">
+      
+        <div class="services-description-section">
+          <div>
+            <ion-title>{{a.name}}</ion-title>
+          </div>
+          <div>
+            <ion-label>{{a.subject}}</ion-label>
+          </div>
+          <div>
+            <p>{{a.message}}
+            </p>
+
+          </div>
+
+
+
+
+        </div>
+        <div class="services-image-section">
+          <img src="{{a.image}}" alt="">
+
+        </div>
+      </div>
 
       <div class="services" *ngFor="let s of service">
       
@@ -142,7 +167,7 @@
     </div>
 
   </div>
-  <div class="leave_message">
+  <!-- <div class="leave_message">
     <ion-label class="heading">Leave Us a Message</ion-label>
 
 
@@ -175,7 +200,7 @@
     <div>
 
     </div>
-  </div>
+  </div> -->
 
   <ion-footer id="webview">
     <div class="footer">

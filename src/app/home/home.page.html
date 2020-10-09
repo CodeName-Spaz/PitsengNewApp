@@ -8,17 +8,19 @@
     </div>
    
       
-    
     <ion-buttons slot="end">
       <ion-searchbar (keyup)='searchProducts($event)' (ionClear)="clearSearch($event)"></ion-searchbar>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <!-- <ion-searchbar (keyup)='searchProducts($event)' (ionClear)="clearSearch($event)"></ion-searchbar> -->
       <ion-button class="notification" (click)="reviewed()">
         <ion-icon slot="icon-only" name="heart"></ion-icon>
-        <span class="badge"></span>
+        <span class="{{notify_class}}"></span>
       </ion-button>
 
       <ion-button class="notification" (click)="getCart()">
         <ion-icon slot="icon-only" name="basket"></ion-icon>
-        <span class="badge"></span>
+        <span class="{{notify_class1}}"></span>
       </ion-button>
       <ion-button color="secondary" (click)="gotoProfile()">
         <ion-icon slot="icon-only" name="person"></ion-icon>

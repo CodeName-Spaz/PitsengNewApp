@@ -35,6 +35,7 @@
   top: 14%;
   position: relative;
   z-index: 9999;
+  font-size: 1.5vw;
 
 }
 .services-image-section{
@@ -1572,7 +1573,7 @@ ion-header {
   }
   ion-toolbar {
     .navigation-bar-upper-section {
-      display: flex;
+      // display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: space-between;

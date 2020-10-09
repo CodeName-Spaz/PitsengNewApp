@@ -5,22 +5,23 @@
         <img src="../../../assets/Group 235.png" alt="">
       </div>
     </div>
-    <ion-buttons slot="end">
-
-      <ion-button (click)="search()">
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <!-- <ion-buttons slot="end">
+      <ion-searchbar (keyup)='searchProducts($event)' (ionClear)="clearSearch($event)"></ion-searchbar>
+    </ion-buttons> -->
     <ion-buttons slot="end">
 
       <ion-button class="notification" (click)="reviewed()">
         <ion-icon slot="icon-only" name="heart"></ion-icon>
-        <span class="badge"></span>
+        <span class="{{notify_class}}"></span>
       </ion-button>
 
       <ion-button class="notification" (click)="getCart()">
         <ion-icon slot="icon-only" name="basket"></ion-icon>
-        <span class="badge"></span>
+        <span class="{{notify_class1}}"></span>
+      </ion-button>
+
+      <ion-button color="secondary" (click)="gotoProfile()">
+        <ion-icon slot="icon-only" name="person"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -365,6 +366,123 @@
     </div> -->
   </div>
 
+  <div id="wish" [ngClass]="{'viewprofile': viewProfile, 'closeprofile': !viewProfile}">
+    <div class="heading">
+      <p> Profile
+      </p>
+      <ion-icon slot="icon-only" name="close" (click)="gotoProfile()"></ion-icon>
+    </div>
+
+    <div class="profile_details">
+      <div class="profile_image">
+        <!-- <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg"> -->
+        <img src="{{profile.image}}" alt="">
+      </div>
+
+      <div class="user_details">
+
+        <h1>{{profile.name}}</h1>
+
+        <p>{{profile.email}} <br>
+          {{profile.address}} <br>
+          {{profile.number}}</p>
+      </div>
+      <div class="edit_icon" (click)="editInputs()">
+        <ion-icon name="create"></ion-icon>
+      </div>
+    </div>
+    <div class="line"></div>
+
+    <div class='inputs' *ngIf="showInputs">
+      <ion-input type="text" [(ngModel)]="profile.name" placeholder="Name"></ion-input>
+      <ion-input type="text" [(ngModel)]="profile.email" placeholder="Email" readonly></ion-input>
+      <ion-input type="text" [(ngModel)]="profile.number" placeholder="Number"></ion-input>
+      <ion-input type="text" [(ngModel)]="profile.address" placeholder="Address"></ion-input>
+      <ion-input type="file" id="file" (change)="changeListener($event)"></ion-input>
+      <div class="button">
+        <ion-button id=done color="transparent" (click)="createAccount()">
+          DONE
+        </ion-button>
+
+        <ion-button id="cancel" color="transparent" (click)="editInputs()">
+          CANCEL
+        </ion-button>
+      </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="pending_orders">
+
+
+      <div class="pending_button" (click)="pending()">
+        <span *ngIf="!pendingOrders">Pending Orders <ion-icon name="chevron-down-outline"></ion-icon></span>
+        <span *ngIf="pendingOrders">Pending Orders <ion-icon name="chevron-up-outline"></ion-icon></span>
+      </div>
+      <div class="orders" *ngIf="pendingOrders">
+
+        <div class="card" *ngFor="let ord of Allorders; let i = index">
+          <div class="img">
+            <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
+          </div>
+
+          <div class="details">
+            <p class="code">
+              <ion-icon slot="start" name="clipboard"></ion-icon> {{ord.ref}}
+            </p>
+            <p><span>Date of Purchase:</span> {{ord.info.timestamp | date:"mediumDate"}} <br>
+              <span>Delivery Date:</span> 13/08/20
+            </p>
+            <ion-button (click)="presentModal(ord.ref, pending)">
+              Track
+            </ion-button>
+          </div>
+        </div>
+
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="order_history">
+      <div class="history_button" (click)="history()">
+        <p> <span *ngIf="!orderHistory">Order History <ion-icon name="chevron-down-outline"></ion-icon></span>
+          <span *ngIf="orderHistory">Order History <ion-icon name="chevron-up-outline"></ion-icon></span>
+        </p>
+
+      </div>
+      <div class="orders" *ngIf="orderHistory">
+
+        <div class="card" *ngFor="let hstry of History">
+          <div class="img">
+            <img src="../../assets/photo-1559740983-b9c5ffbac1ff.jpg" alt="">
+          </div>
+
+          <div class="details">
+            <p class="code">
+              <ion-icon slot="start" name="clipboard"></ion-icon>{{hstry.ref}}
+            </p>
+            <p><span>Date of Purchase:</span> {{hstry.info.dateClosed | date:"mediumDate"}}
+            </p>
+            <p><span>Delivery Date:</span> 13/08/20</p>
+
+            <ion-button (click)="presentHistory(hstry.ref)">
+              View
+            </ion-button>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+    <ion-button id="logout" (click)="logout()">
+      SIGN-OUT
+    </ion-button>
+  </div>
   <ion-footer id="webview">
     <div class="footer">
       <div class="heading">

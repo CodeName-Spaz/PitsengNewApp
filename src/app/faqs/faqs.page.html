@@ -43,21 +43,98 @@
       
         <div class="tracker">
           <p>Order Progress Status Collected </p>
-          <div class="prog-bar">
-            <div id="one">1</div>
-            <div></div>
-            <div id="two">2</div>
-            <div></div>
-            <div id="three">3</div>
-            <div></div>
-            <div id="four">4</div>
+          <div class="misc">
+            <p id="sub-head">Order Status</p>
+            <!-- show if status is on received -->
+            <div class="status-tracking" *ngIf="status === 'received'">
+              <div class="liner"></div>
+              <div class="ball-container">
+                <div class="ball-filled">1</div>
+                <p class="little-label">Order is processed</p>
+              </div>
+              <div class="ball-container">
+                <div class="ball-empty">2</div>
+                <p class="little-label">Payment received</p>
+              </div>
+              <div class="ball-container">
+                <div class="ball-empty">3</div>
+                <p class="little-label">Order is on its way</p>
+              </div>
+              <div class="ball-container">
+                <div class="ball-empty">4</div>
+                <p class="little-label">Delivered / Collected</p>
+              </div>
+            </div>
+  
+            <!-- show if status is on processed -->
+            <div class="status-tracking" *ngIf="status === 'processed'">
+            <div class="liner"></div>
+            <div class="ball-container">
+              <div class="ball-filled">1</div>
+              <p class="little-label">Order is processed</p>
+            </div>
+            <div class="ball-container">
+              <div class="ball-filled">2</div>
+              <p class="little-label">Payment received</p>
+            </div>
+            <div class="ball-container">
+              <div class="ball-empty">3</div>
+              <p class="little-label">Order is on its way</p>
+            </div>
+            <div class="ball-container">
+              <div class="ball-empty">4</div>
+              <p class="little-label">Delivered / Collected</p>
+            </div>
           </div>
-
-          <div class="text">
-            <div>Order <br> Received</div>
-            <div> Payment <br> Recieved</div>
-            <div> Order <br> Ready</div>
-            <div> Order <br> Delivered/Collected</div>
+  
+            <!-- show if status is on ready -->
+            <div class="status-tracking" *ngIf="status === 'ready'">
+            <div class="liner"></div>
+            <div class="ball-container">
+              <div class="ball-filled">1</div>
+              <p class="little-label">Order is processed</p>
+            </div>
+            <div class="ball-container">
+              <div class="ball-filled">2</div>
+              <p class="little-label">Payment received</p>
+            </div>
+            <div class="ball-container">
+              <div class="ball-filled">3</div>
+              <p class="little-label">Order is on its way</p>
+            </div>
+            <div class="ball-container">
+              <div class="ball-empty">4</div>
+              <p class="little-label">Delivered / Collected</p>
+            </div>
+          </div>
+  
+            <!-- show if status is on delivered or collected -->
+            <div class="status-tracking" *ngIf="status === 'delivered' || status === 'collected'">
+            <div class="liner"></div>
+            <div class="ball-container">
+              <div class="ball-filled">1</div>
+              <p class="little-label">Order is processed</p>
+            </div>
+            <div class="ball-container">
+              <div class="ball-filled">2</div>
+              <p class="little-label">Payment received</p>
+            </div>
+            <div class="ball-container">
+              <div class="ball-filled">3</div>
+              <p class="little-label">Order is on its way</p>
+            </div>
+            <div class="ball-container">
+              <div class="ball-filled">4</div>
+              <p class="little-label">Delivered / Collected</p>
+            </div>
+          </div>
+            <div class="rest-of-info">
+              <p id="date-of-delivery">Expected date of arrival: 05 March 2020</p>
+              <p id="onboarder">
+                Please be advised that the date reflected on orders are not guaranteed. Your order may take longer or
+                could be at your doorstep sooner than expected.
+              </p>
+            </div>
           </div>
           
         </div>
@@ -70,9 +147,9 @@
           <p id="item-name"><b>{{order.name}}</b></p>
           <p id="item-name"><b>Product Code:</b> {{order.productCode}}</p>
           <p>{{order.description}}</p>
-          <ion-button (click)="download(reciept)">
-            Download PDF
-          </ion-button>
+          <a href="{{reciept}}">
+            View PDF
+          </a>
         </div>
       </div>
         

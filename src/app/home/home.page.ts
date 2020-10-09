@@ -29,7 +29,7 @@ export class HomePage implements OnInit {
     email: '',
     uid: '',
   }
-
+  notify_class = '';
   showInputs = false
 
   myProduct = [];
@@ -61,6 +61,7 @@ export class HomePage implements OnInit {
   inventory: Array<any> = [];
   searchedItems: Array<any> = [];
   searchtxt: any;
+  notify_class1: string;
   // router: any;
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, private router: Router, public modalController: ModalController,
     public toastCtrl: ToastController) { }
@@ -186,6 +187,11 @@ export class HomePage implements OnInit {
               // this.myOrder = doc.data().product;
               this.prodCart.push({ data: doc.data(), id: doc.id });
             })
+            if (info.size===0) {
+              this.notify_class1 = '';
+            } else {
+              this.notify_class1 = 'badge';
+            }
           })
           this.dbProfile.doc(res.uid).collection('wishlists').onSnapshot((res) => {
             this.myWish = [];
@@ -199,7 +205,13 @@ export class HomePage implements OnInit {
                 }
               })
               this.myWish.push({ data: doc.data(), id: doc.id });
+             
             })
+            if (res.size===0) {
+              this.notify_class = '';
+            } else {
+              this.notify_class = 'badge';
+            }
           })
           this.dbProfile.doc(res.uid).onSnapshot(snapshot => {
             if (snapshot.exists) {
@@ -490,8 +502,15 @@ export class HomePage implements OnInit {
   getCart() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.viewCart = !this.viewCart
+        if (this.prodCart.length === 0) {
+          this.viewCart = false;
+          this.viewBackdrop = false;
+          this.presentAlert('Cart');
+        } else {
+          this.viewCart = !this.viewCart
         this.viewBackdrop = !this.viewBackdrop
+        }
+        
       } else {
         this.presentAlertConfirm1();
       }
@@ -552,8 +571,17 @@ export class HomePage implements OnInit {
   reviewed() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.viewWishlist = !this.viewWishlist
+        if (this.myWish.length===0) {
+          this.viewWishlist = false;
+          this.viewBackdrop = false;
+          // this.notify_class = '';
+          this.presentAlert('Wishlist');
+        } else {
+          // this.notify_class = 'badge'
+           this.viewWishlist = !this.viewWishlist
         this.viewBackdrop = !this.viewBackdrop
+        }
+       
       } else {
         this.presentAlertConfirm1();
       }
