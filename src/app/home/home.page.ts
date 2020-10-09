@@ -69,9 +69,11 @@ export class HomePage implements OnInit {
     setTimeout(() => {
       this.loaderAnimate = false;
       this.getProductsbyCategory('Deco');
-    }, 4000);
+      
+    }, 3000);
     this.checkUser();
-
+   
+    
     this.ratingProducts();
 
 

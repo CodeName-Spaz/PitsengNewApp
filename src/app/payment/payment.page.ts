@@ -50,27 +50,27 @@ export class PaymentPage implements OnInit {
     // let b = "processed"
     // let c = "ready"
     // let d = "delivered"
-    this.dbOrder.doc(this.prod_id).onSnapshot((doc) => {
+    this.dbOrder.doc(this.prod_id).onSnapshot((doc)=>{
       // console.log(doc.data());
-
-      if (doc.data().status === "received") {
-        this.status = "received"
-      }
-      else if (doc.data().status === "processed") {
-        this.status = "processed"
-
-      }
-      else if (doc.data().status === "ready") {
-        this.status = "ready"
-
-      }
-      else {
-        this.status = "delivered"
-      }
-      // console.log(this.status); 
-    })
-
-
+      
+       if (doc.data().status === "received") {
+      this.status = "received"
+    }
+    else if (doc.data().status === "processed") {
+      this.status = "processed"
+      
+    }
+    else if (doc.data().status === "ready") {
+      this.status = "ready"
+      
+    }
+    else {
+      this.status = "delivered"
+    }
+    // console.log(this.status); 
+     })
+   
+     
   }
   getItem() {
     this.dbOrder.doc(this.prod_id).onSnapshot((doc) => {
