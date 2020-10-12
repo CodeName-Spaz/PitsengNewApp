@@ -4,12 +4,14 @@
       <div class="logo" (click)='goHome()'>
         <img src="../../../assets/Group 235.png" alt="">
       </div>
-      
+      <div>
+      <ion-searchbar (keyup)='searchProducts($event)'></ion-searchbar>
+    </div>
     </div>
    
-      
+    
     <ion-buttons slot="end">
-      <ion-searchbar (keyup)='searchProducts($event)' (ionClear)="clearSearch($event)"></ion-searchbar>
+      
     </ion-buttons>
     <ion-buttons slot="end">
       <!-- <ion-searchbar (keyup)='searchProducts($event)' (ionClear)="clearSearch($event)"></ion-searchbar> -->
@@ -572,10 +574,10 @@
         <ion-button color="transparent" (click)="createFaqs()">
           <span>FAQs</span>
         </ion-button>
-        <ion-button color="transparent">
+        <ion-button color="transparent" (click)="gotoTerms()">
           <span>Terms and Privacy Policy</span>
         </ion-button>
-        <ion-button color="transparent">
+        <ion-button color="transparent" (click)="gotoDisclaimer()">
           <span>Disclaimer</span>
         </ion-button>
         <ion-button (click)="openAboutUS()" color="transparent">

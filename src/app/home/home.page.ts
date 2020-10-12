@@ -79,6 +79,12 @@ export class HomePage implements OnInit {
 
 
   }
+  gotoTerms() {
+    this.navCtrl.navigateForward('terms');
+  }
+  gotoDisclaimer() {
+    this.navCtrl.navigateForward('disclosure');
+  }
   clearSearch(ev) {
     // console.log('my ev', ev.returnValue);
     if (ev.returnValue===true) {

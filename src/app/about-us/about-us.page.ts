@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController, NavController, ToastController } from '@ionic/angular';
 import * as firebase from 'firebase';
+import { InfoPage } from '../info/info.page';
 
 @Component({
   selector: 'app-about-us',
@@ -45,7 +46,7 @@ export class AboutUsPage implements OnInit {
 //   }),
 // });
  myProduct = false;
-  constructor(private router: Router,  public modalController: ModalController,public toastCtrl: ToastController) { 
+  constructor(private router: Router,  public modalController: ModalController,public toastCtrl: ToastController, public navCtrl : NavController) { 
     this.adminInfo();
   }
 
@@ -54,10 +55,24 @@ export class AboutUsPage implements OnInit {
     this.getAbout()
    this.getServices()
   }
- 
+  async createFaqs() {
+    const modal = await this.modalController.create({
+      component: InfoPage,
+      cssClass: 'my-add-to-cart',
+
+
+    });
+    return await modal.present();
+  }
   async toastController(message) {
     let toast = await this.toastCtrl.create({ message: message, duration: 2000 });
     return toast.present();
+}
+gotoTerms() {
+  this.navCtrl.navigateForward('terms');
+}
+gotoDisclaimer() {
+  this.navCtrl.navigateForward('disclosure');
 }
 goHome() {
   this.router.navigateByUrl('/home')

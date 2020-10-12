@@ -70,6 +70,14 @@ const routes: Routes = [
     path: 'info',
     loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
   },
+  {
+    path: 'disclosure',
+    loadChildren: () => import('./disclosure/disclosure.module').then( m => m.DisclosurePageModule)
+  },
+  {
+    path: 'terms',
+    loadChildren: () => import('./terms/terms.module').then( m => m.TermsPageModule)
+  },
 
 
 
