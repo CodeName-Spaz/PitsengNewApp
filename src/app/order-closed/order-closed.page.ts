@@ -13,6 +13,8 @@ export class OrderClosedPage implements OnInit {
   dbOrder = firebase.firestore().collection("orderHistory");
   myOrder = [];
   status: string;
+  reciept;
+  oderType;
   constructor(public route: ActivatedRoute, public navCtrl: NavController) { 
     this.route.queryParams.subscribe(params => {
       this.prod_id = params["id"];
@@ -26,14 +28,40 @@ export class OrderClosedPage implements OnInit {
   }
 
   ngOnInit() {
-    this.getItem();
-    // this.changeState();
+    // this.getItem();
+    this.changeState();
   }
-  getItem() {
+ 
+  changeState() {
+    // let a = "received"
+    // let b = "processed"
+    // let c = "ready"
+    // let d = "delivered"
     this.dbOrder.doc(this.prod_id).onSnapshot((doc) => {
-      // this.myOrder = [];
-      this.status = doc.data().status
-      this.myOrder = doc.data().product
+      // console.log(doc.data());
+      this.reciept = doc.data().pdfLink;
+      this.myOrder = doc.data().product;
+      this.status = doc.data().status;
+      // console.log(this.status); 
     })
+
+
+  }
+  getTotal() {
+    let total = 0;
+    for (let i = 0; i < this.myOrder.length; i++) {
+      // let product = this.myOrder[i];
+      // console.log("my orders ", this.myOrder[i]);
+      total += (this.myOrder[i].cost * this.myOrder[i].quantity)
+      /*  this.myOrder[i].forEach((item) => {
+         total += (item.cost * item.quantity);
+       }) */
+    }
+    // console.log("total ", total);
+
+    return total;
+  }
+  dismissHistory() {
+    this.navCtrl.pop();
   }
 }

@@ -163,7 +163,12 @@ export class ProfilePage implements OnInit {
     })
   }
   viewReciept(id) {
-
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        id: id,
+      }
+    };
+    this.navCtrl.navigateForward(['order-closed'], navigationExtras)
   }
   getHistory() {
     firebase.firestore().collection("orderHistory").where('userID', '==', firebase.auth().currentUser.uid).onSnapshot((data) => {

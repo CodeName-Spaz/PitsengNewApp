@@ -1,7 +1,7 @@
 import { Component, OnInit, } from '@angular/core';
 import { LoadingController, AlertController, ModalController, NavController } from '@ionic/angular';
 import * as firebase from 'firebase';
-import { FormGroup, FormBuilder,Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router, NavigationExtras } from '@angular/router';
 import { LoginPage } from '../login/login.page';
@@ -20,7 +20,9 @@ export class SignUpPage implements OnInit {
   name;
   email;
   image;
+  phoneNumber;
   myArr = [];
+  uid;
   constructor(
     private authService: AuthService,
     private loadingCtrl: LoadingController,
@@ -28,23 +30,20 @@ export class SignUpPage implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     public modalController: ModalController,
-    public navCtrl :  NavController
+    public navCtrl: NavController,
   ) {
     this.signupForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: [
-        '',
-        Validators.compose([Validators.minLength(6), Validators.required])
-      ],
-      name:[''],
-      phone:['', Validators.compose([Validators.minLength(10),Validators.maxLength(10), Validators.required])],
-      address:['', Validators.compose([Validators.minLength(5),Validators.required])]
+      name: [''],
+      phone: ['', Validators.compose([Validators.minLength(10), Validators.maxLength(10), Validators.required])],
+      address: ['', Validators.compose([Validators.minLength(5), Validators.required])],
+      password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
     });
   }
 
   ngOnInit() {
     this.checkUser()
-   
+
     // this.signupForm.value.password = firebase.auth().currentUser.uid
   }
   checkUser() {
@@ -52,24 +51,35 @@ export class SignUpPage implements OnInit {
       firebase.auth().onAuthStateChanged((res) => {
         if (res) {
           this.email = res.email;
+          this.image = res.photoURL;
           this.name = res.displayName;
+          this.phoneNumber = res.phoneNumber;
+          this.uid = res.uid;
+          this.dbProfile.doc(res.uid).onSnapshot((doc)=>{
+            if (doc.exists) {
+              this.navCtrl.navigateRoot('home');
+            } else {
+              console.log('Create your account');
+            }
+          })
         } else {
-          this.email = '';
+          // this.email = '';
           this.name = '';
+          this.image = '';
         }
       })
-    },0)
+    }, 0)
   }
-  phone(ev) { 
-    if (ev.detail.data===null) {
-     this.myArr.splice(this.myArr.lastIndexOf(this.myArr[this.myArr.length-1]));
-   } else {
-     this.myArr.push(ev.detail.data)
-   }
- }
- gotoLogin() {
-   this.navCtrl.navigateBack('login');
- }
+  phone(ev) {
+    if (ev.detail.data === null) {
+      this.myArr.splice(this.myArr.lastIndexOf(this.myArr[this.myArr.length - 1]));
+    } else {
+      this.myArr.push(ev.detail.data)
+    }
+  }
+  gotoLogin() {
+    this.navCtrl.navigateBack('login');
+  }
   changeListener(event): void {
     const i = event.target.files[0];
     console.log(i);
@@ -84,42 +94,90 @@ export class SignUpPage implements OnInit {
         //   image: dwnURL
         // }, { merge: true })
         this.image = dwnURL;
+        this.getPhotoUrl(dwnURL);
       });
     });
   }
+  getPhotoUrl(url) {
+    return url;
+  }
   async signupUser(signupForm: FormGroup): Promise<void> {
-    if (!signupForm.valid) {
-      console.log(
-        'Need to complete the form, current value: ',
-        signupForm.value
-      );
-    } else {
-      const email: string = signupForm.value.email;
-      const password: string = signupForm.value.password;
-      const name: string = signupForm.value.name; 
-      const address: string = signupForm.value.address;
-      const phone: string = signupForm.value.phone
-      this.authService.signupUser(email, password, name,address,phone,this.image).then(
-        () => {
-          this.loading.dismiss().then(() => {
-             this.createProfile(email,name);
+    const address: string = signupForm.value.address;
+    const password: string = signupForm.value.password;
+    const email: string = signupForm.value.email;
+    const name: string = signupForm.value.name;
+    const phone: string = signupForm.value.phone;
+    const image : string = this.image;
+    setTimeout(() => {
+      firebase.auth().onAuthStateChanged((res) => {
+        if (res) {
+          // this.email = res.email;
+          // this.image = res.photoURL;
+          // name = res.displayName;
+          // this.phoneNumber = phone;
+          // this.uid = res.uid;
+          this.dbProfile.doc(res.uid).set({
+            name: res.displayName,
+            email: res.email,
+            uid: res.uid,
+            address: address,
+            number: phone,
+            image: res.photoURL
           })
-        },
-        error => {
-          this.loading.dismiss().then(async () => {
-            const alert = await this.alertCtrl.create({
-              message: error.message,
-              buttons: [{ text: 'Ok', role: 'cancel' }]
-            });
-            await alert.present();
+          this.navCtrl.navigateRoot('home');
+          // .then((r) =>
+          //   error => {
+          //     this.loading.dismiss().then(async () => {
+          //       const alert = await this.alertCtrl.create({
+          //         message: error.message,
+          //         buttons: [{ text: 'Ok', role: 'cancel' }]
+          //       });
+          //       await alert.present();
+
+          //     });
+          //   }
+          // );
+        } else {
+          //  console.log("My pictute, ",image);
+          //     console.log("name ", name);
+              
+              // setTimeout(() => {
+                firebase
+                .auth().createUserWithEmailAndPassword(email, password).then((newUserCredential: firebase.auth.UserCredential) => {
+                  setTimeout(() => {
+                    firebase.firestore().doc(`/UserProfile/${newUserCredential.user.uid}`).set({
+                    name: signupForm.value.name,
+                    email : email,
+                    uid:newUserCredential.user.uid,
+                    address: address,
+                    number: phone,
+                    image : image
             
-          });
+                  });
+                  }, 1000);
+                  this.navCtrl.navigateRoot('home');
+                  // firebase.firestore().collection("UserProfile").doc().set({
+                  //   name: name
+                  // })
+                }).catch(error => {
+                  console.error(error);
+                  throw new Error(error);
+                });
+              // }, 1000);
+          //  
         }
-      );
-      this.loading = await this.loadingCtrl.create();
-      await this.loading.present();
-    }
-   this.loading
+      })
+    }, 0)
+    // this.presentLoading();
+    // this.navCtrl.navigateRoot('home');
+  }
+  async presentLoading() {
+    const loading = await this.loading.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 2000
+    });
+    await loading.present();
   }
   createProfile(email, name) {
     let navigationExtras: NavigationExtras = {
@@ -131,34 +189,34 @@ export class SignUpPage implements OnInit {
     this.navCtrl.navigateForward(['/home'], navigationExtras);
   }
 
-  backToLogin(){
+  backToLogin() {
     this.navCtrl.pop();
   }
 
-async openLogin(){
-  const modal = await this.modalController.create({
-    component:LoginPage,
-    cssClass: 'login-sign-up',
-    
-  
-  });
-  return await modal.present();
-  // this.router.navigateByUrl('/login');
-}
-  
-success(){
-  // Swal.fire({
-  //   icon: 'success',
-  //   title: 'Account  in successfully ',
-  //   showClass: {
-  //     popup: 'animated fadeInDown faster'
-  //   },
-  //   hideClass: {
-  //     popup: 'animated fadeOutUp faster'
-  //   },
-  //   showConfirmButton: false,
-  //   timer: 500
-  // })
- }
+  async openLogin() {
+    const modal = await this.modalController.create({
+      component: LoginPage,
+      cssClass: 'login-sign-up',
+
+
+    });
+    return await modal.present();
+    // this.router.navigateByUrl('/login');
+  }
+
+  success() {
+    // Swal.fire({
+    //   icon: 'success',
+    //   title: 'Account  in successfully ',
+    //   showClass: {
+    //     popup: 'animated fadeInDown faster'
+    //   },
+    //   hideClass: {
+    //     popup: 'animated fadeOutUp faster'
+    //   },
+    //   showConfirmButton: false,
+    //   timer: 500
+    // })
+  }
 }
 

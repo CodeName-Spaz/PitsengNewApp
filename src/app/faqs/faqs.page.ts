@@ -27,7 +27,6 @@ export class FaqsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.getItem();
     this.changeState();
     setTimeout(() => {
       this.viewProduct(0);
@@ -51,7 +50,8 @@ export class FaqsPage implements OnInit {
     // let d = "delivered"
     this.dbOrder.doc(this.prod_id).onSnapshot((doc) => {
       // console.log(doc.data());
-
+      this.reciept = doc.data().pdfLink;
+      this.myOrder = doc.data().product;
       if (doc.data().status === "received") {
         this.status = "received"
       }
@@ -71,13 +71,7 @@ export class FaqsPage implements OnInit {
 
 
   }
-  getItem() {
-    this.dbOrder.doc(this.prod_id).onSnapshot((doc) => {
-      // this.myOrder = [];
-      this.reciept = doc.data().pdfLink;
-      this.myOrder = doc.data().product
-    })
-  }
+  
   download(pdf) {
     console.log(pdf);
     

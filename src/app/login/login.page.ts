@@ -9,7 +9,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import * as firebase from 'firebase'
 import { from } from 'rxjs';
 // import { RegisterPage } from '../register/register.page';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 // import { ResetPasswordPage } from '../reset-password/reset-password.page';
 @Component({
   selector: 'app-login',
@@ -138,8 +138,14 @@ export class LoginPage implements OnInit {
   // }
 
   createAccount() {
-    this.navCtrl.navigateForward('/sign-up');
+    // this.navCtrl.navigateForward('/sign-up');
     // this.createModalRegister();
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        id: 'create-account',
+      }
+    };
+    this.navCtrl.navigateForward(['sign-up'], navigationExtras)
   }
   explore() {
     this.navCtrl.navigateForward('home');

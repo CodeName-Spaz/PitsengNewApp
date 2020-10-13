@@ -17,6 +17,9 @@ div.container {
       z-index: 0;
     }
   }
+  .main-container {
+
+  }
   .user-form {
     width: calc(100vw - 30px);
     position: absolute;
@@ -50,7 +53,7 @@ div.container {
     left: 50%;
     top: 7%;
     transform: translateX(-50%);
-    border: #912322 solid 2px;
+    // border: #912322 solid 2px;
     // border-radius: 50%;
   }
   

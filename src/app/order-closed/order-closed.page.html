@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="top-nav">
       <h3>Your Receipt</h3>
-      <p id="close-icon">
+      <p id="close-icon" (click)="dismissHistory()">
         <ion-icon name="close"></ion-icon>
       </p>
     </div>
@@ -24,7 +24,7 @@
       <div class="deets">
         <div class="total">
           <p id="head">Total Amount:</p>
-          <p id="answer">R 1500.00 </p>
+          <p id="answer">{{ getTotal() | currency:"R"}} </p>
         </div>
         <div class="misc">
           <p id="sub-head">Order Status</p>
@@ -45,7 +45,7 @@
           </div>
           <div class="ball-container">
             <div class="ball-filled">4</div>
-            <p class="little-label">Delivered / Collected</p>
+            <p class="little-label">{{status}}</p>
           </div>
         </div>
           <div class="rest-of-info">
@@ -59,7 +59,9 @@
       </div>
     </div>
     <div class="foot-button">
-      <ion-button>DOWNLOAD RECEIPT</ion-button>
+      <a href="{{reciept}}">
+        View PDF
+      </a>
     </div>
   </div>
 </ion-content>
